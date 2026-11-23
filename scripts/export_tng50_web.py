@@ -63,7 +63,7 @@ VIZ_BASE = f"https://huggingface.co/datasets/{VIZ_DATASET}/resolve/main/"
 VIZ_FALLBACK = "data/viz/"
 VIZ_MANIFEST = "data/viz/manifest_v2.json"
 GAL_BASE = "data/gal/"     # galaxy packs, relative to the page (an HF dataset base when published)
-DOCS_OUT = ROOT / "docs" / "tng50"
+DOCS_OUT = ROOT / "docs" / ("igm" if (ROOT / "docs" / "igm").is_dir() and not (ROOT / "docs" / "tng50").is_dir() else "tng50")
 PAGE_LAYOUT = "1"          # the page opens on one large case (owner's pick, Phase 3); 2 R, 2 S/N and 2x2 are one click away
 
 
@@ -544,8 +544,8 @@ def galaxies_config(default_entry: dict, rows: list[dict], base: str, viz_base: 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--library", type=Path, default=None, help="library dir (default tngsight.config.library_dir())")
-    ap.add_argument("--out", type=Path, default=ROOT / "docs" / "tng50")
-    ap.add_argument("--template", type=Path, default=ROOT / "docs" / "tng50" / "_template.html")
+    ap.add_argument("--out", type=Path, default=DOCS_OUT)
+    ap.add_argument("--template", type=Path, default=DOCS_OUT / "_template.html")
     ap.add_argument("--space-url", default=os.environ.get("TNG_SPACE_URL", ""),
                     help="public sightline server (HF Space) URL, e.g. https://<user>-<space>.hf.space; default env "
                          "TNG_SPACE_URL; without one the page is library-only")
@@ -622,7 +622,7 @@ def main(argv=None) -> int:
         w = copy_if_changed(luts_src, luts_dst)
         msgs.append(f"luts: {'written' if w else 'unchanged'} -> {luts_dst}")
     for sub, pat in (("js", "*.js"), ("css", "*.css"), ("fonts", "**/*")):   # the page's modules, stylesheets and fonts
-        src_d, dst_d = ROOT / "docs" / "tng50" / sub, a.out / sub
+        src_d, dst_d = DOCS_OUT / sub, a.out / sub
         if src_d.resolve() != dst_d.resolve() and src_d.is_dir():
             files = sorted(p for p in src_d.glob(pat) if p.is_file())
             n_w = sum(copy_if_changed(p, dst_d / p.relative_to(src_d)) for p in files)

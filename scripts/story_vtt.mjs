@@ -19,7 +19,7 @@ import {dirname, join, resolve} from "node:path";
 import {fileURLToPath, pathToFileURL} from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const DEFAULT_ROOT = resolve(HERE, "..", "docs/tng50/learn/how-a-spectrum-is-made");
+const DEFAULT_ROOT = resolve(HERE, "..", "docs/igm/learn/how-a-spectrum-is-made");
 
 /* ---- the film timeline: the same function as render.html's filmTimeline (story_film test compares the two sources) */
 export function filmTimeline(film, beats, cut = "film") {

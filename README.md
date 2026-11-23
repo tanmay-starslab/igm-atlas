@@ -126,3 +126,4 @@ node tests/js/run_all.mjs
   - **Illustris-1** ($106.5\text{ Mpc}$, $z = 0$): Vogelsberger et al. 2014, [Nature 509, 177](https://doi.org/10.1038/nature13316); Genel et al. 2014.
 - **Source Code**: MIT License ([`LICENSE`](LICENSE), © 2026 Tanmay Singh).
 - **Derived Volumetric &amp; Spectral Atlases**: CC BY 4.0 ([`tanmay-starslab/igm-atlas-data`](https://huggingface.co/datasets/tanmay-starslab/igm-atlas-data)).
+- **Explainer Audio**: Optional background music in *How an absorption spectrum is made* features *Hans Zimmer, Day One (Interstellar, 2014)* and *Beethoven, Symphony No. 7 in A major, Op. 92: II. Allegretto* (see `THIRD_PARTY_LICENSES`).

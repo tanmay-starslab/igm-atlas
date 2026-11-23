@@ -22,8 +22,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 TOOLS_JSON = ROOT / "server" / "chat_tools.json"
 PROMPT_TXT = ROOT / "server" / "chat_system_prompt.txt"
-CHAT_JS = ROOT / "docs" / "tng50" / "js" / "chat.js"
-SEARCH_JS = ROOT / "docs" / "tng50" / "js" / "search.js"
+_DOCS_SUB = "igm" if (ROOT / "docs" / "igm").is_dir() and not (ROOT / "docs" / "tng50").is_dir() else "tng50"
+CHAT_JS = ROOT / "docs" / _DOCS_SUB / "js" / "chat.js"
+SEARCH_JS = ROOT / "docs" / _DOCS_SUB / "js" / "search.js"
 FORBIDDEN = ("·", "•", "‧", "⋅", "・", " . ")   # design.md §6.2 C12
 ID_PATTERN = r"^((face|edge|rand)_b\d{3}_a\d{3}(_s\d+)?|cust_[0-9a-f]{10})$"
 LAYOUTS = ["1", "2R", "2SN", "4"]

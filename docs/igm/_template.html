@@ -26,7 +26,7 @@
 <link rel="preload" href="fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/page.css?v=20261123c">
+<link rel="stylesheet" href="css/page.css?v=20261123d">
 <style>/* Entry to "How an absorption spectrum is made" (explainer v2, U_entry): a beam-coloured call to action in the spectra panel header,
    on the row under Lines, with a dismissible hint beside it, just above the first spectrum (the Lines row has about
    130 px free at 1440 px with the default five lines, too little for the pill). First visit (review2 beauty M4): from 640 px
@@ -121,13 +121,13 @@ body:has(>#chat-open.fab:not([hidden])) #bar{padding-right:104px}
 })(window);
 </script>
 <!-- perf R5: js/app.js and its static imports, fetched in parallel (after the import map; tests/js/ui_static.mjs keeps the list) -->
-<link rel="modulepreload" href="js/app.js?v=20261123c"><link rel="modulepreload" href="js/state.js?v=20261123c"><link rel="modulepreload" href="js/spectra.js?v=20261123c"><link rel="modulepreload" href="js/gallery.js?v=20261123c"><link rel="modulepreload" href="js/instrument.js?v=20261123c"><link rel="modulepreload" href="js/fit.js?v=20261123c"><link rel="modulepreload" href="js/tips.js?v=20261123c"><link rel="modulepreload" href="js/features.js?v=20261123c"><link rel="modulepreload" href="js/liquidtabs.js?v=20261123c"><link rel="modulepreload" href="js/liquidbg.js?v=20261123c"><link rel="modulepreload" href="js/uisound.js?v=20261123c"><link rel="modulepreload" href="js/galaxies.js?v=20261123c"><link rel="modulepreload" href="js/tier.js?v=20261123c">
+<link rel="modulepreload" href="js/app.js?v=20261123d"><link rel="modulepreload" href="js/state.js?v=20261123d"><link rel="modulepreload" href="js/spectra.js?v=20261123d"><link rel="modulepreload" href="js/gallery.js?v=20261123d"><link rel="modulepreload" href="js/instrument.js?v=20261123d"><link rel="modulepreload" href="js/fit.js?v=20261123d"><link rel="modulepreload" href="js/tips.js?v=20261123d"><link rel="modulepreload" href="js/features.js?v=20261123d"><link rel="modulepreload" href="js/liquidtabs.js?v=20261123d"><link rel="modulepreload" href="js/liquidbg.js?v=20261123d"><link rel="modulepreload" href="js/uisound.js?v=20261123d"><link rel="modulepreload" href="js/galaxies.js?v=20261123d"><link rel="modulepreload" href="js/tier.js?v=20261123d">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Intergalactic Medium (IGM) & Cosmic Web Atlas","url":"https://igm.tanmaysingh.uk/","applicationCategory":"EducationalApplication","operatingSystem":"Any (web browser)","description":"Interactive 3D Multi-Simulation Intergalactic Medium (IGM) & Cosmic Web Atlas (35 to 300 Mpc) + 12-Ion Voigt Absorption Sightline Explorer across TNG50, TNG100, TNG300, Illustris-1, SIMBA-100 & CAMELS.","author":{"@type":"Person","name":"Tanmay Singh","url":"https://tanmaysingh.uk/"},"isAccessibleForFree":true,"codeRepository":"https://github.com/tanmay-starslab/igm-atlas"}</script>
 </head>
 <body data-tab="spectra">
 <header id="top" class="glass" data-testid="topbar">
   <h1 id="title" data-testid="title">IGM &amp; Cosmic Web Atlas</h1>
-  <div role="tablist" id="tabs" aria-label="Views"><button role="tab" id="tab-spectra" data-tip="Mock absorption spectra of the selected cosmic-web sightline" aria-controls="panel-spectra" aria-selected="true" tabindex="0" type="button">Spectra</button><button role="tab" id="tab-3d" data-tip="The cosmic web in 3D: WHIM filaments, Lyα forest, ions, peculiar velocities, galaxies and sightlines" aria-controls="panel-3d" aria-selected="false" tabindex="-1" type="button">3D</button></div>
+  <div role="tablist" id="tabs" aria-label="Views"><button role="tab" id="tab-spectra" data-tip="Mock absorption spectra of the selected cosmic-web sightline" aria-controls="panel-spectra" aria-selected="true" tabindex="0" type="button">Spectra</button><button role="tab" id="tab-3d" data-tip="3D cosmic web: WHIM filaments, Lyα forest, ions, velocities, galaxies and sightlines" aria-controls="panel-3d" aria-selected="false" tabindex="-1" type="button">3D</button></div>
   <span class="sep hide-m"></span>
   <!-- Multi-Simulation Cosmic Web Selector (js/galaxies.js) -->
   <div class="grp" id="grp-gal" role="group" aria-label="Cosmic Web Simulation"><span class="gl">Cosmic Web</span>
@@ -219,7 +219,7 @@ body:has(>#chat-open.fab:not([hidden])) #bar{padding-right:104px}
   <li><strong>Cosmic-web orientations:</strong> <em>Z-axis (box Z)</em> rays probe parallel to the periodic box Z-axis across supercluster and filament planes; <em>XY-plane (filament)</em> rays slice across the primary inter-cluster WHIM filament bridge in the XY-plane; <em>Oblique / 3D</em> rays traverse the 3D cosmic web along reproducible pseudo-random directions across impact parameters b up to 150 Mpc.</li>
   <li><strong>3D Cosmic Web:</strong> Drag to orbit across 51.7–302.6 Mpc cosmic-web volumes, scroll or pinch to zoom through the 3 nested 256³ levels (L0 full periodic box, L1 Box/4 supercluster nexus, L2 Box/16 WHIM filament bridge down to 12.6–35.9 kpc voxels resolving individual galaxy halos along filaments), and click any sightline to open its 12-ion spectra.</li></ul>
   <p class="story-in">New to spectra? <a data-story="" href="learn/how-a-spectrum-is-made/">How an absorption spectrum is made</a> follows one sightline through the cosmic web and builds this plot, cell by cell.</p>
-  <p class="story-in">Explore other cosmic scales: <a href="https://ism.tanmaysingh.uk">ISM (AU–kpc)</a> · <a href="https://galaxies.tanmaysingh.uk">CGM (kpc–400 kpc)</a> · <a href="https://icm.tanmaysingh.uk">ICM (Clusters 4 Mpc)</a> · <a href="https://igm.tanmaysingh.uk">IGM (Cosmic Web 300 Mpc)</a>.</p></div>
+  <p class="story-in">Explore other cosmic scales: <a href="https://ism.tanmaysingh.uk">ISM (AU–kpc)</a>, <a href="https://galaxies.tanmaysingh.uk">CGM (kpc–400 kpc)</a>, <a href="https://icm.tanmaysingh.uk">ICM (Clusters 4 Mpc)</a>, and <a href="https://igm.tanmaysingh.uk">IGM (Cosmic Web 300 Mpc)</a>.</p></div>
 <div class="pop" id="pop-story" role="dialog" aria-labelledby="pop-story-h" data-testid="story-card" hidden><img class="ps-art" alt="" decoding="async" hidden>
   <div class="ps-b"><h3 id="pop-story-h">How an absorption spectrum is made</h3>
   <p>Follow a quasar's light along one sightline through the cosmic web, and watch the spectrum on this page form, cell by cell.</p>
@@ -259,7 +259,7 @@ body:has(>#chat-open.fab:not([hidden])) #bar{padding-right:104px}
   <form id="geo" novalidate>
     <fieldset><legend>Orientation</legend><div class="radios">
       <label><input type="radio" name="orient" value="face-on" data-tip="Ray along the z-axis of the cosmic-web box"> Z-axis (box Z)</label><label><input type="radio" name="orient" value="edge-on" checked data-tip="Ray in the xy-plane across the cosmic-web filament bridge"> XY-plane (filament)</label><label><input type="radio" name="orient" value="random" data-tip="Oblique 3D ray in a random direction, set by the seed"> Oblique / 3D</label></div></fieldset>
-    <div class="field"><label for="gb">b [kpc]</label><input id="gb" data-tip="Impact parameter: projected distance from the nexus/box centre, kpc (1000 kpc = 1 Mpc)" type="number" min="0" max="150000" step="100" value="5000" inputmode="numeric"></div>
+    <div class="field"><label for="gb">b [kpc]</label><input id="gb" data-tip="Impact parameter: projected distance from the nexus or box centre, in kpc" type="number" min="0" max="150000" step="100" value="5000" inputmode="numeric"></div>
     <div class="field"><label for="gaz">Φ [deg]</label><input id="gaz" data-tip="Azimuth angle, degrees" type="number" min="0" max="359" step="1" value="90" inputmode="numeric"></div>
     <div class="field"><label for="gseed">seed</label><input id="gseed" data-tip="Seed for the random direction; same seed gives the same direction" type="number" min="0" max="4294967295" step="1" value="1" inputmode="numeric" disabled></div>
     <button id="submit" class="go" type="submit" data-tip="Load from the library, or ray-trace live through the 3D ion cubes">Load or generate</button>
@@ -299,6 +299,6 @@ window.TNG_DATA = DATA;
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", all); else all();
 })();
 </script>
-<script type="module" src="js/app.js?v=20261123c"></script>
+<script type="module" src="js/app.js?v=20261123d"></script>
 </body>
 </html>

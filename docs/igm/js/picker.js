@@ -2,7 +2,7 @@
 // The math functions are pure (node-testable); attachPicker builds the controls and, when a 3D viewer is given,
 // the picking plane, the draggable handles and the preview ray. Positions are physical kpc relative to the galaxy
 // centre, box axes (tngsight.geometry.make_endpoints conventions).
-export const R_MAX = 200000, L_MIN = 20, L_MAX = 400000;
+export const R_MAX = 395, L_MIN = 20, L_MAX = 800;
 
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
@@ -41,23 +41,23 @@ async function sha1hex(s) {
 export const idString = (p0, p1) => `${tenths(p0).join(",")};${tenths(p1).join(",")}`;
 export async function customId(p0, p1) { return "cust_" + (await sha1hex(idString(p0, p1))).slice(0, 10); }
 /* same checks and messages as tngsight.geometry.canonicalize_endpoints, on the quantised values */
-export function validate(p0, p1, Lhat = [0, 0, 1]) {
+export function validate(p0, p1, Lhat = [0, 0, 1], {rMax = R_MAX, lMin = L_MIN, lMax = L_MAX} = {}) {
   const errors = [];
   for (const [name, p] of [["p0_kpc", p0], ["p1_kpc", p1]])
     if (!Array.isArray(p) || p.length !== 3 || !p.every(x => typeof x === "number" && Number.isFinite(x))) errors.push(`${name} must be 3 finite numbers`);
   if (errors.length) return {ok: false, errors, metrics: null};
   const q0 = canonical(p0), q1 = canonical(p1);
   for (const [name, q] of [["p0_kpc", q0], ["p1_kpc", q1]]) { const r = Math.sqrt(q[0] * q[0] + q[1] * q[1] + q[2] * q[2]);
-    if (r > R_MAX) errors.push(`${name}: |p| = ${r.toFixed(1)} kpc exceeds ${R_MAX} kpc`); }
+    if (r > rMax) errors.push(`${name}: |p| = ${r.toFixed(1)} kpc exceeds ${rMax} kpc`); }
   const L = Math.sqrt((q1[0] - q0[0]) ** 2 + (q1[1] - q0[1]) ** 2 + (q1[2] - q0[2]) ** 2);
-  if (!(L >= L_MIN && L <= L_MAX)) errors.push(`length ${L.toFixed(1)} kpc outside [${L_MIN}, ${L_MAX}] kpc`);
+  if (!(L >= lMin && L <= lMax)) errors.push(`length ${L.toFixed(1)} kpc outside [${lMin}, ${lMax}] kpc`);
   return {ok: !errors.length, errors, metrics: L > 0 ? lineMetrics(q0, q1, Lhat) : null, p0: q0, p1: q1};
 }
 
 /* ---------------- UI ---------------- */
 export function attachPicker(viewer, root, app) {
   const doc = root.ownerDocument || document, cfg = app.config || {}, frame = (viewer && viewer.frame) || cfg.frame || {};
-  const Lhat = frame.Lhat || [0, 0, 1], RM = cfg.custom?.r_max_kpc ?? R_MAX;
+  const Lhat = frame.Lhat || [0, 0, 1], RM = cfg.custom?.r_max_kpc ?? 200000, LMIN = cfg.custom?.l_min_kpc ?? L_MIN, LMAX = cfg.custom?.l_max_kpc ?? 400000;
   const h = (tag, attrs = {}, ...kids) => { const el = doc.createElement(tag);
     for (const [k, v] of Object.entries(attrs)) if (k === "text") el.textContent = v; else el.setAttribute(k, v);
     for (const c of kids) el.appendChild(typeof c === "string" ? doc.createTextNode(c) : c); return el; };
@@ -93,7 +93,7 @@ export function attachPicker(viewer, root, app) {
   let refreshSeq = 0;
   async function refresh(announce) {
     const seq = ++refreshSeq;
-    const v = P.p0 && P.p1 ? validate(P.p0, P.p1, Lhat) : null, m = v && v.metrics, rows = [];
+    const v = P.p0 && P.p1 ? validate(P.p0, P.p1, Lhat, {rMax: RM, lMin: LMIN, lMax: LMAX}) : null, m = v && v.metrics, rows = [];
     if (m) { rows.push(["L", `${m.length.toFixed(1)} kpc`], ["b", `${m.b.toFixed(1)} kpc`]);
       if (Math.abs(m.b_segment - m.b) > 0.05) rows.push(["b (segment)", `${m.b_segment.toFixed(1)} kpc`]);
       rows.push(["θ to disk normal", `${m.angle_deg.toFixed(1)}°`]); }

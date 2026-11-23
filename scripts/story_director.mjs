@@ -23,7 +23,7 @@ import {geomChecks, g3Band, layoutCheck, continuity, auditRoles, repair, frames}
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const REPO = join(HERE, "..");
-export const ROOT = join(REPO, "docs/tng50/learn/how-a-spectrum-is-made");
+export const ROOT = join(REPO, "docs/igm/learn/how-a-spectrum-is-made");
 const DIR = join(HERE, "director");
 export const VERSION = "director/1";
 export const STORY_IDS = ["clean", "multiphase", "damped", "empty", "hot"];

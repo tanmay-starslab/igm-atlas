@@ -26,8 +26,8 @@ const loadSharp = () => createRequire(import.meta.url)("sharp");
 const A = {};
 for (let i = 2; i < process.argv.length; i++) { const k = process.argv[i]; if (!k.startsWith("--")) continue; const n = process.argv[i + 1];
   A[k.slice(2)] = n && !n.startsWith("--") ? (i++, n) : true; }
-const ROOT = resolve(A.root || join(HERE, "..", "docs/tng50/learn/how-a-spectrum-is-made"));
-const DOCS = resolve(ROOT, "../../");                       // docs/tng50
+const ROOT = resolve(A.root || join(HERE, "..", "docs/igm/learn/how-a-spectrum-is-made"));
+const DOCS = resolve(ROOT, "../../");                       // docs/igm
 const film = JSON.parse(readFileSync(join(ROOT, "film.json"), "utf8"));
 const beats = JSON.parse(readFileSync(join(ROOT, "beats.json"), "utf8")).beats;
 const STILLS = A.stills === true;

@@ -17,7 +17,8 @@ import numpy as np
 import pytest
 
 REPO = Path(__file__).resolve().parents[1]
-ROOT = REPO / "docs" / "tng50" / "learn" / "how-a-spectrum-is-made"
+_DOCS_SUB = "igm" if (REPO / "docs" / "igm").is_dir() and not (REPO / "docs" / "tng50").is_dir() else "tng50"
+ROOT = REPO / "docs" / _DOCS_SUB / "learn" / "how-a-spectrum-is-made"
 DATA = ROOT / "data"
 sys.path.insert(0, str(REPO / "scripts"))
 sys.path.insert(0, str(REPO))

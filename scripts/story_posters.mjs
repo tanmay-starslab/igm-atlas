@@ -3,7 +3,7 @@
 //
 // For any galaxy of the sample with a 3D pack (the explorer's deposited cubes, tng50-viz/2) and a story sightline, this
 // projects the gas column (n_H) and the starlight (g, r, i; Lupton et al. 2004 asinh composite, the explorer's own
-// formula from docs/tng50/js/vizdata.js) through the nested cubes along the cameras of scripts/story_posters.camera.json,
+// formula from docs/igm/js/vizdata.js) through the nested cubes along the cameras of scripts/story_posters.camera.json,
 // and writes
 //   <out>/<g>_<ray>/{light_core_stars, light_wide_stars, light_wide_gas, pencil_stars, pencil_gas}.webp
 //   <out>/<g>_<ray>/posters.json      geometry the scenes use (beam, impact point, scale, other sightlines), sources
@@ -26,7 +26,7 @@
 //
 // Inputs per galaxy g: viz = <gal-root>/<g>/viz (or --viz; an http(s) base such as the hosted <viz_base> works too),
 // catalog = --catalog, else <gal-root>/<g>/library_trident/catalog.json, else <gal-root>/<g>/catalog.json, else the
-// page's docs/tng50/data/catalog.json when its galaxy is g. The catalog entry's p0/p1 are box-axis kpc relative to the
+// page's docs/igm/data/catalog.json when its galaxy is g. The catalog entry's p0/p1 are box-axis kpc relative to the
 // galaxy centre (scripts/export_tng50_web.py gal_endpoints); the cubes are in the disk frame (manifest frame.rows).
 // Trident convention: the observer is at the ray start p0, the quasar at the end p1.
 
@@ -40,8 +40,8 @@ import os from "node:os";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, "..");
-const ROOT = path.join(REPO, "docs/tng50/learn/how-a-spectrum-is-made");
-const CM_PER_KPC = 3.0856775814913673e21, MU_ZERO = 36.57212566588;   // as docs/tng50/js/vizdata.js
+const ROOT = path.join(REPO, "docs/igm/learn/how-a-spectrum-is-made");
+const CM_PER_KPC = 3.0856775814913673e21, MU_ZERO = 36.57212566588;   // as docs/igm/js/vizdata.js
 
 /* ------------------------------------------------------------------ geometry (pure; mirrored in js/scenes/space.js) */
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
@@ -184,7 +184,7 @@ async function storyRay(g) {
 }
 async function findEntry(o, g, ray) {
   const tries = o.catalog ? [o.catalog] : [path.join(o.galRoot, String(g), "library_trident/catalog.json"),
-    path.join(o.galRoot, String(g), "catalog.json"), path.join(REPO, "docs/tng50/data/catalog.json")];
+    path.join(o.galRoot, String(g), "catalog.json"), path.join(REPO, "docs/igm/data/catalog.json")];
   for (const p of tries) {
     if (!(await exists(p))) continue;
     let c; try { c = await getJson(p); } catch { continue; }
@@ -203,7 +203,7 @@ async function loadCube(vizBase, cube, kind, n) {
     if (info.width !== 16 * n || info.height !== 4 * n) throw new Error(`${rel}: ${info.width}x${info.height}, expected ${16 * n}x${4 * n}`);
     parts.push(new Uint8Array(data.buffer, data.byteOffset, data.length));
   }
-  // atlas -> raw (docs/tng50/js/vizdata.js atlasToRaw, inlined so the buffer can be shared with the workers)
+  // atlas -> raw (docs/igm/js/vizdata.js atlasToRaw, inlined so the buffer can be shared with the workers)
   const stars = kind === "stars", Wa = 16 * n, sab = new SharedArrayBuffer((stars ? 4 : 1) * n * n * n), out = new Uint8Array(sab);
   for (let k = 0; k < n; k++) {
     const P = parts[k >> 6], s = k & 63, x0 = (s & 15) * n, y0 = (s >> 4) * n;
@@ -332,7 +332,7 @@ async function one(o, cam, g) {
           for (let i = 0; i < W * H; i++) { const c = lupton3(img[3 * i], img[3 * i + 1], img[3 * i + 2], L);
             rgb[3 * i] = Math.round(255 * c[0]); rgb[3 * i + 1] = Math.round(255 * c[1]); rgb[3 * i + 2] = Math.round(255 * c[2]); }
         } else {
-          const {lut} = await import("../docs/tng50/js/colormaps.js"), T = lut(L.lut || "tng_dusk");
+          const {lut} = await import("../docs/igm/js/colormaps.js"), T = lut(L.lut || "tng_dusk");
           let lo = Infinity, hi = -Infinity;
           for (let i = 0; i < W * H; i++) {
             const N = img[i] * CM_PER_KPC, lg = N > 0 ? Math.log10(N) : -Infinity; if (lg > hi) hi = lg; if (lg > -Infinity && lg < lo) lo = lg;
@@ -452,7 +452,7 @@ async function gatePosters(o, cam, ctx) {
         const img = await project(Lc.levels, Lc.tables, ch, W, H, hw, C, o.workers, off);
         if (layer === "stars") for (let i = 0; i < W * H; i++) { const c = lupton3(img[3 * i], img[3 * i + 1], img[3 * i + 2], L);
           for (let k = 0; k < 3; k++) rgb[3 * i + k] = screen(rgb[3 * i + k], Math.round(255 * c[k])); }
-        else { const {lut} = await import("../docs/tng50/js/colormaps.js"), T = lut(L.lut || "tng_dusk"), gain = L.gain ?? 1;
+        else { const {lut} = await import("../docs/igm/js/colormaps.js"), T = lut(L.lut || "tng_dusk"), gain = L.gain ?? 1;
           for (let i = 0; i < W * H; i++) { const N = img[i] * CM_PER_KPC, lg = N > 0 ? Math.log10(N) : -Infinity;
             let x = (lg - L.vmin) / (L.vmax - L.vmin); x = x > 0 ? Math.min(1, x) ** (L.gamma ?? 1) : 0;
             const k4 = 4 * Math.round(255 * x), a = Math.min(1, x * (L.fade ?? 3)) * gain;

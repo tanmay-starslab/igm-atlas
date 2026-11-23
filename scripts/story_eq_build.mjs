@@ -26,7 +26,7 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const REPO = resolve(HERE, "..");
 const args = process.argv.slice(2);
 const opt = k => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : null; };
-const ROOT = resolve(opt("--root") || join(REPO, "docs/tng50/learn/how-a-spectrum-is-made"));
+const ROOT = resolve(opt("--root") || join(REPO, "docs/igm/learn/how-a-spectrum-is-made"));
 const CHECK = args.includes("--check"), MEASURE = args.includes("--measure");
 
 /* ------------------------------------------------------------------ the equations (single source of truth)
@@ -422,7 +422,7 @@ async function measureBoxes() {
   const {serve, launch} = await import(join(REPO, "tests/js/lib/browser.mjs"));
   const {mkdtempSync} = await import("node:fs"); const {tmpdir} = await import("node:os");
   const tmp = mkdtempSync(join(tmpdir(), "eqm-")), page = join(tmp, "index.html");
-  const rel = ROOT.slice(join(REPO, "docs/tng50").length + 1);
+  const rel = ROOT.slice(join(REPO, "docs/igm").length + 1);
   writeFileSync(page, `<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="${rel}/vendor/katex/katex.css">
 <body style="margin:0;background:#000;color:#fff"><div id="m" style="position:absolute;left:0;top:0;font-size:100px;white-space:nowrap"></div>
 <script>window.boxes = (async () => { const eq = await (await fetch("${rel}/eq/eq.json")).json(); const m = document.getElementById("m"); const out = {};
@@ -431,7 +431,7 @@ await document.fonts.ready; await new Promise(r => setTimeout(r, 300)); await do
 for (const d of m.querySelectorAll("[data-k]")) { const r = d.getBoundingClientRect(); out[d.dataset.k] = {w: +(r.width / 100).toFixed(3), h: +(r.height / 100).toFixed(3)}; }
 const bad = [...document.fonts].filter(f => f.status === "error").map(f => f.family);
 return {out, bad, loaded: [...document.fonts].filter(f => f.status === "loaded").map(f => f.family)}; })();</script>`);
-  const srv = await serve({dir: join(REPO, "docs/tng50"), page});
+  const srv = await serve({dir: join(REPO, "docs/igm"), page});
   const P = await launch({width: 1600, height: 900});
   try {
     await P.goto(srv.base);

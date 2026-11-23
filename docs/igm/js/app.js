@@ -5,19 +5,19 @@
 // Rendering is in spectra.js, the instrument sliders in instrument.js, the sightline picker in gallery.js and the
 // pure state (hash, slider maps, validation) in state.js.
 import {makeRegistry, cloneState, casesFor, bandsOf, clampView, parseHash, formatHash, instrumentPatch, ID_RE, LAYOUTS,
-  fmtR, fmtNum, minus, nf, annotateLimits, fitClass, fitLimits} from "./state.js?v=20261123c";
-import {createSpectra} from "./spectra.js?v=20261123c";
-import {createGallery, kindOf, nShow, sightLabel, sightTip, copyText} from "./gallery.js?v=20261123c";
-import {createInstrument} from "./instrument.js?v=20261123c";
-import * as FITM from "./fit.js?v=20261123c";
-import {initTips, ION_TIPS} from "./tips.js?v=20261123c";
-import {initFeatures} from "./features.js?v=20261123c";   /* ux4 features: share, keys, random, undo, solo, CSV, loading */
-import {initLiquidTabs, initLiquidSeg, initLiquidButtons} from "./liquidtabs.js?v=20261123c";   /* CSS-only liquid drop (tabs, segmented rows) and glossy top-bar buttons */
-import {initLiquidBg} from "./liquidbg.js?v=20261123c";   /* liquid metal shader background (3D tab; Spectra only with SPECTRA_BG) */
-import {uiSound, sfx} from "./uisound.js?v=20261123c";   /* optional UI sound effects (off by default; top-bar switch #sfx) */
+  fmtR, fmtNum, minus, nf, annotateLimits, fitClass, fitLimits} from "./state.js?v=20261123d";
+import {createSpectra} from "./spectra.js?v=20261123d";
+import {createGallery, kindOf, nShow, sightLabel, sightTip, copyText} from "./gallery.js?v=20261123d";
+import {createInstrument} from "./instrument.js?v=20261123d";
+import * as FITM from "./fit.js?v=20261123d";
+import {initTips, ION_TIPS} from "./tips.js?v=20261123d";
+import {initFeatures} from "./features.js?v=20261123d";   /* ux4 features: share, keys, random, undo, solo, CSV, loading */
+import {initLiquidTabs, initLiquidSeg, initLiquidButtons} from "./liquidtabs.js?v=20261123d";   /* CSS-only liquid drop (tabs, segmented rows) and glossy top-bar buttons */
+import {initLiquidBg} from "./liquidbg.js?v=20261123d";   /* liquid metal shader background (3D tab; Spectra only with SPECTRA_BG) */
+import {uiSound, sfx} from "./uisound.js?v=20261123d";   /* optional UI sound effects (off by default; top-bar switch #sfx) */
 import {galaxyIndex, resolveGalaxy, parseGalaxy, galaxyHashPart, packFor, createGalaxyPicker, galaxyTip, unlistedGalaxy,
-  nearestSightline, defaultSightline, srcOf, galaxySummary, normId, isFire, inferSim, inferSimKey, SIM_META, SIM_ORDER, galNoun} from "./galaxies.js?v=20261123c";
-import {tier, tierReady} from "./tier.js?v=20261123c";   /* perf R5: device tier (html[data-tier]) and its one-off WebGL probe */
+  nearestSightline, defaultSightline, srcOf, galaxySummary, normId, isFire, inferSim, inferSimKey, SIM_META, SIM_ORDER, galNoun} from "./galaxies.js?v=20261123d";
+import {tier, tierReady} from "./tier.js?v=20261123d";   /* perf R5: device tier (html[data-tier]) and its one-off WebGL probe */
 const {degradeV, decodeTNGS, seedFor, cacheKey, fitPanel, FIT_VERSION, FIT_PARAMS} = FITM;
 
 /* ---------------- config ---------------- */
@@ -25,7 +25,7 @@ const CFG = Object.assign({
   version: 3, catalog_url: "data/catalog.json", bin_dir: "data/s/", backends: ["http://127.0.0.1:8787"],
   galaxy: {sim: "TNG50-1", snapshot: 99, redshift: 0, subhalo_id: 488530}, ions: [], bands: {}, snr: {min: 2, max: 100, default: 10, pair: [20, 5]},
   defaults: {id: "edge_b100_a090"}, viz: null, components_url: "data/components.json", three: "0.169.0", js_base: "js/",
-  chat: {enabled: false}, custom: {r_max_kpc: 395, l_min_kpc: 20, l_max_kpc: 800}, fitter: {worker: "js/fitworker.js?v=20261123c", version: "fit/1"}
+  chat: {enabled: false}, custom: {r_max_kpc: 395, l_min_kpc: 20, l_max_kpc: 800}, fitter: {worker: "js/fitworker.js?v=20261123d", version: "fit/1"}
 }, window.TNG_DATA || {});
 const reg = makeRegistry(CFG), {ION} = reg;
 /* galaxy sample (js/galaxies.js): GIX is the picker index (null with one galaxy: no picker, nothing changes), GAL the
@@ -41,7 +41,7 @@ function applyPack(pack, gj) {
     components_dir: pack.legacy ? LEGACY.components_dir : null});   /* per-sightline slices: the default galaxy's built site only */
   if (pack.legacy) Object.assign(CFG, {frame: LEGACY.frame, galaxy: LEGACY.galaxy, n_static: LEGACY.n_static});
   else { const e = GIX.byId.get(pack.id) || {}, g = gj || {};
-    CFG.galaxy = {sim: g.sim || e.sim || "TNG50-1", snapshot: g.snapshot ?? 99, redshift: g.redshift ?? 0, subhalo_id: pack.id, central: g.central ?? e.central,
+    CFG.galaxy = {...g, sim: g.sim || e.sim || "TNG50-1", snapshot: g.snapshot ?? 99, redshift: g.redshift ?? 0, subhalo_id: pack.id, central: g.central ?? e.central,
       R200c_kpc: g.R200c_kpc ?? e.R200c, M200c_Msun: g.M200c_Msun ?? e.M200c, Mstar_Msun: g.Mstar_Msun ?? e.Mstar, SFR_Msun_yr: g.SFR_Msun_yr ?? e.SFR};
     CFG.frame = g.Lhat ? {Lhat: g.Lhat, xhat: g.xhat, yhat: g.yhat, R200c_kpc: g.R200c_kpc ?? e.R200c} : {R200c_kpc: e.R200c};   /* the manifest's frame wins in viewer3d */
     CFG.n_static = e.n || 0; }
@@ -1082,12 +1082,12 @@ if (GIX && new Set(GIX.list.map(e => e.simKey)).size > 1 && $("#grp-gal") && !$(
   for (const e of GIX.list) simCounts[e.simKey] = (simCounts[e.simKey] || 0) + 1;
   const presentSims = SIM_ORDER.filter(sk => simCounts[sk] > 0);
   const SIM_SUB = {
-    simba100:   "GIZMO MFM 1024³ · L2 35.9 kpc voxels",
-    camels:     "AREPO 512³ · L2 18.2 kpc voxels",
-    tng50:      "AREPO MHD 2160³ · L2 12.6 kpc voxels",
-    tng100:     "AREPO MHD 1820³ · L2 27.0 kpc voxels",
-    tng300:     "AREPO MHD 2500³ · L2 73.9 kpc voxels",
-    illustris1: "AREPO 1820³ · L2 26.0 kpc voxels",
+    simba100:   "GIZMO MFM 1024³, L2 35.9 kpc voxels",
+    camels:     "AREPO 512³, L2 18.2 kpc voxels",
+    tng50:      "AREPO MHD 2160³, L2 12.6 kpc voxels",
+    tng100:     "AREPO MHD 1820³, L2 27.0 kpc voxels",
+    tng300:     "AREPO MHD 2500³, L2 73.9 kpc voxels",
+    illustris1: "AREPO 1820³, L2 26.0 kpc voxels",
     fire2:      "GIZMO MFM zoom-in halos"
   };
   topSimEl = document.createElement("button");
@@ -1098,7 +1098,7 @@ if (GIX && new Set(GIX.list.map(e => e.simKey)).size > 1 && $("#grp-gal") && !$(
   topSimEl.setAttribute("aria-controls", "sim-pop");
   topSimEl.setAttribute("aria-expanded", "false");
   topSimEl.setAttribute("aria-label", "Cosmic Web Simulation");
-  topSimEl.dataset.tip = "Switch between the 6 whole-box z = 0 Cosmic Web simulations (51.7 to 302.6 Mpc)";
+  topSimEl.dataset.tip = "Switch between the 6 whole-box Cosmic Web simulations (51.7 to 302.6 Mpc)";
   topSimEl.innerHTML = `<span class="slab">SIMBA-100</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m4.5 6.5 3.5 3.5 3.5-3.5"/></svg>`;
   const grpGal = $("#grp-gal"), gxyOpen = $("#gxy-open");
   if (gxyOpen) grpGal.insertBefore(topSimEl, gxyOpen); else grpGal.prepend(topSimEl);

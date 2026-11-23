@@ -5,7 +5,7 @@
 //   scales(S)                        -> story length scales {R, half, lStart, sEnc(l0, l1), sGap(l0, l1), hCell(role), ...}
 //   shotFor(beat, style, S, v)       -> shot {textSide, cut?, blendIn?, keys, style, note}
 //   VARIANTS                         -> the fixed repair order (§6.2 step 8)
-import {rayFrame, v3} from "../../docs/tng50/learn/how-a-spectrum-is-made/js/core/shots.js";
+import {rayFrame, v3} from "../../docs/igm/learn/how-a-spectrum-is-made/js/core/shots.js";
 import {tauPeak, ionCells} from "./compose.mjs";
 
 const {add, sub, mul, dot, cross, len, norm} = v3;

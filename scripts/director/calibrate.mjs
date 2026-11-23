@@ -17,7 +17,7 @@ import {readSeconds, allocate, ionCells, tauSum, KIND_BASE} from "./compose.mjs"
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 export const REPO = join(HERE, "..", "..");
-export const ROOT = join(REPO, "docs/tng50/learn/how-a-spectrum-is-made");
+export const ROOT = join(REPO, "docs/igm/learn/how-a-spectrum-is-made");
 const J = f => JSON.parse(readFileSync(join(ROOT, f), "utf8"));
 const sha = s => createHash("sha256").update(s).digest("hex");
 const r4 = x => Math.round(x * 1e4) / 1e4;
