@@ -1,1 +1,365 @@
-{"sim":"CAMELS-L50n512","snapshot":90,"redshift":0.0,"subhalo_id":"camels_l50n512_cosmic_web","central":true,"TNG_H":0.6711,"label":"CAMELS-L50n512 Cosmic Web & Supercluster Nexus (Box=74.5 Mpc, z=0)","mw":false,"m31":false,"R200c_kpc":9313.068097153926,"M200c_Msun":402130422533899.56,"Mstar_Msun":16924013840674.36,"SFR_Msun_yr":0.0,"SubhaloVel_kms":[0.0,0.0,0.0],"center_kpc":[2305.898380748491,52718.152799508265,26822.759508642524],"Lhat":[0.0,0.0,1.0],"xhat":[1.0,0.0,0.0],"yhat":[0.0,1.0,0.0],"disk_frame_source":"Cosmic Web Supercluster Nexus + WHIM Bridge (CAMELS-L50n512)","gas_poor":null,"catalogue":{},"spectra_source":{"source":"thor_voronoi_sbi_fp64","label":"CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)","short":"THOR Voronoi + CLOUDY FG11","text":"True 3D Voronoi cell ray-tracing via official digest-pinned THOR Apptainer (dataset_type=pointcloud_voronoi, driver_type=raytracer, CLOUDY c17.03 FG11 + Rahmati13 self-shielding, sfr_temperature=1000 K) and SBI_CGM FP64 compact Voigt profiles across cosmic-web sightlines spanning L2 WHIM bridge, L1 supercluster nexus, and L0 full box.","path":"L2/L1/L0 Cosmic Web","ion_model":"CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)","ion_table":"CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)","engineering_scope":false},"supercluster_nexus":{"sim":"CAMELS-L50n512","snapshot":90,"box_kpc":74504.54477723141,"box_ckpch":50000.0,"h":0.6711,"L0_half_kpc":37252.272388615704,"L1_half_kpc":9313.068097153926,"L2_half_kpc":2328.2670242884815,"L0_center_kpc":[37252.272388615704,37252.272388615704,37252.272388615704],"L1_center_kpc":[2305.898380748491,52718.152799508265,26822.759508642524],"L2_center_kpc":[3393.2964863249235,51725.13818264789,25840.90456666294],"nexus_vel_kms":[-287.69238090515137,268.9022526741028,164.34877076745033],"primary_bridge_halos":[0,69],"bridge_separation_kpc":3539.8032693353534,"L1_clusters_ge_1e14":[0],"L1_n_clusters_ge_1e14":1,"L1_n_groups_ge_1e13":1,"L1_sum_m200c_msun":402130422533899.56,"L2_n_groups_ge_1e12":2,"L2_sum_m200c_msun":409677904811422.0,"top10_clusters":[{"rank":1,"fof_group_index":0,"first_subhalo_id":0,"m200c_msun":402130422533899.56,"r200c_kpc":1566.0877139677395,"m500c_msun":274503438850394.88,"r500c_kpc":1016.0029795997243,"mgas_msun":63835181104250.484,"mstar_total_msun":4768008927157.838,"tvir_K":39468303.09892045,"minpotpos_kpc":[2305.898380748491,52718.152799508265,26822.759508642524],"minpotvel_kms":[-8.228145599365234,-15.150145530700684,0.8357251286506653]},{"rank":2,"fof_group_index":2,"first_subhalo_id":2351,"m200c_msun":170626204878185.06,"r200c_kpc":1176.8602198698964,"m500c_msun":132628232216696.47,"r500c_kpc":797.2270048707346,"mgas_msun":24905845245329.496,"mstar_total_msun":2087610614511.157,"tvir_K":22285298.47394854,"minpotpos_kpc":[45767.75187192669,48037.2272435181,8407.504644892713],"minpotvel_kms":[39.94688034057617,-199.46923828125,-72.93558502197266]},{"rank":3,"fof_group_index":4,"first_subhalo_id":3468,"m200c_msun":112529787266241.98,"r200c_kpc":1024.3663694051743,"m500c_msun":82420587177302.19,"r500c_kpc":680.3312203582504,"mgas_msun":17992431022179.07,"mstar_total_msun":1335574567735.3994,"tvir_K":16885339.342854753,"minpotpos_kpc":[15443.329689595439,1945.0775633055803,68033.51074728058],"minpotvel_kms":[2.2479076385498047,5.4555134773254395,92.03953552246094]},{"rank":4,"fof_group_index":5,"first_subhalo_id":3914,"m200c_msun":106809577151784.38,"r200c_kpc":1006.6661740926743,"m500c_msun":81031332071412.61,"r500c_kpc":676.5090426253306,"mgas_msun":15893092672012.367,"mstar_total_msun":1436498235828.4207,"tvir_K":16308812.023801629,"minpotpos_kpc":[12659.16033378036,30684.696766502755,49364.621749739235],"minpotvel_kms":[55.05777359008789,20.043609619140625,-29.880775451660156]},{"rank":5,"fof_group_index":3,"first_subhalo_id":2919,"m200c_msun":64587480558970.34,"r200c_kpc":851.3036439998231,"m500c_msun":41965430618806.805,"r500c_kpc":543.2726888893933,"mgas_msun":18028153550374.383,"mstar_total_msun":1403964683135.9543,"tvir_K":11661689.08688684,"minpotpos_kpc":[16177.323144836835,55892.86130047683,2488.7504685637387],"minpotvel_kms":[-17.13750457763672,12.111639022827148,-112.65289306640625]},{"rank":6,"fof_group_index":1,"first_subhalo_id":1599,"m200c_msun":62150039638746.086,"r200c_kpc":840.4528282914711,"m500c_msun":38272708170354.64,"r500c_kpc":526.8290756605294,"mgas_msun":26535050095575.36,"mstar_total_msun":2156711033249.9812,"tvir_K":11366471.674418904,"minpotpos_kpc":[21078.98296639845,49875.80441625689,62151.25470309939],"minpotvel_kms":[-47.63581085205078,-4.9725823402404785,19.03035545349121]},{"rank":7,"fof_group_index":9,"first_subhalo_id":5107,"m200c_msun":59911254464452.016,"r200c_kpc":830.236647243099,"m500c_msun":45560307645563.25,"r500c_kpc":558.3539475912913,"mgas_msun":9625564277340.84,"mstar_total_msun":784242527972.6731,"tvir_K":11091853.396090064,"minpotpos_kpc":[9302.147069643122,49661.93562807331,48091.243038481596],"minpotvel_kms":[117.14814758300781,-57.942325592041016,-4.116392135620117]},{"rank":8,"fof_group_index":7,"first_subhalo_id":4575,"m200c_msun":59778201279848.38,"r200c_kpc":829.6380279636511,"m500c_msun":38480898897332.734,"r500c_kpc":527.7879851671928,"mgas_msun":8390094846322.734,"mstar_total_msun":955883100586.665,"tvir_K":11075205.65983594,"minpotpos_kpc":[46818.411469974664,36628.279364103706,65787.61781031142],"minpotvel_kms":[-135.07000732421875,98.5251235961914,-15.553228378295898]},{"rank":9,"fof_group_index":8,"first_subhalo_id":4833,"m200c_msun":56447062338185.44,"r200c_kpc":813.9084924121777,"m500c_msun":40727236387786.84,"r500c_kpc":537.8765207949169,"mgas_msun":9110065949618.629,"mstar_total_msun":711316043476.8943,"tvir_K":10660151.3816519,"minpotpos_kpc":[48687.084404336165,36230.39599165549,6477.700149474743],"minpotvel_kms":[6.439268112182617,249.3202667236328,35.23295593261719]},{"rank":10,"fof_group_index":6,"first_subhalo_id":4232,"m200c_msun":53613554093791.91,"r200c_kpc":800.0436622825398,"m500c_msun":35325776942706.0,"r500c_kpc":512.958606759192,"mgas_msun":10485967170852.89,"mstar_total_msun":1284204107019.3757,"tvir_K":10300504.965692101,"minpotpos_kpc":[18937.266882264194,14716.55531729623,62896.74252160631],"minpotvel_kms":[-220.37234497070312,123.48780822753906,22.485626220703125]}]}}
+{
+  "sim": "CAMELS-L50n512",
+  "sim_run": "CAMELS_IllustrisTNG_L50n512_CV_0",
+  "snapshot": 90,
+  "redshift": 0.0,
+  "subhalo_id": "camels_l50n512_cosmic_web",
+  "TNG_H": 0.6711,
+  "box_ckpch": 50000.0,
+  "box_kpc": 74504.54477723141,
+  "center_kpc": [
+    2305.898380748491,
+    52718.152799508265,
+    26822.759508642524
+  ],
+  "L0_center_kpc": [
+    37252.272388615704,
+    37252.272388615704,
+    37252.272388615704
+  ],
+  "L1_center_kpc": [
+    2305.898380748491,
+    52718.152799508265,
+    26822.759508642524
+  ],
+  "L2_center_kpc": [
+    3393.2964863249235,
+    51725.13818264789,
+    25840.90456666294
+  ],
+  "R200c_kpc": 9313.068097153926,
+  "Lhat": [
+    0.0,
+    0.0,
+    1.0
+  ],
+  "xhat": [
+    1.0,
+    0.0,
+    0.0
+  ],
+  "yhat": [
+    0.0,
+    1.0,
+    0.0
+  ],
+  "SubhaloVel_kms": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "n_files_streamed": 16,
+  "total_files": 16,
+  "is_partial": false,
+  "supercluster_nexus": {
+    "sim": "CAMELS-L50n512",
+    "snapshot": 90,
+    "box_kpc": 74504.54477723141,
+    "box_ckpch": 50000.0,
+    "h": 0.6711,
+    "L0_half_kpc": 37252.272388615704,
+    "L1_half_kpc": 9313.068097153926,
+    "L2_half_kpc": 2328.2670242884815,
+    "L0_center_kpc": [
+      37252.272388615704,
+      37252.272388615704,
+      37252.272388615704
+    ],
+    "L1_center_kpc": [
+      2305.898380748491,
+      52718.152799508265,
+      26822.759508642524
+    ],
+    "L2_center_kpc": [
+      3393.2964863249235,
+      51725.13818264789,
+      25840.90456666294
+    ],
+    "nexus_vel_kms": [
+      -287.69238090515137,
+      268.9022526741028,
+      164.34877076745033
+    ],
+    "primary_bridge_halos": [
+      0,
+      69
+    ],
+    "bridge_separation_kpc": 3539.8032693353534,
+    "L1_clusters_ge_1e14": [
+      0
+    ],
+    "L1_n_clusters_ge_1e14": 1,
+    "L1_n_groups_ge_1e13": 1,
+    "L1_sum_m200c_msun": 402130422533899.56,
+    "L2_n_groups_ge_1e12": 2,
+    "L2_sum_m200c_msun": 409677904811422.0,
+    "top10_clusters": [
+      {
+        "rank": 1,
+        "fof_group_index": 0,
+        "first_subhalo_id": 0,
+        "m200c_msun": 402130422533899.56,
+        "r200c_kpc": 1566.0877139677395,
+        "m500c_msun": 274503438850394.88,
+        "r500c_kpc": 1016.0029795997243,
+        "mgas_msun": 63835181104250.484,
+        "mstar_total_msun": 4768008927157.838,
+        "tvir_K": 39468303.09892045,
+        "minpotpos_kpc": [
+          2305.898380748491,
+          52718.152799508265,
+          26822.759508642524
+        ],
+        "minpotvel_kms": [
+          -8.228145599365234,
+          -15.150145530700684,
+          0.8357251286506653
+        ]
+      },
+      {
+        "rank": 2,
+        "fof_group_index": 2,
+        "first_subhalo_id": 2351,
+        "m200c_msun": 170626204878185.06,
+        "r200c_kpc": 1176.8602198698964,
+        "m500c_msun": 132628232216696.47,
+        "r500c_kpc": 797.2270048707346,
+        "mgas_msun": 24905845245329.496,
+        "mstar_total_msun": 2087610614511.157,
+        "tvir_K": 22285298.47394854,
+        "minpotpos_kpc": [
+          45767.75187192669,
+          48037.2272435181,
+          8407.504644892713
+        ],
+        "minpotvel_kms": [
+          39.94688034057617,
+          -199.46923828125,
+          -72.93558502197266
+        ]
+      },
+      {
+        "rank": 3,
+        "fof_group_index": 4,
+        "first_subhalo_id": 3468,
+        "m200c_msun": 112529787266241.98,
+        "r200c_kpc": 1024.3663694051743,
+        "m500c_msun": 82420587177302.19,
+        "r500c_kpc": 680.3312203582504,
+        "mgas_msun": 17992431022179.07,
+        "mstar_total_msun": 1335574567735.3994,
+        "tvir_K": 16885339.342854753,
+        "minpotpos_kpc": [
+          15443.329689595439,
+          1945.0775633055803,
+          68033.51074728058
+        ],
+        "minpotvel_kms": [
+          2.2479076385498047,
+          5.4555134773254395,
+          92.03953552246094
+        ]
+      },
+      {
+        "rank": 4,
+        "fof_group_index": 5,
+        "first_subhalo_id": 3914,
+        "m200c_msun": 106809577151784.38,
+        "r200c_kpc": 1006.6661740926743,
+        "m500c_msun": 81031332071412.61,
+        "r500c_kpc": 676.5090426253306,
+        "mgas_msun": 15893092672012.367,
+        "mstar_total_msun": 1436498235828.4207,
+        "tvir_K": 16308812.023801629,
+        "minpotpos_kpc": [
+          12659.16033378036,
+          30684.696766502755,
+          49364.621749739235
+        ],
+        "minpotvel_kms": [
+          55.05777359008789,
+          20.043609619140625,
+          -29.880775451660156
+        ]
+      },
+      {
+        "rank": 5,
+        "fof_group_index": 3,
+        "first_subhalo_id": 2919,
+        "m200c_msun": 64587480558970.34,
+        "r200c_kpc": 851.3036439998231,
+        "m500c_msun": 41965430618806.805,
+        "r500c_kpc": 543.2726888893933,
+        "mgas_msun": 18028153550374.383,
+        "mstar_total_msun": 1403964683135.9543,
+        "tvir_K": 11661689.08688684,
+        "minpotpos_kpc": [
+          16177.323144836835,
+          55892.86130047683,
+          2488.7504685637387
+        ],
+        "minpotvel_kms": [
+          -17.13750457763672,
+          12.111639022827148,
+          -112.65289306640625
+        ]
+      },
+      {
+        "rank": 6,
+        "fof_group_index": 1,
+        "first_subhalo_id": 1599,
+        "m200c_msun": 62150039638746.086,
+        "r200c_kpc": 840.4528282914711,
+        "m500c_msun": 38272708170354.64,
+        "r500c_kpc": 526.8290756605294,
+        "mgas_msun": 26535050095575.36,
+        "mstar_total_msun": 2156711033249.9812,
+        "tvir_K": 11366471.674418904,
+        "minpotpos_kpc": [
+          21078.98296639845,
+          49875.80441625689,
+          62151.25470309939
+        ],
+        "minpotvel_kms": [
+          -47.63581085205078,
+          -4.9725823402404785,
+          19.03035545349121
+        ]
+      },
+      {
+        "rank": 7,
+        "fof_group_index": 9,
+        "first_subhalo_id": 5107,
+        "m200c_msun": 59911254464452.016,
+        "r200c_kpc": 830.236647243099,
+        "m500c_msun": 45560307645563.25,
+        "r500c_kpc": 558.3539475912913,
+        "mgas_msun": 9625564277340.84,
+        "mstar_total_msun": 784242527972.6731,
+        "tvir_K": 11091853.396090064,
+        "minpotpos_kpc": [
+          9302.147069643122,
+          49661.93562807331,
+          48091.243038481596
+        ],
+        "minpotvel_kms": [
+          117.14814758300781,
+          -57.942325592041016,
+          -4.116392135620117
+        ]
+      },
+      {
+        "rank": 8,
+        "fof_group_index": 7,
+        "first_subhalo_id": 4575,
+        "m200c_msun": 59778201279848.38,
+        "r200c_kpc": 829.6380279636511,
+        "m500c_msun": 38480898897332.734,
+        "r500c_kpc": 527.7879851671928,
+        "mgas_msun": 8390094846322.734,
+        "mstar_total_msun": 955883100586.665,
+        "tvir_K": 11075205.65983594,
+        "minpotpos_kpc": [
+          46818.411469974664,
+          36628.279364103706,
+          65787.61781031142
+        ],
+        "minpotvel_kms": [
+          -135.07000732421875,
+          98.5251235961914,
+          -15.553228378295898
+        ]
+      },
+      {
+        "rank": 9,
+        "fof_group_index": 8,
+        "first_subhalo_id": 4833,
+        "m200c_msun": 56447062338185.44,
+        "r200c_kpc": 813.9084924121777,
+        "m500c_msun": 40727236387786.84,
+        "r500c_kpc": 537.8765207949169,
+        "mgas_msun": 9110065949618.629,
+        "mstar_total_msun": 711316043476.8943,
+        "tvir_K": 10660151.3816519,
+        "minpotpos_kpc": [
+          48687.084404336165,
+          36230.39599165549,
+          6477.700149474743
+        ],
+        "minpotvel_kms": [
+          6.439268112182617,
+          249.3202667236328,
+          35.23295593261719
+        ]
+      },
+      {
+        "rank": 10,
+        "fof_group_index": 6,
+        "first_subhalo_id": 4232,
+        "m200c_msun": 53613554093791.91,
+        "r200c_kpc": 800.0436622825398,
+        "m500c_msun": 35325776942706.0,
+        "r500c_kpc": 512.958606759192,
+        "mgas_msun": 10485967170852.89,
+        "mstar_total_msun": 1284204107019.3757,
+        "tvir_K": 10300504.965692101,
+        "minpotpos_kpc": [
+          18937.266882264194,
+          14716.55531729623,
+          62896.74252160631
+        ],
+        "minpotvel_kms": [
+          -220.37234497070312,
+          123.48780822753906,
+          22.485626220703125
+        ]
+      }
+    ],
+    "L3_half_kpc": 400.0,
+    "L4_half_kpc": 25.0,
+    "L3_center_kpc": [
+      2305.898380748491,
+      52718.152799508265,
+      26822.759508642524
+    ],
+    "L4_center_kpc": [
+      2305.898380748491,
+      52718.152799508265,
+      26822.759508642524
+    ]
+  },
+  "central": true,
+  "label": "CAMELS-L50n512 Cosmic Web & Supercluster Nexus (Box=74.5 Mpc, z=0)",
+  "mw": false,
+  "m31": false,
+  "M200c_Msun": 402130422533899.56,
+  "Mstar_Msun": 16924013840674.36,
+  "SFR_Msun_yr": 0.0,
+  "L0_half_kpc": 37252.272388615704,
+  "L1_half_kpc": 9313.068097153926,
+  "L2_half_kpc": 2328.2670242884815,
+  "disk_frame_source": "Cosmic Web Supercluster Nexus + WHIM Bridge (CAMELS-L50n512)",
+  "gas_poor": null,
+  "spectra_source": {
+    "source": "thor_voronoi_sbi_fp64",
+    "label": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "short": "THOR Voronoi + CLOUDY FG11",
+    "text": "True 3D Voronoi cell ray-tracing via official digest-pinned THOR Apptainer (dataset_type=pointcloud_voronoi, driver_type=raytracer, CLOUDY c17.03 FG11 + Rahmati13 self-shielding, sfr_temperature=1000 K) and SBI_CGM FP64 compact Voigt profiles across cosmic-web sightlines spanning L2 WHIM bridge, L1 supercluster nexus, and L0 full box.",
+    "path": "L2/L1/L0 Cosmic Web",
+    "ion_model": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "ion_table": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "engineering_scope": false
+  },
+  "L3_center_kpc": [
+    2305.898380748491,
+    52718.152799508265,
+    26822.759508642524
+  ],
+  "L4_center_kpc": [
+    2305.898380748491,
+    52718.152799508265,
+    26822.759508642524
+  ],
+  "L3_half_kpc": 400.0,
+  "L4_half_kpc": 25.0
+}
