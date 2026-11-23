@@ -92,15 +92,8 @@
 @media (pointer:coarse){#story-row .sh-x{width:44px;height:44px}}
 /* phones: the floating Ask button covers the right end of the status bar (the fit status ran under it at 390 px) */
 body:has(>#chat-open.fab:not([hidden])) #bar{padding-right:104px}
-/* Cross-scale cosmic hierarchy bar & IGM multi-simulation cosmic web selector */
-#scale-nav{display:inline-flex;align-items:center;gap:2px;padding:3px;border-radius:10px;background:rgba(127,127,160,.10);border:1px solid var(--gline);flex-shrink:0}
-#scale-nav a{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 7px;border-radius:7px;font:500 11px var(--mono);color:var(--muted);text-decoration:none;white-space:nowrap;transition:background .15s,color .15s}
-#scale-nav a:hover{background:var(--hl);color:var(--ink)}
-#scale-nav a.active{background:var(--glass2);color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent),0 2px 6px rgba(0,0,0,.18)}
 #gal-list .gp{grid-template-columns:16px 68px 72px 54px}
-@media (max-width:1680px){#scale-nav .sc-sub{display:none}}
 @media (max-width:1520px){#top #share,#top #keys-open,#top .sep,#top #gal-open .ow{display:none}#top #share+.ib{background:none}}
-@media (max-width:1180px){#scale-nav{display:none}}
 @media (max-width:560px){#top #gxy-open{display:none}}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"},"integrity":{"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js":"sha384-eCdgjbMm+jekI8fyaeCZ4Pnyg5k4Jn45w2qs3lfnAd5ES5IO4hKOXNisVBTyUzDO","https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/controls/OrbitControls.js":"sha384-aJoe4qqS/DgF2jh9njAuvA6QIveJYoCuYOfYjdFY8P3eawzmc9bEQ40jq2TvOyuP"}}</script>
@@ -134,12 +127,6 @@ body:has(>#chat-open.fab:not([hidden])) #bar{padding-right:104px}
 <body data-tab="spectra">
 <header id="top" class="glass" data-testid="topbar">
   <h1 id="title" data-testid="title">IGM &amp; Cosmic Web Atlas</h1>
-  <nav id="scale-nav" aria-label="Cosmic scale portals" data-testid="scale-nav">
-    <a href="https://ism.tanmaysingh.uk" data-tip="Interstellar Medium &amp; Multiphase Mixing Layers (2500 AU to 1 kpc) — tanmay-starslab/multiphase-ism">ISM <span class="sc-sub">(AU–kpc)</span></a>
-    <a href="https://galaxies.tanmaysingh.uk" data-tip="Circumgalactic Medium around TNG50 &amp; FIRE-2 Galaxies (kpc to 400 kpc) — tanmay-starslab/cgm-atlas">CGM <span class="sc-sub">(kpc–400 kpc)</span></a>
-    <a href="https://icm.tanmaysingh.uk" data-tip="Intracluster Medium in Massive Galaxy Clusters (1 to 4 Mpc) — tanmay-starslab/icm-atlas">ICM <span class="sc-sub">(Clusters 4 Mpc)</span></a>
-    <a href="https://igm.tanmaysingh.uk" class="active" aria-current="page" data-tip="Intergalactic Medium &amp; Cosmic Web across 6 Whole-Box Simulations (35 to 300 Mpc) — tanmay-starslab/igm-atlas">IGM <span class="sc-sub">(Cosmic Web 300 Mpc)</span></a>
-  </nav>
   <div role="tablist" id="tabs" aria-label="Views"><button role="tab" id="tab-spectra" data-tip="Mock absorption spectra of the selected cosmic-web sightline" aria-controls="panel-spectra" aria-selected="true" tabindex="0" type="button">Spectra</button><button role="tab" id="tab-3d" data-tip="The cosmic web in 3D: WHIM filaments, Lyα forest, ions, peculiar velocities, galaxies and sightlines" aria-controls="panel-3d" aria-selected="false" tabindex="-1" type="button">3D</button></div>
   <span class="sep hide-m"></span>
   <!-- Multi-Simulation Cosmic Web Selector (js/galaxies.js) -->

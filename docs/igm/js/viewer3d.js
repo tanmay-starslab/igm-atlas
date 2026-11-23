@@ -1656,6 +1656,7 @@ vec3 starAt(vec3 p, int l) {`)
     if (docked !== "full") return;     // Phase 3: calibrated on the full stage only (dock() calls it)
     const sig = JSON.stringify(levels()) + (isFs() ? "|fs" : ""); if (!species || sig === calibrated) return; calibrated = sig;
     if (calPoll) { cancelAnimationFrame(calPoll); calPoll = 0; }
+    if (lowTier || mobile) { applyCalibration(35, NaN, exactPR, 0); return; }
     const gl = renderer.getContext?.(), tq = gl?.getExtension?.("EXT_disjoint_timer_query_webgl2");
     const bufPx = (stage.clientWidth || 600) * (stage.clientHeight || 400) * PR * PR, pr0 = exactPR;
     const p0 = camera.position.clone();
@@ -1738,7 +1739,7 @@ vec3 starAt(vec3 p, int l) {`)
       camera.position.lerpVectors(p0, pos, e); controls.target.lerpVectors(t0, target, e); camera.up.lerpVectors(u0, up, e).normalize();
       camera.lookAt(controls.target); controls.update(); if (f < 1) requestAnimationFrame(step);
       else { clearTimeout(quietT); moving = false; render(); if (selId) select(selId, true); if (manifest && species) ensure().catch(() => {}); syncPivot(true); } };
-    requestAnimationFrame(step);
+    if (dur === 0) step(start); else requestAnimationFrame(step);
   }
   function setPreset(p) {
     /* ux4 pivot: face-on and edge-on turn about the current orbit centre; Reset also brings it back to the galaxy */
@@ -2413,6 +2414,7 @@ vec3 starAt(vec3 p, int l) {`)
     else if (!pr) { const d = document.createElement("div"); d.id = "picker-root"; slot.appendChild(d); }
     if (o.dock) dockMode = o.dock === "auto" ? "auto" : "manual";
     if (shown(fullHost) || !docked) { if (o.dock && o.dock !== "auto") dock(o.dock); else if (shown(fullHost) || !thumbHost) dock("full"); }
+    try { window.tngViewer3d = viewer; } catch { /* node */ }
     return viewer;
   }
   function _attachThumb(host, o = {}) {
