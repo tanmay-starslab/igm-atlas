@@ -46,6 +46,7 @@ import {preset as tfPreset, encodeTF, decodeTF, buildTF, tfUniforms, defaultWRef
 import {createTfEditor, histCodes, histWindow} from "./tfeditor.js";
 import {initTips} from "./tips.js";
 import {sfx} from "./uisound.js";
+import {createHaloOverlay} from "./halonodes.js";
 
 export {VOL_KEYS, decodeU8, gunzipIfNeeded, speciesList, velocityList,
   initFastVizWasm, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions, wasm_decode_lut_volume};
@@ -538,8 +539,8 @@ async function create(app, opts = {}) {
   const mobile = isMobile(), lowTier = mobile && pageTier() === "low", deviceMemory = navigator.deviceMemory ?? 8;
 
   /* ---- DOM: the stage (el, moved between the full host and the thumbnail) and the control column (ctlBox) ---- */
-  const SPEC = [...speciesList(cfg.ions, manifest), ...velocityList(manifest)], specOf = k => SPEC.find(x => x.key === k);
-  const VELI = velocityInfo(manifest);   // vel3d: null with an old manifest (the Velocity buttons are then disabled)
+  let SPEC = [...speciesList(cfg.ions, manifest), ...velocityList(manifest)]; const specOf = k => SPEC.find(x => x.key === k);
+  let VELI = velocityInfo(manifest);   // vel3d: null with an old manifest (the Velocity buttons are then disabled)
   { const vc = document.getElementById("methods-vcap"); if (vc && VELI?.V) vc.textContent = `±${Math.round(VELI.V)} km/s`; }   // the methods text names the clip from the manifest
   const el = document.createElement("div"); el.className = "v3d";
   el.innerHTML = `<div class="v3d-stage"><canvas tabindex="0" role="img" aria-label="3D view"></canvas>
@@ -637,7 +638,7 @@ async function create(app, opts = {}) {
       <div class="v3c-row"><label for="v3-dust-law">dust law</label><select id="v3-dust-law" data-tip="Dust radiative transfer law: SKIRT, Temet MW, Calzetti, CCM89, or Pei"><option value="skirt">SKIRT (THEMIS + HG)</option><option value="temet">Temet MW (Cardelli+89)</option><option value="calzetti">Calzetti+00 starburst</option><option value="cardelli">Milky Way (CCM89)</option><option value="pei">FIRE Studio (Pei+92)</option></select></div>
       <details><summary>star brightness</summary><div class="v3c-row"><label for="v3-mu0">μ₀ base</label><input id="v3-mu0" type="range" min="17" max="26" step="0.1" data-tip="Asinh stretch level, mag/arcsec²; higher shows fainter starlight"><output id="v3-mu0-o" for="v3-mu0"></output></div></details>
       <div class="v3c-row"><label for="v3-lines">lines</label><select id="v3-lines" data-tip="Which sightlines to draw in 3D"><option value="selected">selected only</option><option value="showcase">highlights + your rays</option><option value="all">all</option><option value="none">none</option></select></div>
-      <div class="v3c-sw"><label><input type="checkbox" id="v3-guides" data-tip="Draw the R200c ring and the disk normal">guides</label><label><input type="checkbox" id="v3-scale" checked data-tip="Show a length scale in kpc">scale bar</label></div></section></div>
+      <div class="v3c-sw"><label><input type="checkbox" id="v3-halos" data-testid="v3-halos" checked data-tip="Draw embedded 3D galaxies and clusters along the cosmic web">Galaxies &amp; clusters</label><label><input type="checkbox" id="v3-guides" data-tip="Draw the R200c ring and the disk normal">guides</label><label><input type="checkbox" id="v3-scale" checked data-tip="Show a length scale in kpc">scale bar</label></div></section></div>
     <div class="v3c-col" data-col="b"><section class="v3c-card" data-group="mode" data-tab="view"><h2>Mode</h2>
       <div id="v3-mode" class="v3c-seg two" role="radiogroup" aria-label="Render mode"><label><input type="radio" name="v3-mode" value="integral" data-testid="v3-mode-integral" data-tip="Projected map: column or weighted mean along each ray"><span>integral</span></label>
         <label><input type="radio" name="v3-mode" value="volume" data-testid="v3-mode-volume" data-tip="Ray-marched emission and absorption through a transfer function"><span>volume</span></label></div>
@@ -696,20 +697,21 @@ async function create(app, opts = {}) {
   let movingPR = Math.min(PR * movGov.rung.scale, exactPR), movingSpv = movGov.rung.spv, movingShade = movGov.rung.shade;
   const EXACT_MS = 100;
   renderer.setPixelRatio(PR);
-  const H0 = manifest?.levels?.L0?.half_kpc ?? 400, boxScale = H0 / 400;
-  const finestHalf = Math.min(...["L0", "L1", "L2", "L3", "L4"].map(L => manifest?.levels?.[L]?.half_kpc).filter(x => Number.isFinite(x) && x > 0), H0);
+  let H0 = manifest?.levels?.L0?.half_kpc ?? 400, boxScale = H0 / 400;
+  let finestHalf = Math.min(...["L0", "L1", "L2", "L3", "L4"].map(L => manifest?.levels?.[L]?.half_kpc).filter(x => Number.isFinite(x) && x > 0), H0);
   const camNear = H0 === 400 ? (manifest?.levels?.L3 ? 0.05 : 0.5) : Math.max(1e-7, 1e-4 * finestHalf);
   const camFar = H0 === 400 ? 20000 : Math.max(50 * H0, 100);
   const scene = new T.Scene(), volScene = new T.Scene(), camera = new T.PerspectiveCamera(FOV, 1, camNear, camFar);
   const controls = new OrbitControls(camera, canvas); controls.enableDamping = false;
-  controls.minDistance = H0 === 400 ? (manifest?.levels?.L4 ? 0.4 : manifest?.levels?.L3 ? 1.5 : 15) : 0.25 * finestHalf;
+  const halfL4 = manifest?.levels?.L4?.half_kpc, halfL3 = manifest?.levels?.L3?.half_kpc;
+  controls.minDistance = H0 === 400 ? (halfL4 ? 0.4 : halfL3 ? 1.5 : 15) : 0.25 * (Number.isFinite(halfL4) && halfL4 > 0 ? halfL4 : finestHalf);
   controls.maxDistance = H0 === 400 ? 5600 : 14 * H0;
   controls.zoomSpeed = 1.2; controls.keys = {};
 
   /* ---- the cube mesh (local = disk frame) ---- */
   let GAS_L = ["L0", "L1", "L2", "L3", "L4"].filter(L => manifest?.levels?.[L]); if (!GAS_L.length) GAS_L = GAS_L_DEF;
   let STAR_L = ["S0", "S1", "S2", "S3", "S4"].filter(L => manifest?.levels?.[L]); if (!STAR_L.length) STAR_L = manifest?.stars?.levels?.length ? STAR_L_DEF : [];
-  const hasStars = !!(manifest?.stars && (!Array.isArray(manifest.stars.levels) || manifest.stars.levels.length > 0));
+  let hasStars = !!(manifest?.stars && (!Array.isArray(manifest.stars.levels) || manifest.stars.levels.length > 0));
   const nCube = manifest ? (manifest.levels.L1?.n || manifest.levels.L0?.n || 256) : 256;
   const DUST_LAWS = {
     skirt:    {vec: [0.58, 0.78, 1.15], scat: 0.45, label: "SKIRT (THEMIS + HG scattering)"},
@@ -722,8 +724,9 @@ async function create(app, opts = {}) {
   RM.uniforms.uDust = {value: 1.0};
   RM.uniforms.uDustVec = {value: new T.Vector3(...DUST_LAWS.skirt.vec)};
   RM.uniforms.uDustScat = {value: DUST_LAWS.skirt.scat};
+  RM.uniforms.uL1Half = {value: 100.0 * boxScale};
   RM.material.fragmentShader = RM.material.fragmentShader
-    .replace("in vec3 vPos;", "uniform float uDust, uDustScat; uniform vec3 uDustVec; in vec3 vPos;")
+    .replace("in vec3 vPos;", "uniform float uDust, uDustScat, uL1Half; uniform vec3 uDustVec; in vec3 vPos;")
     .replace(`vec3 gradAt(vec3 p, int l) {
   vec3 t = p / (2.0 * hl(l)) + 0.5; float e = 1.0 / uN, s = 0.5 * (uGasRange.y - uGasRange.x) / 254.0;
   s *= hl(1) / hl(l);
@@ -732,7 +735,7 @@ async function create(app, opts = {}) {
       `vec3 gradAt(vec3 p, int l) {
   if (l == 0 && length(p) + 2.5 * hl(0) / uN > uMask0) return vec3(0.0);
   vec3 t = p / (2.0 * hl(l)) + 0.5; float e = 1.0 / uN, s = 0.5 * (uGasRange.y - uGasRange.x) / 254.0;
-  s *= ${(100.0 * boxScale).toFixed(4)} / hl(l);
+  s *= uL1Half / hl(l);
   float qxp = qAt(t + vec3(e, 0.0, 0.0), l), qxm = qAt(t - vec3(e, 0.0, 0.0), l);
   float qyp = qAt(t + vec3(0.0, e, 0.0), l), qym = qAt(t - vec3(0.0, e, 0.0), l);
   float qzp = qAt(t + vec3(0.0, 0.0, e), l), qzm = qAt(t - vec3(0.0, 0.0, e), l);
@@ -830,7 +833,8 @@ vec3 starAt(vec3 p, int l) {`)
 
   /* ---- guides: camera-facing R200c ring + L arrow (default off) ---- */
   const guides = new T.Group(); guides.visible = false; scene.add(guides);
-  const ringPts = []; for (let i = 0; i <= 128; i++) { const t = i / 128 * 2 * Math.PI; ringPts.push(new T.Vector3(frame.R200c * Math.cos(t), frame.R200c * Math.sin(t), 0)); }
+  const ringR0 = frame.R200c;
+  const ringPts = []; for (let i = 0; i <= 128; i++) { const t = i / 128 * 2 * Math.PI; ringPts.push(new T.Vector3(ringR0 * Math.cos(t), ringR0 * Math.sin(t), 0)); }
   /* fix-ui V5: one neutral guide colour (sand; no sightline category uses it), the ring drops to a round radius that fits
      when R200c is off-screen (the legend says which), and the arrow is shortened so its head stays in view */
   const GUIDE = 0xd9c38c;
@@ -926,7 +930,7 @@ vec3 starAt(vec3 p, int l) {`)
      with cubes), shared by the five views; the velocity window per view and mode lives in tf like any field's */
   const velView = k => specOf(k)?.group === "vel" ? specOf(k) : null;
   const canShow = k => !!fld(k) && fld(k).kind !== "velocity" || (isVel(k) && !!VELI);
-  const WEIGHTS = ["nH", ...ION_KEYS].filter(k => fld(k)?.cubes && fld(k).kind === "density");
+  let WEIGHTS = ["nH", ...ION_KEYS].filter(k => fld(k)?.cubes && fld(k).kind === "density");
   let velW = WEIGHTS[0] || "nH";
   /* boundW = the weight whose cubes are bound and drawn (uW*, uWRange, uWWin, legend); velW = the one requested. A Weight
      change loads velW while boundW stays drawn, then switches both at once, without a fade, once the new weight is resident
@@ -955,7 +959,7 @@ vec3 starAt(vec3 p, int l) {`)
   const emisKey = (k = species) => { const e = tfOn(k) && tfs[k].emis; return e && WEIGHTS.includes(e) && tfs[k].gamma > 0 ? e : null; };
 
   /* ---- textures, LOD, GPU budget ---- */
-  const loader = manifest ? makeLoader({manifest, base: viz.base, fallbackBase: viz.fallback_base, cache: viz.cache !== false}) : null;
+  let loader = manifest ? makeLoader({manifest, base: viz.base, fallbackBase: viz.fallback_base, cache: viz.cache !== false}) : null;
   const TEX = new Map(), PEND = new Map(), FADE = new Map(), PROG = new Map();   // PROG: key -> {got, total} bytes (tune2)   // key "gas|nH|L1" / "stars||S1" -> {tex, bytes, used}
   let BUDGET = (lowTier ? 128 : mobile ? 192 : 448) * 1e6;
   let hostErr = null, useMovingExact = true, calibrated = "";
@@ -973,7 +977,8 @@ vec3 starAt(vec3 p, int l) {`)
   /* final (cold first load): the keys the current view uses, in load priority (vizdata.viewPlan): field L0 (+ nH weights for
      T / Z), L1, the star level, then L2 / S2 / S0 only when the view resolves them; other fields only once selected */
   function needed(k = wanted || species) {
-    const plan = viewPlan({ratio: ratios(k), hVisKpc: hVis() / boxScale, mobile, stars: layer.stars && hasStars,
+    const plan = viewPlan({ratio: ratios(k), hVisKpc: hVis() / boxScale, hVisPhysKpc: hVis(),
+      halfL2: half("L2"), halfL3: half("L3"), halfL4: half("L4"), mobile, stars: layer.stars && hasStars,
       hasL3: !!manifest?.levels?.L3, hasL4: !!manifest?.levels?.L4}), keys = [];
     for (const [kind, L] of plan.order) {
       if (kind === "gas") { if (!k) continue;
@@ -1089,12 +1094,13 @@ vec3 starAt(vec3 p, int l) {`)
   function freeVel() { for (const [key, it] of [...TEX]) if (key.startsWith("vel|") && !isBound(key)) { it.tex.dispose(); TEX.delete(key); } }
   function evict() {
     let total = gpuBytes(); if (total <= BUDGET) return;
-    const need = new Set(needed().keys), hv = hVis() / boxScale;
+    const need = new Set(needed().keys), hv = hVis() / boxScale, hvPhys = hVis();
+    const h2 = half("L2"), h3 = half("L3");
     const rank = key => { const [kind, k, L] = key.split("|");
       if (kind === "gas" && k !== species && k !== wKey(species)) return 0;   // other fields first
       if (kind === "vel" && !isVel(species)) return 0;
-      if ((L === "L4" || L === "S4") && hv > 25) return 1;
-      if ((L === "L3" || L === "S3") && hv > 60) return 1;
+      if ((L === "L4" || L === "S4") && hvPhys > Math.max(25 * boxScale, 2.5 * h3)) return 1;
+      if ((L === "L3" || L === "S3") && hvPhys > Math.max(60 * boxScale, 2.5 * h2)) return 1;
       if ((L === "L2" || L === "S2") && hv > 150) return 1; if (L === "S0" && hv < 60) return 1; return 2; };
     const cand = [...TEX.keys()].filter(k => !need.has(k) && !isBound(k)).sort((a, b) => rank(a) - rank(b) || TEX.get(a).used - TEX.get(b).used);
     for (const k of cand) { if (total <= BUDGET) break; const it = TEX.get(k); it.tex.dispose(); TEX.delete(k); total -= it.bytes; }
@@ -1105,10 +1111,13 @@ vec3 starAt(vec3 p, int l) {`)
   let curWinIdx = 0;
   function calcWinIdx() {
     if (!manifest || !species) return 0;
-    const hv = hVis() / boxScale, vel = isVel(species);
+    const hvPhys = hVis(), vel = isVel(species);
     const hasG = L => TEX.has(vel ? keyOf("vel", "", L) : keyOf("gas", species, L)) && (!vel || TEX.has(keyOf("gas", boundW, L)));
-    if (GAS_L.includes("L4") && hv <= 5.5 && hasG("L4") && hasG("L3")) return 2;
-    if (GAS_L.includes("L3") && hv <= 22 && hasG("L3")) return 1;
+    const h2 = half("L2"), h3 = half("L3");
+    const th2 = H0 === 400 ? 0.88 * h3 : 1.2 * h3;
+    const th1 = H0 === 400 ? 0.88 * h2 : 1.2 * h2;
+    if (GAS_L.includes("L4") && hvPhys <= th2 && hasG("L4") && hasG("L3")) return 2;
+    if (GAS_L.includes("L3") && hvPhys <= th1 && hasG("L3")) return 1;
     return 0;
   }
   const isBound = key => { const [kind, k, L] = key.split("|"), t = TEX.get(key)?.tex; if (!t) return false;
@@ -1590,7 +1599,7 @@ vec3 starAt(vec3 p, int l) {`)
     ring.quaternion.copy(camera.quaternion);
     const hv = hVis(), hh = hv * Math.min(camera.aspect || 1, 1);       // the smaller half-extent of the view at the target
     const r = frame.R200c <= 0.92 * hh ? frame.R200c : [...SCALE_CANDIDATES].reverse().find(v => v <= 0.8 * hh) || 5e-9;
-    ring.scale.setScalar(r / frame.R200c);
+    ring.scale.setScalar(r / ringR0);
     const len = Math.min(150 * boxScale, 0.7 * hv); arrow.setLength(len, 0.16 * len, 0.08 * len);
     if (r !== ringR) { ringR = r; const g = q(".v3d-leg .gd"), rTxt = fmtLenKpc(r);
       g.innerHTML = r === frame.R200c ? `<i></i>guides: ring R<sub>200c</sub> = ${fmtLenKpc(r)}<br><i></i>arrow: disk normal`
@@ -1716,12 +1725,12 @@ vec3 starAt(vec3 p, int l) {`)
 
   /* ---- presets ---- */
   let anim = 0;
-  const DEF_D = H0 === 400 ? 520 : (manifest?.levels?.L1 ? 2.8 * H0 : 4.2 * H0);
+  const defDist = () => (H0 === 400 ? 520 : (manifest?.levels?.L1 ? 2.8 * H0 : 4.2 * H0));
   /* tune4: the default camera keeps 60° from the disk normal but sits at azimuth 60° from xhat (was 0°): the page's default
      sightline (edge_b100_a090, along xhat 100 kpc above the disk) then projects about 83 kpc from the centre instead of
      straight through the disk, and the disk is seen from the same inclination */
   const DEF_AZ = 60 * Math.PI / 180;
-  const DEF_DIR = Lv.clone().multiplyScalar(0.5).addScaledVector(Xv, 0.866 * Math.cos(DEF_AZ)).addScaledVector(Yv, 0.866 * Math.sin(DEF_AZ)).normalize();
+  const defDir = () => Lv.clone().multiplyScalar(0.5).addScaledVector(Xv, 0.866 * Math.cos(DEF_AZ)).addScaledVector(Yv, 0.866 * Math.sin(DEF_AZ)).normalize();
   const upFor = dir => { const u = Lv.clone().addScaledVector(dir, -Lv.dot(dir)); return u.length() > 1e-6 ? u.normalize() : Yv.clone(); };
   function goTo(pos, target, up) {
     const id = ++anim, p0 = camera.position.clone(), t0 = controls.target.clone(), u0 = camera.up.clone(), start = performance.now(), dur = reduced() ? 0 : 550;
@@ -1743,10 +1752,10 @@ vec3 starAt(vec3 p, int l) {`)
       if (side.length() < 1e-6) side = new T.Vector3(1, 0, 0).cross(n); side.normalize();
       let up = Lv.clone().sub(side.clone().multiplyScalar(Lv.dot(side))); if (up.length() < 1e-6) up = n.clone(); up.normalize();
       goTo(c.clone().addScaledVector(side, Math.max(D, 1100 * boxScale)), c, up); }
-    else goTo(DEF_DIR.clone().multiplyScalar(DEF_D), o, upFor(DEF_DIR));
+    else { const d0 = defDir(); goTo(d0.clone().multiplyScalar(defDist()), o, upFor(d0)); }
     return true;
   }
-  camera.position.copy(DEF_DIR.clone().multiplyScalar(DEF_D)); camera.up.copy(upFor(DEF_DIR)); camera.lookAt(0, 0, 0); controls.update(); lastH = hVis();
+  { const d0 = defDir(); camera.position.copy(d0.clone().multiplyScalar(defDist())); camera.up.copy(upFor(d0)); camera.lookAt(0, 0, 0); controls.update(); lastH = hVis(); }
 
   /* ---- ux4 pivot (see PIVOT above): the orbit centre is controls.target. pivotTo slides camera and target together
      (same direction and distance), animated like the presets (instant under reduced motion). Right-drag panning and
@@ -1800,7 +1809,7 @@ vec3 starAt(vec3 p, int l) {`)
     return pivotTo(rayPivot(e.p0, e.p1), "ray"); }
   { const boot = (() => { try { const raw = location.search.replace(/^\?/, "").split("&").find(x => x.startsWith("pv="));
       return raw ? parsePivot(decodeURIComponent(raw.slice(3))) : null; } catch { return null; } })();
-    if (boot) { const t = V3(boot); camera.position.copy(t).addScaledVector(DEF_DIR, DEF_D); controls.target.copy(t); camera.lookAt(t); controls.update(); pivotUrlLast = formatPivot(boot); }
+    if (boot) { const t = V3(boot); camera.position.copy(t).addScaledVector(defDir(), defDist()); controls.target.copy(t); camera.lookAt(t); controls.update(); pivotUrlLast = formatPivot(boot); }
     const camBoot = (() => { try { const raw = location.search.replace(/^\?/, "").split("&").find(x => x.startsWith("cam="));
       return raw ? parseCam(decodeURIComponent(raw.slice(4))) : null; } catch { return null; } })();
     if (camBoot) { camera.position.set(...camBoot.p); camera.up.set(...camBoot.u).normalize(); camera.lookAt(controls.target); controls.update(); } }
@@ -1823,11 +1832,181 @@ vec3 starAt(vec3 p, int l) {`)
     return best;
   }
   let down = null;
+  let zoomedHalo = null, cosmicWebContext = null;
+
+  function applyManifestGeometry(newMan, newBase, newFallback = null) {
+    loadTok++;
+    for (const [k, ws] of [...waiters]) {
+      waiters.delete(k);
+      for (const w of ws) w[1](Object.assign(new Error("volume context switched"), {cancelled: true}));
+    }
+    for (const it of TEX.values()) it.tex.dispose();
+    TEX.clear(); PEND.clear(); FADE.clear(); PROG.clear(); failed.clear(); tries.clear();
+    for (const sl of [...SLOT.gas, ...SLOT.w]) U[sl].value = RM.empty1;
+    for (const sl of [...SLOT.stars, ...SLOT.vel]) U[sl].value = RM.empty4;
+    U.uGasHave.value.set(0, 0, 0); U.uWHave.value.set(0, 0, 0); U.uStarHave.value.set(0, 0, 0); U.uVelHave.value.set(0, 0, 0);
+
+    manifest = newMan;
+    loader = manifest ? makeLoader({manifest, base: newBase, fallbackBase: newFallback, cache: true}) : null;
+    if (manifest?.galaxy) {
+      for (const k of ["Lhat", "xhat", "yhat"]) if (manifest.galaxy[k]) frame[k] = manifest.galaxy[k];
+      if (manifest.galaxy.R200c_kpc) frame.R200c = manifest.galaxy.R200c_kpc;
+    }
+    frame.Lhat ||= [0, 0, 1]; frame.xhat ||= [1, 0, 0]; frame.yhat ||= [0, 1, 0];
+    Lv.set(...frame.Lhat).normalize(); Xv.set(...frame.xhat).normalize(); Yv.set(...frame.yhat).normalize();
+
+    H0 = manifest?.levels?.L0?.half_kpc ?? 400;
+    boxScale = H0 / 400;
+    finestHalf = Math.min(...["L0", "L1", "L2", "L3", "L4"].map(L => manifest?.levels?.[L]?.half_kpc).filter(x => Number.isFinite(x) && x > 0), H0);
+    GAS_L = ["L0", "L1", "L2", "L3", "L4"].filter(L => manifest?.levels?.[L]); if (!GAS_L.length) GAS_L = GAS_L_DEF;
+    STAR_L = ["S0", "S1", "S2", "S3", "S4"].filter(L => manifest?.levels?.[L]); if (!STAR_L.length) STAR_L = manifest?.stars?.levels?.length ? STAR_L_DEF : [];
+    hasStars = !!(manifest?.stars && (!Array.isArray(manifest.stars.levels) || manifest.stars.levels.length > 0));
+    SPEC = [...speciesList(cfg.ions, manifest), ...velocityList(manifest)];
+    VELI = velocityInfo(manifest);
+    WEIGHTS = ["nH", ...ION_KEYS].filter(k => fld(k)?.cubes && fld(k).kind === "density");
+    if (!WEIGHTS.includes(velW)) velW = WEIGHTS[0] || "nH";
+    boundW = velW;
+
+    camera.near = H0 === 400 ? (manifest?.levels?.L3 ? 0.05 : 0.5) : Math.max(1e-7, 1e-4 * finestHalf);
+    camera.far = H0 === 400 ? 20000 : Math.max(50 * H0, 100);
+    camera.updateProjectionMatrix();
+    controls.minDistance = H0 === 400 ? (manifest?.levels?.L4 ? 0.4 : manifest?.levels?.L3 ? 1.5 : 15) : 0.25 * finestHalf;
+    controls.maxDistance = H0 === 400 ? 5600 : 14 * H0;
+
+    curWinIdx = 0;
+    U.uHalf.value.set(half("L0"), half("L1"), half("L2"));
+    U.uMask0.value = mask0();
+    if (U.uL1Half) U.uL1Half.value = 100.0 * boxScale;
+    selU.uGal.value.set(SEL_GAL.r0 * boxScale, SEL_GAL.r1 * boxScale, SEL_GAL.front, SEL_GAL.back);
+
+    volMesh.geometry.dispose();
+    volMesh.geometry = new T.BoxGeometry(2 * half("L0"), 2 * half("L0"), 2 * half("L0"));
+    volMesh.matrix.makeBasis(Xv, Yv, Lv);
+    volMesh.updateMatrixWorld(true);
+    volMesh.visible = !!manifest;
+
+    for (const id of ["#v3-stars", "#v3-starmix", "#v3-mu0", "#v3-dust", "#v3-dust-law"]) {
+      const inp = q(id); if (inp) inp.disabled = !manifest || !hasStars;
+    }
+    tfBaked = ""; lastCmap = null; calibrated = ""; accK = 0;
+  }
+
+  async function zoomHalo(haloOrId) {
+    const h = typeof haloOrId === "object" && haloOrId !== null
+      ? haloOrId
+      : haloOverlay.halos.find(x => String(x.id) === String(haloOrId) || String(x.short_id) === String(haloOrId)) || haloOverlay.selected;
+    if (!h || !h.viz_base) return false;
+    const manUrl = h.viz_base.replace(/\/?$/, "/") + "manifest_v2.json";
+    say(`loading 5-level 3D halo ${h.short_id || h.id} (400 kpc → 12 pc)…`, false, false, "", true);
+    let newMan;
+    try {
+      newMan = await loadManifestV2(manUrl, {fetchText, timeoutMs: 12000});
+    } catch (x) {
+      say(`Could not load 3D halo manifest for ${h.short_id || h.id}: ${x.message}`, true, true);
+      return false;
+    }
+    if (!cosmicWebContext) {
+      cosmicWebContext = {
+        manifest,
+        base: viz?.base || "",
+        fallbackBase: viz?.fallback_base || null,
+        frame: {Lhat: [...frame.Lhat], xhat: [...frame.xhat], yhat: [...frame.yhat], R200c: frame.R200c},
+        camPos: camera.position.clone(),
+        camTarget: controls.target.clone(),
+        camUp: camera.up.clone(),
+        tfIntegral: JSON.parse(JSON.stringify(tf.integral)),
+        tfVolume: JSON.parse(JSON.stringify(tf.volume)),
+        species: species || wanted || "nH",
+        starsOn: layer.stars,
+      };
+    }
+    zoomedHalo = h;
+    tf.integral = {}; tf.volume = {};
+    for (const k of Object.keys(tfs)) delete tfs[k];
+    const keepSpec = species || wanted || "nH";
+    species = null; wanted = null;
+    applyManifestGeometry(newMan, h.viz_base.replace(/\/?$/, "/"), null);
+    layer.stars = !mobile && hasStars;
+    q("#v3-stars").checked = layer.stars;
+
+    lines.visible = false;
+    selGroup.visible = false;
+    haloOverlay.setZoomedUi(true, h);
+    idBadge();
+
+    const d0 = defDir();
+    anim++;
+    controls.target.set(0, 0, 0);
+    camera.position.copy(d0.clone().multiplyScalar(defDist()));
+    camera.up.copy(upFor(d0));
+    camera.lookAt(0, 0, 0);
+    controls.update();
+    syncPivot(false);
+
+    const sp = canShow(keepSpec) ? keepSpec : fld("nH") ? "nH" : Object.keys(manifest.gas?.fields || {})[0] || "nH";
+    await setSpecies(sp);
+    return true;
+  }
+
+  async function exitHaloZoom() {
+    if (!cosmicWebContext) return false;
+    const ctx = cosmicWebContext;
+    cosmicWebContext = null;
+    zoomedHalo = null;
+    const keepSpec = species || wanted || ctx.species || "nH";
+    species = null; wanted = null;
+    Object.assign(frame, ctx.frame);
+    applyManifestGeometry(ctx.manifest, ctx.base, ctx.fallbackBase);
+    tf.integral = ctx.tfIntegral || {};
+    tf.volume = ctx.tfVolume || {};
+    for (const k of Object.keys(tfs)) delete tfs[k];
+    layer.stars = ctx.starsOn && hasStars;
+    q("#v3-stars").checked = layer.stars;
+
+    haloOverlay.setZoomedUi(false);
+    refreshLines();
+    idBadge();
+
+    anim++;
+    controls.target.copy(ctx.camTarget);
+    camera.position.copy(ctx.camPos);
+    camera.up.copy(ctx.camUp);
+    camera.lookAt(controls.target);
+    controls.update();
+    syncPivot(false);
+
+    const sp = canShow(keepSpec) ? keepSpec : fld("nH") ? "nH" : "nH";
+    await setSpecies(sp);
+    return true;
+  }
+
+  const haloOverlay = createHaloOverlay({
+    T,
+    scene,
+    camera,
+    stage,
+    canvas,
+    app,
+    getH0: () => H0,
+    pivotTo: (p, why) => pivotTo(p, why),
+    render: () => render(),
+    onZoomHalo: h => zoomHalo(h),
+    onExitHaloZoom: () => exitHaloZoom(),
+    isZoomedHalo: () => !!zoomedHalo,
+  });
+  let haloReady = haloOverlay.syncSimulation();
+
   canvas.addEventListener("pointerdown", ev => { down = {x: ev.clientX, y: ev.clientY, t: performance.now()}; });
   canvas.addEventListener("pointerup", ev => { if (!down || viewer.picking || docked !== "full") { down = null; return; }
     const moved = Math.hypot(ev.clientX - down.x, ev.clientY - down.y), dt = performance.now() - down.t; down = null;
     if (moved >= (ev.pointerType === "touch" ? 6 : 5) || dt >= 400) return;
-    const r = canvas.getBoundingClientRect(), id = nearestLine(ev.clientX - r.left, ev.clientY - r.top, ev.pointerType === "touch" ? 14 : 8);
+    const r = canvas.getBoundingClientRect();
+    const cx = ev.clientX - r.left, cy = ev.clientY - r.top;
+    if (!zoomedHalo) {
+      const hHit = haloOverlay.nearestHalo(cx, cy, ev.pointerType === "touch" ? 22 : 16);
+      if (hHit) { sfx("select"); haloOverlay.selectHalo(hHit); return; }
+    }
+    const id = nearestLine(cx, cy, ev.pointerType === "touch" ? 14 : 8);
     if (id) app.select(id, {source: "3d"}); });
 
   /* ---- fullscreen: Fullscreen API on .v3d (stage + controls), CSS fallback with its own Esc ---- */
@@ -1928,6 +2107,7 @@ vec3 starAt(vec3 p, int l) {`)
   q("#v3-stars").addEventListener("change", ev => setStars({on: ev.target.checked}));
   q("#v3-dust").addEventListener("change", ev => setStars({dust: ev.target.checked}));
   q("#v3-dust-law").addEventListener("change", ev => setStars({dustLaw: ev.target.value}));
+  q("#v3-halos")?.addEventListener("change", ev => haloOverlay.setEnabled(ev.target.checked));
   q("#v3-guides").addEventListener("change", ev => setGuides({ring: ev.target.checked}));
   q("#v3-scale").addEventListener("change", ev => setGuides({scale: ev.target.checked}));
   q("#v3-lines").addEventListener("change", ev => setLines(ev.target.value));
@@ -1961,12 +2141,21 @@ vec3 starAt(vec3 p, int l) {`)
     idEl.hidden = id == null || typeof app.openCredits !== "function"; if (id == null) return;
     const ge = (typeof app.galaxies === "function" ? app.galaxies().find(x => x.id === id) : null) || {};
     const sim = ge.sim || g.sim || "SIMBA-100", z = g.redshift ?? 0;
+    if (zoomedHalo) {
+      const nLv = GAS_L.length;
+      const scaleSpan = H0 >= 2000 ? `${+(H0 / 1000).toFixed(1)} Mpc → 15 kpc` : "400 kpc → 12 pc";
+      idEl.querySelector(".s").textContent = sim;
+      idEl.querySelector(".g").textContent = `${zoomedHalo.short_id || zoomedHalo.id} (${nLv}-Level ${scaleSpan})`;
+      idEl.querySelector(".z").textContent = `z = ${z}`;
+      idEl.setAttribute("aria-label", `${sim} ${zoomedHalo.short_id || zoomedHalo.id} ${nLv}-level 3D zoom at redshift ${z}, data credits`);
+      return;
+    }
     const boxMpc = ge.box_Mpc ? `${ge.box_Mpc} Mpc` : g.box_Mpc ? `${g.box_Mpc} Mpc` : g.box_kpc ? `${+(g.box_kpc / 1000).toFixed(1)} Mpc` : (g.R200c_kpc >= 1000 ? `${+(8 * g.R200c_kpc / 1000).toFixed(1)} Mpc` : `${id}`);
-    idEl.querySelector(".s").textContent = sim; idEl.querySelector(".g").textContent = `Cosmic Web · ${boxMpc} Box`; idEl.querySelector(".z").textContent = `z = ${z}`;
-    idEl.setAttribute("aria-label", `${sim} Cosmic Web · ${boxMpc} Box at redshift ${z}, data credits`); }
+    idEl.querySelector(".s").textContent = sim; idEl.querySelector(".g").textContent = `Cosmic Web — ${boxMpc} Box`; idEl.querySelector(".z").textContent = `z = ${z}`;
+    idEl.setAttribute("aria-label", `${sim} Cosmic Web ${boxMpc} Box at redshift ${z}, data credits`); }
   idEl?.addEventListener("click", ev => { ev.stopPropagation(); app.openCredits?.(idEl); });
   idEl?.addEventListener("pointerdown", ev => ev.stopPropagation());
-  const onGal = () => idBadge(); addEventListener("tng:galaxy", onGal); idBadge();
+  const onGal = () => { idBadge(); haloReady = haloOverlay.syncSimulation(); }; addEventListener("tng:galaxy", onGal); idBadge();
   /* tf3d API: setTf("ramp" | "thor" | "nelson16" | "iso" | "clouds" | state) for the current field; tfState() a copy; tfOn() */
   function setTf(x) { if (typeof x === "string") return tfApplyPreset(x); if (!x || !tfOk(species)) return false;
     onTfEdit({...tfState(species), ...x, preset: x.preset || "custom"}, {commit: true, reason: "api"}); syncTfCard(); return true; }
@@ -2100,11 +2289,18 @@ vec3 starAt(vec3 p, int l) {`)
   };
   document.addEventListener("pointerdown", onDocClickSave);
 
+  Object.defineProperty(viewer, "halos", {get: () => haloOverlay.halos, enumerable: true});
+  Object.defineProperty(viewer, "selectedHalo", {get: () => haloOverlay.selected, enumerable: true});
+  Object.defineProperty(viewer, "zoomedHalo", {get: () => zoomedHalo, enumerable: true});
   Object.assign(viewer, {getSceneSnapshot, applySceneSnapshot, getDeepLink: writeCamUrl, copyCamLink,
     exportPNG, exportSVG, exportPDF, exportHTML, exportJSON,
+    selectHalo: (h, o) => haloOverlay.selectHalo(h, o), clearHalo: () => haloOverlay.clearSelection(),
+    zoomHalo, exitHaloZoom, setHalos: on => { const inp = q("#v3-halos"); if (inp) inp.checked = !!on; return haloOverlay.setEnabled(on); },
+    nearestHalo: (x, y, m) => haloOverlay.nearestHalo(x, y, m),
     drawNow: () => draw(true), volScene, setSpecies, setPreset, setTransfer, setWeight, setLines, select: id => select(id), refreshLines, resize, render, bench, nearestLine,
     setMode, setStars, setGuides, toggleFullscreen, levels, gpuBytes, texKeys: () => [...TEX.keys()], movingQuality: () => movGov.state(),
     dispose() { loadTok++; anim++; progMsg = null; ENGINE = null; io?.disconnect(); if (spinRaf) cancelAnimationFrame(spinRaf); spinRaf = 0;
+      haloOverlay.dispose();
       document.removeEventListener("pointerdown", onDocClickSave);
       document.removeEventListener("visibilitychange", spinKick); if (thumbHost && thumbClick) thumbHost.removeEventListener("click", thumbClick); ctlBox.remove(); clearTimeout(quietT); clearTimeout(progT); clearTimeout(liveT); if (accT) cancelAnimationFrame(accT); accT = 0; if (calPoll) cancelAnimationFrame(calPoll); calPoll = 0;
       if (fallbackFs) toggleFullscreen(false); else if (fsEl() === el) document.exitFullscreen?.().catch(() => {});
@@ -2233,6 +2429,7 @@ vec3 starAt(vec3 p, int l) {`)
   let started = null;
   function _start(k) {
     return started ||= (async () => {
+      await haloReady.catch(() => {});
       if (!manifest && hostDown) { hostMessage(new HostError(manErr || "no answer", hostDown)); return false; }
       if (!manifest) { say(viz ? `3D data not available${manErr ? ` (${manErr})` : ""}. Sightlines, ray picking and the spectra still work.` : "3D data not published for this build. Sightlines, ray picking and the spectra still work."); return false; }
       /* tf3d: ?tf=<field>~<state> restores volume mode with that field's transfer function */

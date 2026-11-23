@@ -326,8 +326,10 @@ export function levelForView({hVisKpc, mobile = false, deviceMemory = 8} = {}) {
    ratio = {L1, L2, S1, S2}: voxel size / (LOD constant × kpc per drawing-buffer pixel at the box's nearest point).
    L1 is skipped only in very wide views where its voxel is under half a footprint (ratio < 0.5). Other fields are never
    in the plan: they load when they are selected. */
-export function viewPlan({ratio = {}, hVisKpc, mobile = false, stars = false, hasL3 = false, hasL4 = false} = {}) {
-  const h = Number.isFinite(hVisKpc) ? hVisKpc : 153, r = k => (Number.isFinite(ratio[k]) ? ratio[k] : 0);
+export function viewPlan({ratio = {}, hVisKpc, hVisPhysKpc, halfL2 = 25, halfL3 = 6.25, halfL4 = 1.5, mobile = false, stars = false, hasL3 = false, hasL4 = false} = {}) {
+  const h = Number.isFinite(hVisKpc) ? hVisKpc : 153, hPhys = Number.isFinite(hVisPhysKpc) ? hVisPhysKpc : h, r = k => (Number.isFinite(ratio[k]) ? ratio[k] : 0);
+  const h2 = Number.isFinite(halfL2) && halfL2 > 0 ? halfL2 : 25;
+  const h3 = Number.isFinite(halfL3) && halfL3 > 0 ? halfL3 : 6.25;
   const fine = !mobile || h < 60;
   const gas = ["L0"], st = [];
   if (!Number.isFinite(ratio.L1) || r("L1") >= 0.5) gas.push("L1");
@@ -335,10 +337,11 @@ export function viewPlan({ratio = {}, hVisKpc, mobile = false, stars = false, ha
   const order = [...gas.map(L => ["gas", L]), ...st.map(S => ["stars", S])];
   if (fine && r("L2") >= 1) order.push(["gas", "L2"]);
   if (stars && fine && r("S2") >= 1) order.push(["stars", "S2"]);
-  if (fine && h < 25 && (r("L3") >= 0.35 || (hasL3 && !Number.isFinite(ratio.L3)))) order.push(["gas", "L3"]);
-  if (stars && fine && h < 25 && (r("S3") >= 0.35 || r("L3") >= 0.35 || (hasL3 && !Number.isFinite(ratio.S3)))) order.push(["stars", "S3"]);
-  if (fine && h < 6.25 && (r("L4") >= 0.35 || (hasL4 && !Number.isFinite(ratio.L4)))) order.push(["gas", "L4"]);
-  if (stars && fine && h < 6.25 && (r("S4") >= 0.35 || r("L4") >= 0.35 || (hasL4 && !Number.isFinite(ratio.S4)))) order.push(["stars", "S4"]);
+  const thL3 = Math.max(25, 1.5 * h2), thL4 = Math.max(6.25, 1.5 * h3);
+  if (fine && hPhys < thL3 && (r("L3") >= 0.35 || (hasL3 && (r("L3") >= 0.15 || !Number.isFinite(ratio.L3))))) order.push(["gas", "L3"]);
+  if (stars && fine && hPhys < thL3 && (r("S3") >= 0.35 || r("L3") >= 0.35 || (hasL3 && (r("S3") >= 0.15 || r("L3") >= 0.15 || !Number.isFinite(ratio.S3))))) order.push(["stars", "S3"]);
+  if (fine && hPhys < thL4 && (r("L4") >= 0.35 || (hasL4 && (r("L4") >= 0.15 || !Number.isFinite(ratio.L4))))) order.push(["gas", "L4"]);
+  if (stars && fine && hPhys < thL4 && (r("S4") >= 0.35 || r("L4") >= 0.35 || (hasL4 && (r("S4") >= 0.15 || r("L4") >= 0.15 || !Number.isFinite(ratio.S4))))) order.push(["stars", "S4"]);
   if (stars && !mobile && h > 150) order.push(["stars", "S0"]);
   return {order, gas: order.filter(o => o[0] === "gas").map(o => o[1]), stars: order.filter(o => o[0] === "stars").map(o => o[1])};
 }

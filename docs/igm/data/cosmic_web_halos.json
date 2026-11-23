@@ -1,0 +1,5369 @@
+{
+  "simba100_cosmic_web": [
+    {
+      "id": "simba100_c01_h0",
+      "short_id": "Cluster #1 (Halo 0)",
+      "kind": "cluster",
+      "pos_kpc": [
+        66943.82,
+        21998.3,
+        40048.72
+      ],
+      "logMstar": 12.65,
+      "logM200c": 14.97,
+      "R200c_kpc": 2056.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c01_h0/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c01_h0#tab=3d"
+    },
+    {
+      "id": "simba100_c02_h1",
+      "short_id": "Cluster #2 (Halo 1)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -68418.67,
+        -58214.72,
+        8448.87
+      ],
+      "logMstar": 12.29,
+      "logM200c": 14.79,
+      "R200c_kpc": 1792.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c02_h1/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c02_h1#tab=3d"
+    },
+    {
+      "id": "simba100_c03_h2",
+      "short_id": "Cluster #3 (Halo 2)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -68356.17,
+        -34908.96,
+        -23937.76
+      ],
+      "logMstar": 12.15,
+      "logM200c": 14.74,
+      "R200c_kpc": 1727.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c03_h2/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c03_h2#tab=3d"
+    },
+    {
+      "id": "simba100_c04_h4",
+      "short_id": "Cluster #4 (Halo 4)",
+      "kind": "cluster",
+      "pos_kpc": [
+        1332.29,
+        2628.32,
+        2427.86
+      ],
+      "logMstar": 11.92,
+      "logM200c": 14.57,
+      "R200c_kpc": 1508.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c04_h4/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c04_h4#tab=3d"
+    },
+    {
+      "id": "simba100_c05_h5",
+      "short_id": "Cluster #5 (Halo 5)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -43652.91,
+        -27369.75,
+        4169.75
+      ],
+      "logMstar": 12.61,
+      "logM200c": 14.56,
+      "R200c_kpc": 1502.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c05_h5/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c05_h5#tab=3d"
+    },
+    {
+      "id": "simba100_c06_h6",
+      "short_id": "Cluster #6 (Halo 6)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -44584.86,
+        -19144.82,
+        3621.23
+      ],
+      "logMstar": 11.83,
+      "logM200c": 14.42,
+      "R200c_kpc": 1343.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c06_h6/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c06_h6#tab=3d"
+    },
+    {
+      "id": "simba100_c07_h3",
+      "short_id": "Cluster #7 (Halo 3)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -4498.29,
+        5271.99,
+        17977.84
+      ],
+      "logMstar": 12.18,
+      "logM200c": 14.41,
+      "R200c_kpc": 1332.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c07_h3/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c07_h3#tab=3d"
+    },
+    {
+      "id": "simba100_c08_h9",
+      "short_id": "Cluster #8 (Halo 9)",
+      "kind": "cluster",
+      "pos_kpc": [
+        16880.04,
+        -68979.4,
+        -41037.94
+      ],
+      "logMstar": 11.88,
+      "logM200c": 14.26,
+      "R200c_kpc": 1187.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c08_h9/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c08_h9#tab=3d"
+    },
+    {
+      "id": "simba100_c09_h8",
+      "short_id": "Cluster #9 (Halo 8)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -12301.17,
+        -3797.25,
+        1544.35
+      ],
+      "logMstar": 11.93,
+      "logM200c": 14.22,
+      "R200c_kpc": 1159.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c09_h8/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c09_h8#tab=3d"
+    },
+    {
+      "id": "simba100_c10_h12",
+      "short_id": "Cluster #10 (Halo 12)",
+      "kind": "cluster",
+      "pos_kpc": [
+        70500.89,
+        28667.02,
+        19721.11
+      ],
+      "logMstar": 11.94,
+      "logM200c": 14.14,
+      "R200c_kpc": 1087.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/simba100_c10_h12/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=simba100_c10_h12#tab=3d"
+    },
+    {
+      "id": "simba100_g1209",
+      "short_id": "Galaxy #1209",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -55697.16,
+        69858.75,
+        21819.27
+      ],
+      "logMstar": 10.86,
+      "logM200c": 12.19,
+      "R200c_kpc": 243.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g1209/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g1209#tab=3d"
+    },
+    {
+      "id": "simba100_g1321",
+      "short_id": "Galaxy #1321",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6556.02,
+        -53387.11,
+        36413.14
+      ],
+      "logMstar": 10.83,
+      "logM200c": 12.03,
+      "R200c_kpc": 214.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g1321/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g1321#tab=3d"
+    },
+    {
+      "id": "simba100_g1644",
+      "short_id": "Galaxy #1644",
+      "kind": "galaxy",
+      "pos_kpc": [
+        8785.1,
+        56210.81,
+        -41192.21
+      ],
+      "logMstar": 10.76,
+      "logM200c": 12.1,
+      "R200c_kpc": 227.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g1644/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g1644#tab=3d"
+    },
+    {
+      "id": "simba100_g2033",
+      "short_id": "Galaxy #2033",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -40477.23,
+        -44564.22,
+        10083.21
+      ],
+      "logMstar": 10.69,
+      "logM200c": 12.07,
+      "R200c_kpc": 222.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g2033/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g2033#tab=3d"
+    },
+    {
+      "id": "simba100_g2334",
+      "short_id": "Galaxy #2334",
+      "kind": "galaxy",
+      "pos_kpc": [
+        21056.43,
+        33616.66,
+        24421.27
+      ],
+      "logMstar": 10.64,
+      "logM200c": 12.09,
+      "R200c_kpc": 224.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g2334/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g2334#tab=3d"
+    },
+    {
+      "id": "simba100_g2515",
+      "short_id": "Galaxy #2515",
+      "kind": "galaxy",
+      "pos_kpc": [
+        67549.0,
+        26893.77,
+        22168.81
+      ],
+      "logMstar": 10.61,
+      "logM200c": 12.19,
+      "R200c_kpc": 244.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g2515/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g2515#tab=3d"
+    },
+    {
+      "id": "simba100_g2698",
+      "short_id": "Galaxy #2698",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -3868.94,
+        67194.75,
+        -8089.38
+      ],
+      "logMstar": 10.59,
+      "logM200c": 12.04,
+      "R200c_kpc": 216.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g2698/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g2698#tab=3d"
+    },
+    {
+      "id": "simba100_g2849",
+      "short_id": "Galaxy #2849",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -18772.97,
+        33089.63,
+        65490.01
+      ],
+      "logMstar": 10.57,
+      "logM200c": 12.18,
+      "R200c_kpc": 242.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g2849/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g2849#tab=3d"
+    },
+    {
+      "id": "simba100_g3032",
+      "short_id": "Galaxy #3032",
+      "kind": "galaxy",
+      "pos_kpc": [
+        19323.65,
+        11023.38,
+        25319.92
+      ],
+      "logMstar": 10.54,
+      "logM200c": 11.94,
+      "R200c_kpc": 200.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g3032/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g3032#tab=3d"
+    },
+    {
+      "id": "simba100_g3180",
+      "short_id": "Galaxy #3180",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -9517.18,
+        15221.93,
+        6089.4
+      ],
+      "logMstar": 10.52,
+      "logM200c": 11.97,
+      "R200c_kpc": 204.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g3180/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g3180#tab=3d"
+    },
+    {
+      "id": "simba100_g3254",
+      "short_id": "Galaxy #3254",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -31116.12,
+        55174.45,
+        30603.44
+      ],
+      "logMstar": 10.51,
+      "logM200c": 11.98,
+      "R200c_kpc": 207.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g3254/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g3254#tab=3d"
+    },
+    {
+      "id": "simba100_g3380",
+      "short_id": "Galaxy #3380",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -5321.33,
+        -70688.45,
+        -42136.5
+      ],
+      "logMstar": 10.49,
+      "logM200c": 12.0,
+      "R200c_kpc": 210.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g3380/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g3380#tab=3d"
+    },
+    {
+      "id": "simba100_g3477",
+      "short_id": "Galaxy #3477",
+      "kind": "galaxy",
+      "pos_kpc": [
+        47358.87,
+        -115.11,
+        18452.24
+      ],
+      "logMstar": 10.48,
+      "logM200c": 12.01,
+      "R200c_kpc": 211.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g3477/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g3477#tab=3d"
+    },
+    {
+      "id": "simba100_g723",
+      "short_id": "Galaxy #723",
+      "kind": "galaxy",
+      "pos_kpc": [
+        58458.8,
+        69812.53,
+        26910.65
+      ],
+      "logMstar": 11.0,
+      "logM200c": 12.42,
+      "R200c_kpc": 291.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g723/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g723#tab=3d"
+    },
+    {
+      "id": "simba100_g825",
+      "short_id": "Galaxy #825",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1253.27,
+        -49394.4,
+        67954.25
+      ],
+      "logMstar": 10.97,
+      "logM200c": 12.19,
+      "R200c_kpc": 243.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/simba-z0-web-0/resolve/main/simba100_g825/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=simba100_g825#tab=3d"
+    }
+  ],
+  "tng50_cosmic_web": [
+    {
+      "id": "tng50_c01_fof0",
+      "short_id": "Cluster #1 (FoF 0)",
+      "kind": "cluster",
+      "pos_kpc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "logMstar": 12.89,
+      "logM200c": 14.26,
+      "R200c_kpc": 1198.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14859514/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14859514#tab=3d"
+    },
+    {
+      "id": "tng50_c02_fof1",
+      "short_id": "Cluster #2 (FoF 1)",
+      "kind": "cluster",
+      "pos_kpc": [
+        24157.93,
+        -13885.19,
+        24872.7
+      ],
+      "logMstar": 12.5,
+      "logM200c": 13.97,
+      "R200c_kpc": 959.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng50_c03_fof2",
+      "short_id": "Cluster #3 (FoF 2)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -22455.58,
+        -25092.13,
+        -25469.6
+      ],
+      "logMstar": 12.39,
+      "logM200c": 13.81,
+      "R200c_kpc": 846.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng50_c04_fof3",
+      "short_id": "Cluster #4 (FoF 3)",
+      "kind": "cluster",
+      "pos_kpc": [
+        12168.83,
+        7090.33,
+        6923.37
+      ],
+      "logMstar": 12.43,
+      "logM200c": 13.55,
+      "R200c_kpc": 692.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng50_c05_fof6",
+      "short_id": "Cluster #5 (FoF 6)",
+      "kind": "cluster",
+      "pos_kpc": [
+        24493.19,
+        22563.9,
+        -22949.6
+      ],
+      "logMstar": 12.19,
+      "logM200c": 13.54,
+      "R200c_kpc": 688.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng50_c06_fof7",
+      "short_id": "Cluster #6 (FoF 7)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -15099.64,
+        8421.21,
+        -13536.6
+      ],
+      "logMstar": 12.17,
+      "logM200c": 13.53,
+      "R200c_kpc": 680.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng50_c07_fof9",
+      "short_id": "Cluster #7 (FoF 9)",
+      "kind": "cluster",
+      "pos_kpc": [
+        3538.09,
+        -23228.87,
+        23365.36
+      ],
+      "logMstar": 12.13,
+      "logM200c": 13.52,
+      "R200c_kpc": 675.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng50_c08_fof4",
+      "short_id": "Cluster #8 (FoF 4)",
+      "kind": "cluster",
+      "pos_kpc": [
+        20126.79,
+        23042.75,
+        14445.05
+      ],
+      "logMstar": 12.32,
+      "logM200c": 13.51,
+      "R200c_kpc": 671.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng50_c09_fof11",
+      "short_id": "Cluster #9 (FoF 11)",
+      "kind": "cluster",
+      "pos_kpc": [
+        20768.54,
+        -6763.22,
+        -8512.21
+      ],
+      "logMstar": 12.11,
+      "logM200c": 13.49,
+      "R200c_kpc": 661.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng50_c10_fof8",
+      "short_id": "Cluster #10 (FoF 8)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -5426.1,
+        -8574.58,
+        -11950.35
+      ],
+      "logMstar": 12.02,
+      "logM200c": 13.44,
+      "R200c_kpc": 637.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "342447",
+      "short_id": "Subhalo 342447",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -25481.42,
+        24028.09,
+        19019.81
+      ],
+      "logMstar": 10.98,
+      "logM200c": 12.85,
+      "R200c_kpc": 403.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/342447/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=342447#tab=3d"
+    },
+    {
+      "id": "358609",
+      "short_id": "Subhalo 358609",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -5667.67,
+        -10318.49,
+        -13064.2
+      ],
+      "logMstar": 10.99,
+      "logM200c": 12.7,
+      "R200c_kpc": 361.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/358609/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=358609#tab=3d"
+    },
+    {
+      "id": "372754",
+      "short_id": "Subhalo 372754",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -10897.74,
+        23160.6,
+        244.74
+      ],
+      "logMstar": 11.28,
+      "logM200c": 12.66,
+      "R200c_kpc": 351.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/372754/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=372754#tab=3d"
+    },
+    {
+      "id": "372755",
+      "short_id": "Subhalo 372755",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -10700.64,
+        22667.01,
+        895.71
+      ],
+      "logMstar": 10.84,
+      "logM200c": 12.66,
+      "R200c_kpc": 351.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/372755/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=372755#tab=3d"
+    },
+    {
+      "id": "388544",
+      "short_id": "Subhalo 388544",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1316.83,
+        5414.95,
+        -3330.6
+      ],
+      "logMstar": 11.27,
+      "logM200c": 12.66,
+      "R200c_kpc": 350.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/388544/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=388544#tab=3d"
+    },
+    {
+      "id": "392277",
+      "short_id": "Subhalo 392277",
+      "kind": "galaxy",
+      "pos_kpc": [
+        24968.68,
+        2873.9,
+        2377.55
+      ],
+      "logMstar": 10.71,
+      "logM200c": 12.6,
+      "R200c_kpc": 333.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/392277/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=392277#tab=3d"
+    },
+    {
+      "id": "400973",
+      "short_id": "Subhalo 400973",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -12752.53,
+        7088.55,
+        576.39
+      ],
+      "logMstar": 11.23,
+      "logM200c": 12.58,
+      "R200c_kpc": 328.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/400973/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=400973#tab=3d"
+    },
+    {
+      "id": "400974",
+      "short_id": "Subhalo 400974",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -13443.71,
+        7247.78,
+        1210.09
+      ],
+      "logMstar": 10.59,
+      "logM200c": 12.58,
+      "R200c_kpc": 328.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/400974/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=400974#tab=3d"
+    },
+    {
+      "id": "402555",
+      "short_id": "Subhalo 402555",
+      "kind": "galaxy",
+      "pos_kpc": [
+        17628.63,
+        5210.04,
+        5832.81
+      ],
+      "logMstar": 11.13,
+      "logM200c": 12.42,
+      "R200c_kpc": 291.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/402555/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=402555#tab=3d"
+    },
+    {
+      "id": "411449",
+      "short_id": "Subhalo 411449",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -16463.21,
+        2959.49,
+        2808.98
+      ],
+      "logMstar": 11.22,
+      "logM200c": 12.59,
+      "R200c_kpc": 331.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/411449/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=411449#tab=3d"
+    },
+    {
+      "id": "414917",
+      "short_id": "Subhalo 414917",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1232.98,
+        -15071.44,
+        5644.13
+      ],
+      "logMstar": 11.18,
+      "logM200c": 12.45,
+      "R200c_kpc": 298.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/414917/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=414917#tab=3d"
+    },
+    {
+      "id": "414918",
+      "short_id": "Subhalo 414918",
+      "kind": "galaxy",
+      "pos_kpc": [
+        911.78,
+        -14316.48,
+        5307.58
+      ],
+      "logMstar": 10.51,
+      "logM200c": 12.45,
+      "R200c_kpc": 298.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/414918/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=414918#tab=3d"
+    },
+    {
+      "id": "416713",
+      "short_id": "Subhalo 416713",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -14804.63,
+        -10327.75,
+        -16976.41
+      ],
+      "logMstar": 11.14,
+      "logM200c": 12.57,
+      "R200c_kpc": 325.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/416713/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=416713#tab=3d"
+    },
+    {
+      "id": "419618",
+      "short_id": "Subhalo 419618",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -16002.86,
+        -17096.56,
+        -17938.39
+      ],
+      "logMstar": 10.81,
+      "logM200c": 12.5,
+      "R200c_kpc": 309.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/419618/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=419618#tab=3d"
+    },
+    {
+      "id": "421555",
+      "short_id": "Subhalo 421555",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -12846.31,
+        -20883.89,
+        -15047.51
+      ],
+      "logMstar": 11.11,
+      "logM200c": 12.55,
+      "R200c_kpc": 322.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/421555/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=421555#tab=3d"
+    },
+    {
+      "id": "422754",
+      "short_id": "Subhalo 422754",
+      "kind": "galaxy",
+      "pos_kpc": [
+        2113.39,
+        -5848.02,
+        -13846.08
+      ],
+      "logMstar": 10.96,
+      "logM200c": 12.48,
+      "R200c_kpc": 305.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/422754/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=422754#tab=3d"
+    },
+    {
+      "id": "424288",
+      "short_id": "Subhalo 424288",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -8136.76,
+        -7811.47,
+        -21495.15
+      ],
+      "logMstar": 11.03,
+      "logM200c": 12.49,
+      "R200c_kpc": 306.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/424288/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=424288#tab=3d"
+    },
+    {
+      "id": "425719",
+      "short_id": "Subhalo 425719",
+      "kind": "galaxy",
+      "pos_kpc": [
+        25810.19,
+        -7535.94,
+        25484.13
+      ],
+      "logMstar": 11.09,
+      "logM200c": 12.52,
+      "R200c_kpc": 314.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/425719/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=425719#tab=3d"
+    },
+    {
+      "id": "427211",
+      "short_id": "Subhalo 427211",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -14444.9,
+        24417.1,
+        12213.11
+      ],
+      "logMstar": 11.16,
+      "logM200c": 12.49,
+      "R200c_kpc": 306.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/427211/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=427211#tab=3d"
+    },
+    {
+      "id": "428177",
+      "short_id": "Subhalo 428177",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -24538.93,
+        12272.37,
+        -8743.91
+      ],
+      "logMstar": 11.02,
+      "logM200c": 12.34,
+      "R200c_kpc": 274.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/428177/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=428177#tab=3d"
+    },
+    {
+      "id": "429471",
+      "short_id": "Subhalo 429471",
+      "kind": "galaxy",
+      "pos_kpc": [
+        13296.75,
+        20726.58,
+        15652.77
+      ],
+      "logMstar": 11.11,
+      "logM200c": 12.48,
+      "R200c_kpc": 305.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/429471/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=429471#tab=3d"
+    },
+    {
+      "id": "430864",
+      "short_id": "Subhalo 430864",
+      "kind": "galaxy",
+      "pos_kpc": [
+        21742.61,
+        -22123.66,
+        -680.61
+      ],
+      "logMstar": 11.09,
+      "logM200c": 12.32,
+      "R200c_kpc": 269.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/430864/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=430864#tab=3d"
+    },
+    {
+      "id": "432106",
+      "short_id": "Subhalo 432106",
+      "kind": "galaxy",
+      "pos_kpc": [
+        864.47,
+        -23565.01,
+        23492.65
+      ],
+      "logMstar": 11.19,
+      "logM200c": 12.42,
+      "R200c_kpc": 290.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/432106/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=432106#tab=3d"
+    },
+    {
+      "id": "433289",
+      "short_id": "Subhalo 433289",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -2367.92,
+        5953.85,
+        1992.76
+      ],
+      "logMstar": 11.28,
+      "logM200c": 12.5,
+      "R200c_kpc": 308.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/433289/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=433289#tab=3d"
+    },
+    {
+      "id": "435752",
+      "short_id": "Subhalo 435752",
+      "kind": "galaxy",
+      "pos_kpc": [
+        15141.24,
+        3070.52,
+        4354.69
+      ],
+      "logMstar": 11.09,
+      "logM200c": 12.42,
+      "R200c_kpc": 291.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/435752/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=435752#tab=3d"
+    },
+    {
+      "id": "436932",
+      "short_id": "Subhalo 436932",
+      "kind": "galaxy",
+      "pos_kpc": [
+        11218.21,
+        5587.39,
+        6504.53
+      ],
+      "logMstar": 11.16,
+      "logM200c": 12.44,
+      "R200c_kpc": 295.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/436932/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=436932#tab=3d"
+    },
+    {
+      "id": "438148",
+      "short_id": "Subhalo 438148",
+      "kind": "galaxy",
+      "pos_kpc": [
+        10145.0,
+        21576.79,
+        20135.38
+      ],
+      "logMstar": 11.28,
+      "logM200c": 12.48,
+      "R200c_kpc": 303.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/438148/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=438148#tab=3d"
+    },
+    {
+      "id": "439099",
+      "short_id": "Subhalo 439099",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -18844.88,
+        -20471.09,
+        13443.31
+      ],
+      "logMstar": 11.12,
+      "logM200c": 12.51,
+      "R200c_kpc": 312.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/439099/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=439099#tab=3d"
+    },
+    {
+      "id": "440407",
+      "short_id": "Subhalo 440407",
+      "kind": "galaxy",
+      "pos_kpc": [
+        8914.34,
+        8882.63,
+        176.92
+      ],
+      "logMstar": 10.96,
+      "logM200c": 12.26,
+      "R200c_kpc": 258.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/440407/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=440407#tab=3d"
+    },
+    {
+      "id": "441709",
+      "short_id": "Subhalo 441709",
+      "kind": "galaxy",
+      "pos_kpc": [
+        583.01,
+        -24577.33,
+        -13570.48
+      ],
+      "logMstar": 11.15,
+      "logM200c": 12.41,
+      "R200c_kpc": 287.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/441709/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=441709#tab=3d"
+    },
+    {
+      "id": "443049",
+      "short_id": "Subhalo 443049",
+      "kind": "galaxy",
+      "pos_kpc": [
+        275.9,
+        1893.64,
+        9911.7
+      ],
+      "logMstar": 10.9,
+      "logM200c": 12.39,
+      "R200c_kpc": 285.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/443049/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=443049#tab=3d"
+    },
+    {
+      "id": "445626",
+      "short_id": "Subhalo 445626",
+      "kind": "galaxy",
+      "pos_kpc": [
+        24470.48,
+        -1656.63,
+        -24153.41
+      ],
+      "logMstar": 11.14,
+      "logM200c": 12.4,
+      "R200c_kpc": 287.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/445626/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=445626#tab=3d"
+    },
+    {
+      "id": "446665",
+      "short_id": "Subhalo 446665",
+      "kind": "galaxy",
+      "pos_kpc": [
+        11467.02,
+        -4757.01,
+        929.89
+      ],
+      "logMstar": 10.75,
+      "logM200c": 12.24,
+      "R200c_kpc": 253.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/446665/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=446665#tab=3d"
+    },
+    {
+      "id": "447914",
+      "short_id": "Subhalo 447914",
+      "kind": "galaxy",
+      "pos_kpc": [
+        3008.72,
+        6683.03,
+        -1494.41
+      ],
+      "logMstar": 11.16,
+      "logM200c": 12.53,
+      "R200c_kpc": 317.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/447914/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=447914#tab=3d"
+    },
+    {
+      "id": "448830",
+      "short_id": "Subhalo 448830",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -21048.35,
+        -18421.94,
+        25275.81
+      ],
+      "logMstar": 11.16,
+      "logM200c": 12.49,
+      "R200c_kpc": 306.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/448830/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=448830#tab=3d"
+    },
+    {
+      "id": "452031",
+      "short_id": "Subhalo 452031",
+      "kind": "galaxy",
+      "pos_kpc": [
+        23954.66,
+        -16466.56,
+        -10392.69
+      ],
+      "logMstar": 11.12,
+      "logM200c": 12.47,
+      "R200c_kpc": 303.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/452031/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=452031#tab=3d"
+    },
+    {
+      "id": "452978",
+      "short_id": "Subhalo 452978",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -19913.42,
+        3136.41,
+        2467.51
+      ],
+      "logMstar": 11.05,
+      "logM200c": 12.4,
+      "R200c_kpc": 287.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/452978/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=452978#tab=3d"
+    },
+    {
+      "id": "454171",
+      "short_id": "Subhalo 454171",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -14618.27,
+        -9205.24,
+        -24478.44
+      ],
+      "logMstar": 10.88,
+      "logM200c": 12.21,
+      "R200c_kpc": 248.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/454171/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=454171#tab=3d"
+    },
+    {
+      "id": "454172",
+      "short_id": "Subhalo 454172",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -14101.9,
+        -9111.63,
+        -24174.72
+      ],
+      "logMstar": 10.74,
+      "logM200c": 12.21,
+      "R200c_kpc": 248.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/454172/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=454172#tab=3d"
+    },
+    {
+      "id": "456326",
+      "short_id": "Subhalo 456326",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -7310.57,
+        -8810.47,
+        -19409.42
+      ],
+      "logMstar": 11.07,
+      "logM200c": 12.44,
+      "R200c_kpc": 294.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/456326/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=456326#tab=3d"
+    },
+    {
+      "id": "458470",
+      "short_id": "Subhalo 458470",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -6005.61,
+        -2559.02,
+        16313.05
+      ],
+      "logMstar": 11.11,
+      "logM200c": 12.38,
+      "R200c_kpc": 281.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/458470/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=458470#tab=3d"
+    },
+    {
+      "id": "459557",
+      "short_id": "Subhalo 459557",
+      "kind": "galaxy",
+      "pos_kpc": [
+        594.42,
+        1325.58,
+        6674.49
+      ],
+      "logMstar": 10.65,
+      "logM200c": 11.91,
+      "R200c_kpc": 196.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/459557/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=459557#tab=3d"
+    },
+    {
+      "id": "461785",
+      "short_id": "Subhalo 461785",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -6593.02,
+        24661.94,
+        4893.63
+      ],
+      "logMstar": 11.19,
+      "logM200c": 12.45,
+      "R200c_kpc": 297.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/461785/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=461785#tab=3d"
+    },
+    {
+      "id": "462710",
+      "short_id": "Subhalo 462710",
+      "kind": "galaxy",
+      "pos_kpc": [
+        13682.3,
+        -1179.36,
+        18786.36
+      ],
+      "logMstar": 11.08,
+      "logM200c": 12.35,
+      "R200c_kpc": 275.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/462710/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=462710#tab=3d"
+    },
+    {
+      "id": "464163",
+      "short_id": "Subhalo 464163",
+      "kind": "galaxy",
+      "pos_kpc": [
+        3147.68,
+        -7317.01,
+        -15013.06
+      ],
+      "logMstar": 11.02,
+      "logM200c": 12.34,
+      "R200c_kpc": 273.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/464163/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=464163#tab=3d"
+    },
+    {
+      "id": "465255",
+      "short_id": "Subhalo 465255",
+      "kind": "galaxy",
+      "pos_kpc": [
+        19891.83,
+        3351.71,
+        3859.81
+      ],
+      "logMstar": 10.97,
+      "logM200c": 12.4,
+      "R200c_kpc": 285.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/465255/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=465255#tab=3d"
+    },
+    {
+      "id": "467415",
+      "short_id": "Subhalo 467415",
+      "kind": "galaxy",
+      "pos_kpc": [
+        22315.23,
+        2950.77,
+        2672.62
+      ],
+      "logMstar": 11.07,
+      "logM200c": 12.32,
+      "R200c_kpc": 268.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/467415/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=467415#tab=3d"
+    },
+    {
+      "id": "468590",
+      "short_id": "Subhalo 468590",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -5453.74,
+        18313.78,
+        5146.11
+      ],
+      "logMstar": 11.15,
+      "logM200c": 12.38,
+      "R200c_kpc": 282.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/468590/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=468590#tab=3d"
+    },
+    {
+      "id": "469487",
+      "short_id": "Subhalo 469487",
+      "kind": "galaxy",
+      "pos_kpc": [
+        4323.57,
+        -7282.65,
+        5971.72
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.27,
+      "R200c_kpc": 258.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/469487/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=469487#tab=3d"
+    },
+    {
+      "id": "470345",
+      "short_id": "Subhalo 470345",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -8621.04,
+        2578.28,
+        3557.3
+      ],
+      "logMstar": 11.1,
+      "logM200c": 12.38,
+      "R200c_kpc": 283.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/470345/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=470345#tab=3d"
+    },
+    {
+      "id": "471248",
+      "short_id": "Subhalo 471248",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6274.11,
+        -1416.95,
+        901.02
+      ],
+      "logMstar": 11.07,
+      "logM200c": 12.4,
+      "R200c_kpc": 286.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/471248/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=471248#tab=3d"
+    },
+    {
+      "id": "471996",
+      "short_id": "Subhalo 471996",
+      "kind": "galaxy",
+      "pos_kpc": [
+        5815.09,
+        -9484.02,
+        24955.04
+      ],
+      "logMstar": 11.01,
+      "logM200c": 12.36,
+      "R200c_kpc": 277.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/471996/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=471996#tab=3d"
+    },
+    {
+      "id": "472548",
+      "short_id": "Subhalo 472548",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -15710.04,
+        -12342.78,
+        25101.64
+      ],
+      "logMstar": 11.06,
+      "logM200c": 12.38,
+      "R200c_kpc": 282.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/472548/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=472548#tab=3d"
+    },
+    {
+      "id": "473329",
+      "short_id": "Subhalo 473329",
+      "kind": "galaxy",
+      "pos_kpc": [
+        10021.71,
+        -11065.62,
+        -21581.46
+      ],
+      "logMstar": 11.02,
+      "logM200c": 12.25,
+      "R200c_kpc": 256.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/473329/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=473329#tab=3d"
+    },
+    {
+      "id": "474008",
+      "short_id": "Subhalo 474008",
+      "kind": "galaxy",
+      "pos_kpc": [
+        15585.82,
+        21903.62,
+        -19438.94
+      ],
+      "logMstar": 10.97,
+      "logM200c": 12.32,
+      "R200c_kpc": 269.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/474008/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=474008#tab=3d"
+    },
+    {
+      "id": "475016",
+      "short_id": "Subhalo 475016",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -2912.51,
+        8861.11,
+        2678.85
+      ],
+      "logMstar": 11.1,
+      "logM200c": 12.35,
+      "R200c_kpc": 274.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/475016/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=475016#tab=3d"
+    },
+    {
+      "id": "475619",
+      "short_id": "Subhalo 475619",
+      "kind": "galaxy",
+      "pos_kpc": [
+        12676.87,
+        20869.64,
+        16458.18
+      ],
+      "logMstar": 11.12,
+      "logM200c": 12.4,
+      "R200c_kpc": 287.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/475619/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=475619#tab=3d"
+    },
+    {
+      "id": "476266",
+      "short_id": "Subhalo 476266",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -6180.5,
+        2677.58,
+        3428.48
+      ],
+      "logMstar": 10.7,
+      "logM200c": 12.16,
+      "R200c_kpc": 238.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/476266/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=476266#tab=3d"
+    },
+    {
+      "id": "477328",
+      "short_id": "Subhalo 477328",
+      "kind": "galaxy",
+      "pos_kpc": [
+        19694.3,
+        2435.9,
+        3029.29
+      ],
+      "logMstar": 10.78,
+      "logM200c": 12.29,
+      "R200c_kpc": 263.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/477328/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=477328#tab=3d"
+    },
+    {
+      "id": "478216",
+      "short_id": "Subhalo 478216",
+      "kind": "galaxy",
+      "pos_kpc": [
+        25334.11,
+        1234.66,
+        -15405.66
+      ],
+      "logMstar": 10.77,
+      "logM200c": 12.2,
+      "R200c_kpc": 246.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/478216/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=478216#tab=3d"
+    },
+    {
+      "id": "479290",
+      "short_id": "Subhalo 479290",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -25465.17,
+        -1277.43,
+        -18378.12
+      ],
+      "logMstar": 10.96,
+      "logM200c": 12.31,
+      "R200c_kpc": 267.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/479290/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=479290#tab=3d"
+    },
+    {
+      "id": "479938",
+      "short_id": "Subhalo 479938",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6221.82,
+        -2960.11,
+        -4593.97
+      ],
+      "logMstar": 10.82,
+      "logM200c": 12.21,
+      "R200c_kpc": 248.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/479938/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=479938#tab=3d"
+    },
+    {
+      "id": "482155",
+      "short_id": "Subhalo 482155",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -20388.71,
+        -19757.03,
+        13104.47
+      ],
+      "logMstar": 11.08,
+      "logM200c": 12.34,
+      "R200c_kpc": 272.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/482155/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=482155#tab=3d"
+    },
+    {
+      "id": "482889",
+      "short_id": "Subhalo 482889",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1733.71,
+        13517.91,
+        1302.57
+      ],
+      "logMstar": 10.96,
+      "logM200c": 12.31,
+      "R200c_kpc": 268.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/482889/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=482889#tab=3d"
+    },
+    {
+      "id": "483594",
+      "short_id": "Subhalo 483594",
+      "kind": "galaxy",
+      "pos_kpc": [
+        2157.44,
+        -14728.43,
+        6697.78
+      ],
+      "logMstar": 10.96,
+      "logM200c": 12.36,
+      "R200c_kpc": 278.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/483594/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=483594#tab=3d"
+    },
+    {
+      "id": "485056",
+      "short_id": "Subhalo 485056",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -16270.47,
+        9744.16,
+        -15126.98
+      ],
+      "logMstar": 10.92,
+      "logM200c": 12.14,
+      "R200c_kpc": 235.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/485056/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=485056#tab=3d"
+    },
+    {
+      "id": "487742",
+      "short_id": "Subhalo 487742",
+      "kind": "galaxy",
+      "pos_kpc": [
+        20138.25,
+        -8019.45,
+        -3960.54
+      ],
+      "logMstar": 10.56,
+      "logM200c": 12.22,
+      "R200c_kpc": 249.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/487742/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=487742#tab=3d"
+    },
+    {
+      "id": "488530",
+      "short_id": "Subhalo 488530",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -20768.88,
+        -7120.7,
+        -24478.26
+      ],
+      "logMstar": 11.05,
+      "logM200c": 12.2,
+      "R200c_kpc": 246.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-sub488530-viz/resolve/main/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=488530#tab=3d"
+    },
+    {
+      "id": "489206",
+      "short_id": "Subhalo 489206",
+      "kind": "galaxy",
+      "pos_kpc": [
+        19097.76,
+        22204.95,
+        16360.38
+      ],
+      "logMstar": 10.98,
+      "logM200c": 12.29,
+      "R200c_kpc": 262.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/489206/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=489206#tab=3d"
+    },
+    {
+      "id": "490079",
+      "short_id": "Subhalo 490079",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -22449.95,
+        -22348.23,
+        -23647.07
+      ],
+      "logMstar": 10.77,
+      "logM200c": 12.21,
+      "R200c_kpc": 248.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/490079/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=490079#tab=3d"
+    },
+    {
+      "id": "490814",
+      "short_id": "Subhalo 490814",
+      "kind": "galaxy",
+      "pos_kpc": [
+        21798.19,
+        19272.45,
+        -5994.2
+      ],
+      "logMstar": 10.74,
+      "logM200c": 12.24,
+      "R200c_kpc": 254.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/490814/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=490814#tab=3d"
+    },
+    {
+      "id": "491426",
+      "short_id": "Subhalo 491426",
+      "kind": "galaxy",
+      "pos_kpc": [
+        22716.72,
+        -13075.62,
+        -6752.98
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.24,
+      "R200c_kpc": 253.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/491426/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=491426#tab=3d"
+    },
+    {
+      "id": "492876",
+      "short_id": "Subhalo 492876",
+      "kind": "galaxy",
+      "pos_kpc": [
+        10460.42,
+        -6174.31,
+        -14960.72
+      ],
+      "logMstar": 10.95,
+      "logM200c": 12.29,
+      "R200c_kpc": 263.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/492876/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=492876#tab=3d"
+    },
+    {
+      "id": "493433",
+      "short_id": "Subhalo 493433",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -24018.1,
+        -5860.38,
+        20996.03
+      ],
+      "logMstar": 10.83,
+      "logM200c": 12.15,
+      "R200c_kpc": 236.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/493433/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=493433#tab=3d"
+    },
+    {
+      "id": "494011",
+      "short_id": "Subhalo 494011",
+      "kind": "galaxy",
+      "pos_kpc": [
+        19128.77,
+        19699.69,
+        6524.62
+      ],
+      "logMstar": 10.9,
+      "logM200c": 12.19,
+      "R200c_kpc": 244.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/494011/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=494011#tab=3d"
+    },
+    {
+      "id": "494709",
+      "short_id": "Subhalo 494709",
+      "kind": "galaxy",
+      "pos_kpc": [
+        11607.71,
+        16953.28,
+        -515.31
+      ],
+      "logMstar": 10.89,
+      "logM200c": 12.2,
+      "R200c_kpc": 246.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/494709/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=494709#tab=3d"
+    },
+    {
+      "id": "496186",
+      "short_id": "Subhalo 496186",
+      "kind": "galaxy",
+      "pos_kpc": [
+        7184.68,
+        5479.95,
+        6579.52
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.29,
+      "R200c_kpc": 262.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/496186/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=496186#tab=3d"
+    },
+    {
+      "id": "497557",
+      "short_id": "Subhalo 497557",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -16144.89,
+        11279.77,
+        -9998.84
+      ],
+      "logMstar": 10.68,
+      "logM200c": 12.03,
+      "R200c_kpc": 215.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/497557/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=497557#tab=3d"
+    },
+    {
+      "id": "498522",
+      "short_id": "Subhalo 498522",
+      "kind": "galaxy",
+      "pos_kpc": [
+        7078.47,
+        -3107.26,
+        -7359.14
+      ],
+      "logMstar": 11.0,
+      "logM200c": 12.27,
+      "R200c_kpc": 259.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/498522/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=498522#tab=3d"
+    },
+    {
+      "id": "499704",
+      "short_id": "Subhalo 499704",
+      "kind": "galaxy",
+      "pos_kpc": [
+        7217.48,
+        -6202.36,
+        3408.23
+      ],
+      "logMstar": 10.76,
+      "logM200c": 12.13,
+      "R200c_kpc": 233.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/499704/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=499704#tab=3d"
+    },
+    {
+      "id": "500577",
+      "short_id": "Subhalo 500577",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -16604.11,
+        -21748.68,
+        12120.01
+      ],
+      "logMstar": 10.53,
+      "logM200c": 11.98,
+      "R200c_kpc": 208.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/500577/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=500577#tab=3d"
+    },
+    {
+      "id": "501208",
+      "short_id": "Subhalo 501208",
+      "kind": "galaxy",
+      "pos_kpc": [
+        18484.82,
+        -4366.09,
+        8014.78
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.22,
+      "R200c_kpc": 250.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/501208/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=501208#tab=3d"
+    },
+    {
+      "id": "501725",
+      "short_id": "Subhalo 501725",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -79.94,
+        -2659.9,
+        21065.29
+      ],
+      "logMstar": 10.89,
+      "logM200c": 12.17,
+      "R200c_kpc": 240.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/501725/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=501725#tab=3d"
+    },
+    {
+      "id": "502371",
+      "short_id": "Subhalo 502371",
+      "kind": "galaxy",
+      "pos_kpc": [
+        5019.87,
+        4785.71,
+        5255.06
+      ],
+      "logMstar": 10.72,
+      "logM200c": 12.19,
+      "R200c_kpc": 244.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/502371/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=502371#tab=3d"
+    },
+    {
+      "id": "502995",
+      "short_id": "Subhalo 502995",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -12452.28,
+        8536.89,
+        -9509.76
+      ],
+      "logMstar": 10.89,
+      "logM200c": 12.06,
+      "R200c_kpc": 220.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/502995/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=502995#tab=3d"
+    },
+    {
+      "id": "503437",
+      "short_id": "Subhalo 503437",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6634.98,
+        -25315.86,
+        21514.77
+      ],
+      "logMstar": 10.87,
+      "logM200c": 12.18,
+      "R200c_kpc": 242.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/503437/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=503437#tab=3d"
+    },
+    {
+      "id": "503987",
+      "short_id": "Subhalo 503987",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -11573.06,
+        -5207.39,
+        25097.78
+      ],
+      "logMstar": 10.79,
+      "logM200c": 12.26,
+      "R200c_kpc": 257.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/503987/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=503987#tab=3d"
+    },
+    {
+      "id": "504559",
+      "short_id": "Subhalo 504559",
+      "kind": "galaxy",
+      "pos_kpc": [
+        9377.07,
+        -4677.29,
+        -11345.4
+      ],
+      "logMstar": 10.83,
+      "logM200c": 12.26,
+      "R200c_kpc": 257.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/504559/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=504559#tab=3d"
+    },
+    {
+      "id": "505100",
+      "short_id": "Subhalo 505100",
+      "kind": "galaxy",
+      "pos_kpc": [
+        25264.33,
+        -12262.44,
+        17873.52
+      ],
+      "logMstar": 10.76,
+      "logM200c": 12.22,
+      "R200c_kpc": 249.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/505100/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=505100#tab=3d"
+    },
+    {
+      "id": "505586",
+      "short_id": "Subhalo 505586",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -25427.02,
+        -16178.33,
+        25112.53
+      ],
+      "logMstar": 11.03,
+      "logM200c": 12.15,
+      "R200c_kpc": 236.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/505586/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=505586#tab=3d"
+    },
+    {
+      "id": "506720",
+      "short_id": "Subhalo 506720",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -624.28,
+        13017.13,
+        2019.44
+      ],
+      "logMstar": 10.9,
+      "logM200c": 12.2,
+      "R200c_kpc": 245.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/506720/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=506720#tab=3d"
+    },
+    {
+      "id": "507784",
+      "short_id": "Subhalo 507784",
+      "kind": "galaxy",
+      "pos_kpc": [
+        20533.67,
+        780.28,
+        1673.14
+      ],
+      "logMstar": 10.6,
+      "logM200c": 12.03,
+      "R200c_kpc": 216.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/507784/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=507784#tab=3d"
+    },
+    {
+      "id": "508538",
+      "short_id": "Subhalo 508538",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -23361.1,
+        -18289.36,
+        25148.95
+      ],
+      "logMstar": 10.54,
+      "logM200c": 11.97,
+      "R200c_kpc": 205.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/508538/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=508538#tab=3d"
+    },
+    {
+      "id": "509091",
+      "short_id": "Subhalo 509091",
+      "kind": "galaxy",
+      "pos_kpc": [
+        3236.6,
+        -16982.58,
+        -25413.27
+      ],
+      "logMstar": 10.74,
+      "logM200c": 12.11,
+      "R200c_kpc": 229.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/509091/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=509091#tab=3d"
+    },
+    {
+      "id": "510273",
+      "short_id": "Subhalo 510273",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6042.95,
+        1669.83,
+        2541.07
+      ],
+      "logMstar": 10.95,
+      "logM200c": 12.14,
+      "R200c_kpc": 233.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/510273/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=510273#tab=3d"
+    },
+    {
+      "id": "510585",
+      "short_id": "Subhalo 510585",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -8513.42,
+        22279.64,
+        -5769.27
+      ],
+      "logMstar": 10.71,
+      "logM200c": 12.12,
+      "R200c_kpc": 231.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/510585/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=510585#tab=3d"
+    },
+    {
+      "id": "511303",
+      "short_id": "Subhalo 511303",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -25261.73,
+        -22115.96,
+        3877.11
+      ],
+      "logMstar": 10.7,
+      "logM200c": 12.14,
+      "R200c_kpc": 234.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/511303/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=511303#tab=3d"
+    },
+    {
+      "id": "511920",
+      "short_id": "Subhalo 511920",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -25819.82,
+        -15597.52,
+        24434.2
+      ],
+      "logMstar": 10.95,
+      "logM200c": 12.2,
+      "R200c_kpc": 245.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/511920/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=511920#tab=3d"
+    },
+    {
+      "id": "512425",
+      "short_id": "Subhalo 512425",
+      "kind": "galaxy",
+      "pos_kpc": [
+        15919.41,
+        8224.88,
+        -12933.13
+      ],
+      "logMstar": 10.73,
+      "logM200c": 12.17,
+      "R200c_kpc": 240.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/512425/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=512425#tab=3d"
+    },
+    {
+      "id": "513845",
+      "short_id": "Subhalo 513845",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -1105.96,
+        -2130.14,
+        -3642.92
+      ],
+      "logMstar": 10.92,
+      "logM200c": 12.16,
+      "R200c_kpc": 238.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/513845/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=513845#tab=3d"
+    },
+    {
+      "id": "514272",
+      "short_id": "Subhalo 514272",
+      "kind": "galaxy",
+      "pos_kpc": [
+        12473.46,
+        872.21,
+        15757.45
+      ],
+      "logMstar": 10.58,
+      "logM200c": 12.13,
+      "R200c_kpc": 233.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/514272/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=514272#tab=3d"
+    },
+    {
+      "id": "514829",
+      "short_id": "Subhalo 514829",
+      "kind": "galaxy",
+      "pos_kpc": [
+        15929.26,
+        23794.11,
+        6073.56
+      ],
+      "logMstar": 10.89,
+      "logM200c": 12.14,
+      "R200c_kpc": 235.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/514829/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=514829#tab=3d"
+    },
+    {
+      "id": "515296",
+      "short_id": "Subhalo 515296",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -794.12,
+        18310.7,
+        5167.96
+      ],
+      "logMstar": 10.85,
+      "logM200c": 12.2,
+      "R200c_kpc": 245.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/515296/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=515296#tab=3d"
+    },
+    {
+      "id": "515695",
+      "short_id": "Subhalo 515695",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6552.28,
+        -10309.83,
+        8556.04
+      ],
+      "logMstar": 11.01,
+      "logM200c": 12.14,
+      "R200c_kpc": 235.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/515695/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=515695#tab=3d"
+    },
+    {
+      "id": "516101",
+      "short_id": "Subhalo 516101",
+      "kind": "galaxy",
+      "pos_kpc": [
+        20092.81,
+        -9166.01,
+        2218.34
+      ],
+      "logMstar": 10.69,
+      "logM200c": 12.09,
+      "R200c_kpc": 226.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/516101/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=516101#tab=3d"
+    },
+    {
+      "id": "517271",
+      "short_id": "Subhalo 517271",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -24954.05,
+        9383.24,
+        -23272.23
+      ],
+      "logMstar": 10.8,
+      "logM200c": 12.15,
+      "R200c_kpc": 237.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/517271/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=517271#tab=3d"
+    },
+    {
+      "id": "517899",
+      "short_id": "Subhalo 517899",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -1737.89,
+        -2798.46,
+        -4709.14
+      ],
+      "logMstar": 11.04,
+      "logM200c": 12.21,
+      "R200c_kpc": 247.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/517899/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=517899#tab=3d"
+    },
+    {
+      "id": "518682",
+      "short_id": "Subhalo 518682",
+      "kind": "galaxy",
+      "pos_kpc": [
+        11893.44,
+        -11169.76,
+        -25690.44
+      ],
+      "logMstar": 10.73,
+      "logM200c": 12.14,
+      "R200c_kpc": 235.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/518682/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=518682#tab=3d"
+    },
+    {
+      "id": "519311",
+      "short_id": "Subhalo 519311",
+      "kind": "galaxy",
+      "pos_kpc": [
+        17939.02,
+        -12706.73,
+        23993.14
+      ],
+      "logMstar": 10.97,
+      "logM200c": 12.14,
+      "R200c_kpc": 235.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/519311/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=519311#tab=3d"
+    },
+    {
+      "id": "520885",
+      "short_id": "Subhalo 520885",
+      "kind": "galaxy",
+      "pos_kpc": [
+        24420.94,
+        -24469.22,
+        -8334.26
+      ],
+      "logMstar": 10.73,
+      "logM200c": 12.07,
+      "R200c_kpc": 223.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/520885/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=520885#tab=3d"
+    },
+    {
+      "id": "521429",
+      "short_id": "Subhalo 521429",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6026.06,
+        -6862.04,
+        22954.29
+      ],
+      "logMstar": 10.68,
+      "logM200c": 12.17,
+      "R200c_kpc": 239.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/521429/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=521429#tab=3d"
+    },
+    {
+      "id": "521803",
+      "short_id": "Subhalo 521803",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6862.29,
+        -25631.58,
+        11430.46
+      ],
+      "logMstar": 10.64,
+      "logM200c": 11.94,
+      "R200c_kpc": 200.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/521803/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=521803#tab=3d"
+    },
+    {
+      "id": "522530",
+      "short_id": "Subhalo 522530",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -24772.82,
+        25375.76,
+        24054.46
+      ],
+      "logMstar": 10.84,
+      "logM200c": 12.11,
+      "R200c_kpc": 230.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/522530/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=522530#tab=3d"
+    },
+    {
+      "id": "522983",
+      "short_id": "Subhalo 522983",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -8470.6,
+        23871.04,
+        5692.4
+      ],
+      "logMstar": 10.79,
+      "logM200c": 12.08,
+      "R200c_kpc": 223.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/522983/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=522983#tab=3d"
+    },
+    {
+      "id": "523548",
+      "short_id": "Subhalo 523548",
+      "kind": "galaxy",
+      "pos_kpc": [
+        9230.75,
+        16553.53,
+        -9861.04
+      ],
+      "logMstar": 10.87,
+      "logM200c": 12.16,
+      "R200c_kpc": 238.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/523548/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=523548#tab=3d"
+    },
+    {
+      "id": "523889",
+      "short_id": "Subhalo 523889",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -14697.62,
+        14944.72,
+        -19315.78
+      ],
+      "logMstar": 10.74,
+      "logM200c": 12.03,
+      "R200c_kpc": 215.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/523889/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=523889#tab=3d"
+    },
+    {
+      "id": "525533",
+      "short_id": "Subhalo 525533",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -15074.55,
+        -20210.02,
+        20006.46
+      ],
+      "logMstar": 10.6,
+      "logM200c": 12.03,
+      "R200c_kpc": 216.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/525533/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=525533#tab=3d"
+    },
+    {
+      "id": "526029",
+      "short_id": "Subhalo 526029",
+      "kind": "galaxy",
+      "pos_kpc": [
+        4424.29,
+        -20434.44,
+        12449.59
+      ],
+      "logMstar": 10.54,
+      "logM200c": 11.96,
+      "R200c_kpc": 204.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/526029/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=526029#tab=3d"
+    },
+    {
+      "id": "526478",
+      "short_id": "Subhalo 526478",
+      "kind": "galaxy",
+      "pos_kpc": [
+        19936.51,
+        22039.69,
+        20504.83
+      ],
+      "logMstar": 10.67,
+      "logM200c": 12.05,
+      "R200c_kpc": 219.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/526478/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=526478#tab=3d"
+    },
+    {
+      "id": "527309",
+      "short_id": "Subhalo 527309",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -22922.05,
+        25476.61,
+        23527.47
+      ],
+      "logMstar": 10.55,
+      "logM200c": 12.09,
+      "R200c_kpc": 225.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/527309/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=527309#tab=3d"
+    },
+    {
+      "id": "528322",
+      "short_id": "Subhalo 528322",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -15503.9,
+        25039.3,
+        -12052.37
+      ],
+      "logMstar": 10.64,
+      "logM200c": 11.98,
+      "R200c_kpc": 207.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/528322/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=528322#tab=3d"
+    },
+    {
+      "id": "528836",
+      "short_id": "Subhalo 528836",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1233.95,
+        -15817.7,
+        6228.57
+      ],
+      "logMstar": 10.66,
+      "logM200c": 11.94,
+      "R200c_kpc": 201.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/528836/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=528836#tab=3d"
+    },
+    {
+      "id": "529365",
+      "short_id": "Subhalo 529365",
+      "kind": "galaxy",
+      "pos_kpc": [
+        24471.38,
+        -7521.04,
+        -14310.35
+      ],
+      "logMstar": 10.82,
+      "logM200c": 12.1,
+      "R200c_kpc": 227.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/529365/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=529365#tab=3d"
+    },
+    {
+      "id": "530330",
+      "short_id": "Subhalo 530330",
+      "kind": "galaxy",
+      "pos_kpc": [
+        15663.74,
+        22238.89,
+        15099.49
+      ],
+      "logMstar": 10.79,
+      "logM200c": 12.14,
+      "R200c_kpc": 234.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/530330/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=530330#tab=3d"
+    },
+    {
+      "id": "530852",
+      "short_id": "Subhalo 530852",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -22596.98,
+        -5091.71,
+        -22360.52
+      ],
+      "logMstar": 10.73,
+      "logM200c": 12.09,
+      "R200c_kpc": 225.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/530852/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=530852#tab=3d"
+    },
+    {
+      "id": "531320",
+      "short_id": "Subhalo 531320",
+      "kind": "galaxy",
+      "pos_kpc": [
+        18481.14,
+        7332.13,
+        -4719.24
+      ],
+      "logMstar": 10.6,
+      "logM200c": 12.06,
+      "R200c_kpc": 220.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/531320/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=531320#tab=3d"
+    },
+    {
+      "id": "531910",
+      "short_id": "Subhalo 531910",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1297.11,
+        -463.16,
+        -4369.57
+      ],
+      "logMstar": 10.73,
+      "logM200c": 12.03,
+      "R200c_kpc": 216.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/531910/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=531910#tab=3d"
+    },
+    {
+      "id": "532301",
+      "short_id": "Subhalo 532301",
+      "kind": "galaxy",
+      "pos_kpc": [
+        25550.93,
+        2388.25,
+        21546.24
+      ],
+      "logMstar": 10.72,
+      "logM200c": 12.03,
+      "R200c_kpc": 215.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/532301/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=532301#tab=3d"
+    },
+    {
+      "id": "532760",
+      "short_id": "Subhalo 532760",
+      "kind": "galaxy",
+      "pos_kpc": [
+        16134.63,
+        -6489.91,
+        -11330.69
+      ],
+      "logMstar": 10.8,
+      "logM200c": 12.04,
+      "R200c_kpc": 217.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/532760/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=532760#tab=3d"
+    },
+    {
+      "id": "534628",
+      "short_id": "Subhalo 534628",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -8682.92,
+        -6536.95,
+        9566.07
+      ],
+      "logMstar": 10.78,
+      "logM200c": 12.08,
+      "R200c_kpc": 223.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/534628/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=534628#tab=3d"
+    },
+    {
+      "id": "535050",
+      "short_id": "Subhalo 535050",
+      "kind": "galaxy",
+      "pos_kpc": [
+        20040.84,
+        15355.19,
+        -8814.39
+      ],
+      "logMstar": 10.63,
+      "logM200c": 11.94,
+      "R200c_kpc": 200.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/535050/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=535050#tab=3d"
+    },
+    {
+      "id": "535410",
+      "short_id": "Subhalo 535410",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -7383.35,
+        2244.36,
+        3910.96
+      ],
+      "logMstar": 10.8,
+      "logM200c": 12.03,
+      "R200c_kpc": 216.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/535410/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=535410#tab=3d"
+    },
+    {
+      "id": "535774",
+      "short_id": "Subhalo 535774",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -23804.55,
+        24149.68,
+        -24613.7
+      ],
+      "logMstar": 10.71,
+      "logM200c": 12.0,
+      "R200c_kpc": 211.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/535774/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=535774#tab=3d"
+    },
+    {
+      "id": "536146",
+      "short_id": "Subhalo 536146",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -9679.94,
+        5952.33,
+        347.65
+      ],
+      "logMstar": 10.53,
+      "logM200c": 11.83,
+      "R200c_kpc": 185.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/536146/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=536146#tab=3d"
+    },
+    {
+      "id": "536654",
+      "short_id": "Subhalo 536654",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -7553.52,
+        23588.52,
+        22451.07
+      ],
+      "logMstar": 10.58,
+      "logM200c": 12.04,
+      "R200c_kpc": 217.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/536654/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=536654#tab=3d"
+    },
+    {
+      "id": "537236",
+      "short_id": "Subhalo 537236",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -7306.4,
+        4461.2,
+        -2144.4
+      ],
+      "logMstar": 10.78,
+      "logM200c": 12.02,
+      "R200c_kpc": 214.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/537236/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=537236#tab=3d"
+    },
+    {
+      "id": "537488",
+      "short_id": "Subhalo 537488",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -6897.61,
+        -16747.32,
+        -13778.63
+      ],
+      "logMstar": 10.64,
+      "logM200c": 11.98,
+      "R200c_kpc": 208.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/537488/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=537488#tab=3d"
+    },
+    {
+      "id": "537941",
+      "short_id": "Subhalo 537941",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -25200.97,
+        -22149.95,
+        7694.28
+      ],
+      "logMstar": 10.72,
+      "logM200c": 11.98,
+      "R200c_kpc": 207.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/537941/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=537941#tab=3d"
+    },
+    {
+      "id": "538370",
+      "short_id": "Subhalo 538370",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -7616.19,
+        16889.42,
+        -25592.92
+      ],
+      "logMstar": 10.53,
+      "logM200c": 11.98,
+      "R200c_kpc": 208.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/538370/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=538370#tab=3d"
+    },
+    {
+      "id": "538905",
+      "short_id": "Subhalo 538905",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -18623.74,
+        -17241.25,
+        -22077.52
+      ],
+      "logMstar": 10.72,
+      "logM200c": 12.05,
+      "R200c_kpc": 218.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/538905/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=538905#tab=3d"
+    },
+    {
+      "id": "539333",
+      "short_id": "Subhalo 539333",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -15255.37,
+        11240.15,
+        -9233.01
+      ],
+      "logMstar": 10.75,
+      "logM200c": 11.99,
+      "R200c_kpc": 209.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/539333/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=539333#tab=3d"
+    },
+    {
+      "id": "539667",
+      "short_id": "Subhalo 539667",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -16066.86,
+        -10096.7,
+        -17543.72
+      ],
+      "logMstar": 10.55,
+      "logM200c": 11.91,
+      "R200c_kpc": 196.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/539667/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=539667#tab=3d"
+    },
+    {
+      "id": "540082",
+      "short_id": "Subhalo 540082",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -12334.15,
+        24311.79,
+        10645.71
+      ],
+      "logMstar": 10.71,
+      "logM200c": 11.98,
+      "R200c_kpc": 207.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/540082/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=540082#tab=3d"
+    },
+    {
+      "id": "540452",
+      "short_id": "Subhalo 540452",
+      "kind": "galaxy",
+      "pos_kpc": [
+        17882.36,
+        -3750.63,
+        6725.52
+      ],
+      "logMstar": 10.62,
+      "logM200c": 11.9,
+      "R200c_kpc": 195.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/540452/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=540452#tab=3d"
+    },
+    {
+      "id": "540920",
+      "short_id": "Subhalo 540920",
+      "kind": "galaxy",
+      "pos_kpc": [
+        15940.59,
+        8973.31,
+        -8306.68
+      ],
+      "logMstar": 10.69,
+      "logM200c": 12.07,
+      "R200c_kpc": 222.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/540920/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=540920#tab=3d"
+    },
+    {
+      "id": "541218",
+      "short_id": "Subhalo 541218",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -18375.9,
+        11317.0,
+        -22157.69
+      ],
+      "logMstar": 10.68,
+      "logM200c": 12.07,
+      "R200c_kpc": 223.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/541218/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=541218#tab=3d"
+    },
+    {
+      "id": "541497",
+      "short_id": "Subhalo 541497",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -7269.82,
+        -8658.88,
+        -10982.84
+      ],
+      "logMstar": 10.68,
+      "logM200c": 11.99,
+      "R200c_kpc": 209.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/541497/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=541497#tab=3d"
+    },
+    {
+      "id": "541847",
+      "short_id": "Subhalo 541847",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -24755.57,
+        -99.36,
+        -18730.32
+      ],
+      "logMstar": 10.61,
+      "logM200c": 11.97,
+      "R200c_kpc": 206.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/541847/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=541847#tab=3d"
+    },
+    {
+      "id": "542252",
+      "short_id": "Subhalo 542252",
+      "kind": "galaxy",
+      "pos_kpc": [
+        18541.24,
+        18860.1,
+        -5024.82
+      ],
+      "logMstar": 10.63,
+      "logM200c": 11.95,
+      "R200c_kpc": 202.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/542252/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=542252#tab=3d"
+    },
+    {
+      "id": "542662",
+      "short_id": "Subhalo 542662",
+      "kind": "galaxy",
+      "pos_kpc": [
+        23565.79,
+        25116.97,
+        -6597.99
+      ],
+      "logMstar": 10.52,
+      "logM200c": 12.03,
+      "R200c_kpc": 216.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/542662/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=542662#tab=3d"
+    },
+    {
+      "id": "543114",
+      "short_id": "Subhalo 543114",
+      "kind": "galaxy",
+      "pos_kpc": [
+        2380.45,
+        339.11,
+        2253.24
+      ],
+      "logMstar": 10.82,
+      "logM200c": 12.04,
+      "R200c_kpc": 216.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/543114/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=543114#tab=3d"
+    },
+    {
+      "id": "543376",
+      "short_id": "Subhalo 543376",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6945.21,
+        -19580.24,
+        19387.07
+      ],
+      "logMstar": 10.79,
+      "logM200c": 11.97,
+      "R200c_kpc": 206.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/543376/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=543376#tab=3d"
+    },
+    {
+      "id": "543729",
+      "short_id": "Subhalo 543729",
+      "kind": "galaxy",
+      "pos_kpc": [
+        23442.94,
+        -14561.88,
+        -10490.28
+      ],
+      "logMstar": 10.69,
+      "logM200c": 11.98,
+      "R200c_kpc": 208.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/543729/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=543729#tab=3d"
+    },
+    {
+      "id": "544001",
+      "short_id": "Subhalo 544001",
+      "kind": "galaxy",
+      "pos_kpc": [
+        565.89,
+        -21569.4,
+        -25074.75
+      ],
+      "logMstar": 10.61,
+      "logM200c": 11.91,
+      "R200c_kpc": 197.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/544001/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=544001#tab=3d"
+    },
+    {
+      "id": "544408",
+      "short_id": "Subhalo 544408",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -15666.11,
+        -9312.4,
+        -19183.75
+      ],
+      "logMstar": 10.61,
+      "logM200c": 12.0,
+      "R200c_kpc": 211.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/544408/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=544408#tab=3d"
+    },
+    {
+      "id": "544697",
+      "short_id": "Subhalo 544697",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -17075.51,
+        12820.06,
+        -19126.85
+      ],
+      "logMstar": 10.57,
+      "logM200c": 11.94,
+      "R200c_kpc": 201.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/544697/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=544697#tab=3d"
+    },
+    {
+      "id": "545437",
+      "short_id": "Subhalo 545437",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -23088.05,
+        24433.2,
+        18315.88
+      ],
+      "logMstar": 10.64,
+      "logM200c": 11.97,
+      "R200c_kpc": 205.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/545437/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=545437#tab=3d"
+    },
+    {
+      "id": "546114",
+      "short_id": "Subhalo 546114",
+      "kind": "galaxy",
+      "pos_kpc": [
+        21236.75,
+        22991.23,
+        20243.58
+      ],
+      "logMstar": 10.66,
+      "logM200c": 11.96,
+      "R200c_kpc": 203.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/546114/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=546114#tab=3d"
+    },
+    {
+      "id": "546474",
+      "short_id": "Subhalo 546474",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -9393.34,
+        23994.66,
+        2714.64
+      ],
+      "logMstar": 10.68,
+      "logM200c": 11.94,
+      "R200c_kpc": 201.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/546474/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=546474#tab=3d"
+    },
+    {
+      "id": "546870",
+      "short_id": "Subhalo 546870",
+      "kind": "galaxy",
+      "pos_kpc": [
+        17512.45,
+        -2014.94,
+        22703.77
+      ],
+      "logMstar": 10.63,
+      "logM200c": 12.03,
+      "R200c_kpc": 215.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/546870/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=546870#tab=3d"
+    },
+    {
+      "id": "547293",
+      "short_id": "Subhalo 547293",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -11934.4,
+        -11573.49,
+        -15019.11
+      ],
+      "logMstar": 10.73,
+      "logM200c": 11.96,
+      "R200c_kpc": 204.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/547293/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=547293#tab=3d"
+    },
+    {
+      "id": "547844",
+      "short_id": "Subhalo 547844",
+      "kind": "galaxy",
+      "pos_kpc": [
+        939.65,
+        -14343.84,
+        25655.9
+      ],
+      "logMstar": 10.71,
+      "logM200c": 11.98,
+      "R200c_kpc": 208.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/547844/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=547844#tab=3d"
+    },
+    {
+      "id": "549516",
+      "short_id": "Subhalo 549516",
+      "kind": "galaxy",
+      "pos_kpc": [
+        23192.1,
+        -17714.1,
+        -5064.31
+      ],
+      "logMstar": 10.62,
+      "logM200c": 11.93,
+      "R200c_kpc": 200.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/549516/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=549516#tab=3d"
+    },
+    {
+      "id": "550149",
+      "short_id": "Subhalo 550149",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6503.85,
+        8057.73,
+        11769.79
+      ],
+      "logMstar": 10.68,
+      "logM200c": 11.96,
+      "R200c_kpc": 204.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/550149/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=550149#tab=3d"
+    },
+    {
+      "id": "550475",
+      "short_id": "Subhalo 550475",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -23232.46,
+        -12944.69,
+        16197.11
+      ],
+      "logMstar": 10.55,
+      "logM200c": 11.94,
+      "R200c_kpc": 201.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/550475/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=550475#tab=3d"
+    },
+    {
+      "id": "550934",
+      "short_id": "Subhalo 550934",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -20629.51,
+        -8115.13,
+        -23925.93
+      ],
+      "logMstar": 10.55,
+      "logM200c": 11.95,
+      "R200c_kpc": 202.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/550934/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=550934#tab=3d"
+    },
+    {
+      "id": "552414",
+      "short_id": "Subhalo 552414",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -3986.39,
+        -2977.42,
+        -5061.89
+      ],
+      "logMstar": 10.76,
+      "logM200c": 11.96,
+      "R200c_kpc": 203.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/552414/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=552414#tab=3d"
+    },
+    {
+      "id": "552581",
+      "short_id": "Subhalo 552581",
+      "kind": "galaxy",
+      "pos_kpc": [
+        317.23,
+        -3958.57,
+        23152.01
+      ],
+      "logMstar": 10.66,
+      "logM200c": 11.95,
+      "R200c_kpc": 202.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/552581/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=552581#tab=3d"
+    },
+    {
+      "id": "553837",
+      "short_id": "Subhalo 553837",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -17155.12,
+        -11896.56,
+        -19842.2
+      ],
+      "logMstar": 10.56,
+      "logM200c": 11.9,
+      "R200c_kpc": 195.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/553837/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=553837#tab=3d"
+    },
+    {
+      "id": "554189",
+      "short_id": "Subhalo 554189",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -16794.07,
+        -16499.03,
+        24439.93
+      ],
+      "logMstar": 10.52,
+      "logM200c": 11.89,
+      "R200c_kpc": 193.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/554189/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=554189#tab=3d"
+    },
+    {
+      "id": "554523",
+      "short_id": "Subhalo 554523",
+      "kind": "galaxy",
+      "pos_kpc": [
+        9998.95,
+        19832.18,
+        -15505.13
+      ],
+      "logMstar": 10.53,
+      "logM200c": 11.89,
+      "R200c_kpc": 194.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/554523/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=554523#tab=3d"
+    },
+    {
+      "id": "554798",
+      "short_id": "Subhalo 554798",
+      "kind": "galaxy",
+      "pos_kpc": [
+        20923.35,
+        24174.08,
+        11959.1
+      ],
+      "logMstar": 10.73,
+      "logM200c": 11.94,
+      "R200c_kpc": 201.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/554798/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=554798#tab=3d"
+    },
+    {
+      "id": "555013",
+      "short_id": "Subhalo 555013",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -7145.75,
+        -20483.17,
+        22030.84
+      ],
+      "logMstar": 10.54,
+      "logM200c": 11.95,
+      "R200c_kpc": 202.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/555013/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=555013#tab=3d"
+    },
+    {
+      "id": "555287",
+      "short_id": "Subhalo 555287",
+      "kind": "galaxy",
+      "pos_kpc": [
+        22056.75,
+        -20189.03,
+        -1775.5
+      ],
+      "logMstar": 10.58,
+      "logM200c": 11.89,
+      "R200c_kpc": 193.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/555287/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=555287#tab=3d"
+    },
+    {
+      "id": "555601",
+      "short_id": "Subhalo 555601",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -3703.84,
+        22275.32,
+        17298.62
+      ],
+      "logMstar": 10.65,
+      "logM200c": 11.89,
+      "R200c_kpc": 194.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/555601/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=555601#tab=3d"
+    },
+    {
+      "id": "557721",
+      "short_id": "Subhalo 557721",
+      "kind": "galaxy",
+      "pos_kpc": [
+        21410.4,
+        -2876.09,
+        14040.72
+      ],
+      "logMstar": 10.61,
+      "logM200c": 11.92,
+      "R200c_kpc": 198.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/557721/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=557721#tab=3d"
+    },
+    {
+      "id": "559036",
+      "short_id": "Subhalo 559036",
+      "kind": "galaxy",
+      "pos_kpc": [
+        21565.88,
+        22646.65,
+        23548.35
+      ],
+      "logMstar": 10.53,
+      "logM200c": 11.86,
+      "R200c_kpc": 188.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/559036/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=559036#tab=3d"
+    },
+    {
+      "id": "559386",
+      "short_id": "Subhalo 559386",
+      "kind": "galaxy",
+      "pos_kpc": [
+        6504.74,
+        -20056.45,
+        20282.86
+      ],
+      "logMstar": 10.63,
+      "logM200c": 11.89,
+      "R200c_kpc": 193.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/559386/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=559386#tab=3d"
+    },
+    {
+      "id": "560751",
+      "short_id": "Subhalo 560751",
+      "kind": "galaxy",
+      "pos_kpc": [
+        23152.36,
+        -6796.82,
+        -21875.82
+      ],
+      "logMstar": 10.62,
+      "logM200c": 11.9,
+      "R200c_kpc": 195.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/560751/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=560751#tab=3d"
+    },
+    {
+      "id": "561676",
+      "short_id": "Subhalo 561676",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -25667.72,
+        -4991.69,
+        -17355.87
+      ],
+      "logMstar": 10.56,
+      "logM200c": 11.83,
+      "R200c_kpc": 185.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/561676/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=561676#tab=3d"
+    },
+    {
+      "id": "563732",
+      "short_id": "Subhalo 563732",
+      "kind": "galaxy",
+      "pos_kpc": [
+        23539.65,
+        -9728.45,
+        -18622.33
+      ],
+      "logMstar": 10.56,
+      "logM200c": 11.92,
+      "R200c_kpc": 198.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/563732/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=563732#tab=3d"
+    },
+    {
+      "id": "565089",
+      "short_id": "Subhalo 565089",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1013.41,
+        670.0,
+        2336.58
+      ],
+      "logMstar": 10.6,
+      "logM200c": 11.88,
+      "R200c_kpc": 192.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/565089/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=565089#tab=3d"
+    },
+    {
+      "id": "565251",
+      "short_id": "Subhalo 565251",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -5471.02,
+        -10754.23,
+        -18951.2
+      ],
+      "logMstar": 10.55,
+      "logM200c": 11.85,
+      "R200c_kpc": 188.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/565251/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=565251#tab=3d"
+    },
+    {
+      "id": "566365",
+      "short_id": "Subhalo 566365",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -15019.26,
+        -15935.19,
+        -17519.57
+      ],
+      "logMstar": 10.51,
+      "logM200c": 11.83,
+      "R200c_kpc": 184.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/566365/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=566365#tab=3d"
+    },
+    {
+      "id": "567382",
+      "short_id": "Subhalo 567382",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -12766.25,
+        2305.08,
+        3156.61
+      ],
+      "logMstar": 10.55,
+      "logM200c": 11.84,
+      "R200c_kpc": 187.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/567382/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=567382#tab=3d"
+    },
+    {
+      "id": "569251",
+      "short_id": "Subhalo 569251",
+      "kind": "galaxy",
+      "pos_kpc": [
+        15650.65,
+        8018.78,
+        5813.52
+      ],
+      "logMstar": 10.6,
+      "logM200c": 11.84,
+      "R200c_kpc": 186.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/569251/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=569251#tab=3d"
+    },
+    {
+      "id": "571454",
+      "short_id": "Subhalo 571454",
+      "kind": "galaxy",
+      "pos_kpc": [
+        9541.44,
+        -4513.71,
+        -7971.14
+      ],
+      "logMstar": 10.64,
+      "logM200c": 11.9,
+      "R200c_kpc": 195.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/571454/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=571454#tab=3d"
+    },
+    {
+      "id": "571633",
+      "short_id": "Subhalo 571633",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -10109.83,
+        -5722.2,
+        -15053.02
+      ],
+      "logMstar": 10.6,
+      "logM200c": 11.81,
+      "R200c_kpc": 182.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/571633/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=571633#tab=3d"
+    },
+    {
+      "id": "572328",
+      "short_id": "Subhalo 572328",
+      "kind": "galaxy",
+      "pos_kpc": [
+        543.0,
+        2240.76,
+        8012.41
+      ],
+      "logMstar": 10.64,
+      "logM200c": 11.87,
+      "R200c_kpc": 190.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/572328/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=572328#tab=3d"
+    },
+    {
+      "id": "572840",
+      "short_id": "Subhalo 572840",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -8763.66,
+        25157.96,
+        -4219.71
+      ],
+      "logMstar": 10.53,
+      "logM200c": 11.82,
+      "R200c_kpc": 184.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/572840/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=572840#tab=3d"
+    },
+    {
+      "id": "574037",
+      "short_id": "Subhalo 574037",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -22371.89,
+        19229.65,
+        -21302.45
+      ],
+      "logMstar": 10.51,
+      "logM200c": 11.72,
+      "R200c_kpc": 169.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-1/resolve/main/574037/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=574037#tab=3d"
+    },
+    {
+      "id": "575356",
+      "short_id": "Subhalo 575356",
+      "kind": "galaxy",
+      "pos_kpc": [
+        9286.86,
+        21972.36,
+        22436.24
+      ],
+      "logMstar": 10.54,
+      "logM200c": 11.85,
+      "R200c_kpc": 188.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/575356/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=575356#tab=3d"
+    },
+    {
+      "id": "576516",
+      "short_id": "Subhalo 576516",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1871.27,
+        -16572.12,
+        -19105.76
+      ],
+      "logMstar": 10.53,
+      "logM200c": 11.88,
+      "R200c_kpc": 192.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/576516/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=576516#tab=3d"
+    },
+    {
+      "id": "577372",
+      "short_id": "Subhalo 577372",
+      "kind": "galaxy",
+      "pos_kpc": [
+        10325.68,
+        17528.25,
+        -11071.21
+      ],
+      "logMstar": 10.51,
+      "logM200c": 11.81,
+      "R200c_kpc": 182.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/577372/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=577372#tab=3d"
+    },
+    {
+      "id": "580250",
+      "short_id": "Subhalo 580250",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -10786.56,
+        -6634.48,
+        -22852.86
+      ],
+      "logMstar": 10.52,
+      "logM200c": 11.76,
+      "R200c_kpc": 175.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/580250/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=580250#tab=3d"
+    },
+    {
+      "id": "580406",
+      "short_id": "Subhalo 580406",
+      "kind": "galaxy",
+      "pos_kpc": [
+        25141.32,
+        -7722.74,
+        -25671.3
+      ],
+      "logMstar": 10.53,
+      "logM200c": 11.7,
+      "R200c_kpc": 167.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-2/resolve/main/580406/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=580406#tab=3d"
+    },
+    {
+      "id": "588831",
+      "short_id": "Subhalo 588831",
+      "kind": "galaxy",
+      "pos_kpc": [
+        18119.06,
+        17850.87,
+        7596.14
+      ],
+      "logMstar": 10.54,
+      "logM200c": 11.78,
+      "R200c_kpc": 177.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-3/resolve/main/588831/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=588831#tab=3d"
+    },
+    {
+      "id": "613192",
+      "short_id": "Subhalo 613192",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1110.14,
+        -1342.03,
+        -2137.1
+      ],
+      "logMstar": 10.67,
+      "logM200c": 11.53,
+      "R200c_kpc": 147.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng50-mwm31-web-0/resolve/main/613192/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=613192#tab=3d"
+    }
+  ],
+  "tng100_cosmic_web": [
+    {
+      "id": "tng100_c01_fof1",
+      "short_id": "Cluster #1 (FoF 1)",
+      "kind": "cluster",
+      "pos_kpc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "logMstar": 12.91,
+      "logM200c": 14.58,
+      "R200c_kpc": 1528.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14397702/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14397702#tab=3d"
+    },
+    {
+      "id": "tng100_c02_fof0",
+      "short_id": "Cluster #2 (FoF 0)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -27910.03,
+        -31337.42,
+        -45192.95
+      ],
+      "logMstar": 13.04,
+      "logM200c": 14.58,
+      "R200c_kpc": 1523.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14397702/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14397702#tab=3d"
+    },
+    {
+      "id": "tng100_c03_fof2",
+      "short_id": "Cluster #3 (FoF 2)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -13072.21,
+        4875.92,
+        -1963.69
+      ],
+      "logMstar": 12.85,
+      "logM200c": 14.53,
+      "R200c_kpc": 1468.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14441698/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14441698#tab=3d"
+    },
+    {
+      "id": "tng100_c04_fof4",
+      "short_id": "Cluster #4 (FoF 4)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -29666.4,
+        -43117.01,
+        -36764.46
+      ],
+      "logMstar": 12.66,
+      "logM200c": 14.4,
+      "R200c_kpc": 1335.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14528100/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14528100#tab=3d"
+    },
+    {
+      "id": "tng100_c05_fof9",
+      "short_id": "Cluster #5 (FoF 9)",
+      "kind": "cluster",
+      "pos_kpc": [
+        30945.77,
+        28542.8,
+        -8661.03
+      ],
+      "logMstar": 12.64,
+      "logM200c": 14.33,
+      "R200c_kpc": 1258.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14579813/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14579813#tab=3d"
+    },
+    {
+      "id": "tng100_c06_fof6",
+      "short_id": "Cluster #6 (FoF 6)",
+      "kind": "cluster",
+      "pos_kpc": [
+        34964.21,
+        -13828.72,
+        31405.26
+      ],
+      "logMstar": 12.69,
+      "logM200c": 14.32,
+      "R200c_kpc": 1250.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14859514/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14859514#tab=3d"
+    },
+    {
+      "id": "tng100_c07_fof8",
+      "short_id": "Cluster #7 (FoF 8)",
+      "kind": "cluster",
+      "pos_kpc": [
+        6070.93,
+        -21374.17,
+        -11085.68
+      ],
+      "logMstar": 12.68,
+      "logM200c": 14.32,
+      "R200c_kpc": 1249.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14859514/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14859514#tab=3d"
+    },
+    {
+      "id": "tng100_c08_fof5",
+      "short_id": "Cluster #8 (FoF 5)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -1361.95,
+        30548.74,
+        42041.89
+      ],
+      "logMstar": 12.7,
+      "logM200c": 14.31,
+      "R200c_kpc": 1239.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14859514/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14859514#tab=3d"
+    },
+    {
+      "id": "tng100_c09_fof3",
+      "short_id": "Cluster #9 (FoF 3)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -38695.3,
+        16922.52,
+        7486.52
+      ],
+      "logMstar": 12.84,
+      "logM200c": 14.23,
+      "R200c_kpc": 1170.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng100_c10_fof10",
+      "short_id": "Cluster #10 (FoF 10)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -53609.39,
+        41429.59,
+        -15836.23
+      ],
+      "logMstar": 12.57,
+      "logM200c": 14.21,
+      "R200c_kpc": 1152.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "tng100_sub363736",
+      "short_id": "Subhalo 363736",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -5447.85,
+        1158.75,
+        -11820.91
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.76,
+      "R200c_kpc": 377.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub363736/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub363736#tab=3d"
+    },
+    {
+      "id": "tng100_sub365743",
+      "short_id": "Subhalo 365743",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1209.81,
+        9558.26,
+        7261.47
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.83,
+      "R200c_kpc": 390.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub365743/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub365743#tab=3d"
+    },
+    {
+      "id": "tng100_sub373951",
+      "short_id": "Subhalo 373951",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -31752.95,
+        34536.43,
+        45878.72
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.8,
+      "R200c_kpc": 388.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub373951/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub373951#tab=3d"
+    },
+    {
+      "id": "tng100_sub375401",
+      "short_id": "Subhalo 375401",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -21349.61,
+        2326.02,
+        -11911.52
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.7,
+      "R200c_kpc": 360.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub375401/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub375401#tab=3d"
+    },
+    {
+      "id": "tng100_sub376544",
+      "short_id": "Subhalo 376544",
+      "kind": "galaxy",
+      "pos_kpc": [
+        50292.2,
+        35476.8,
+        -39335.17
+      ],
+      "logMstar": 10.95,
+      "logM200c": 12.5,
+      "R200c_kpc": 308.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub376544/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub376544#tab=3d"
+    },
+    {
+      "id": "tng100_sub387936",
+      "short_id": "Subhalo 387936",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -12817.76,
+        27675.0,
+        34816.23
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.58,
+      "R200c_kpc": 328.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub387936/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub387936#tab=3d"
+    },
+    {
+      "id": "tng100_sub397063",
+      "short_id": "Subhalo 397063",
+      "kind": "galaxy",
+      "pos_kpc": [
+        7390.82,
+        -54859.73,
+        20510.01
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.65,
+      "R200c_kpc": 346.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub397063/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub397063#tab=3d"
+    },
+    {
+      "id": "tng100_sub402483",
+      "short_id": "Subhalo 402483",
+      "kind": "galaxy",
+      "pos_kpc": [
+        49277.07,
+        36577.69,
+        -6629.31
+      ],
+      "logMstar": 10.95,
+      "logM200c": 12.66,
+      "R200c_kpc": 349.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub402483/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub402483#tab=3d"
+    },
+    {
+      "id": "tng100_sub405295",
+      "short_id": "Subhalo 405295",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -4930.67,
+        8898.45,
+        24462.03
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.53,
+      "R200c_kpc": 317.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub405295/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub405295#tab=3d"
+    },
+    {
+      "id": "tng100_sub406380",
+      "short_id": "Subhalo 406380",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -1377.29,
+        54288.81,
+        -30083.55
+      ],
+      "logMstar": 10.95,
+      "logM200c": 12.51,
+      "R200c_kpc": 312.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub406380/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub406380#tab=3d"
+    },
+    {
+      "id": "tng100_sub427532",
+      "short_id": "Subhalo 427532",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -2412.67,
+        -20192.2,
+        -20832.69
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.47,
+      "R200c_kpc": 301.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub427532/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub427532#tab=3d"
+    },
+    {
+      "id": "tng100_sub427957",
+      "short_id": "Subhalo 427957",
+      "kind": "galaxy",
+      "pos_kpc": [
+        29536.6,
+        -36830.0,
+        -29870.11
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.49,
+      "R200c_kpc": 307.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub427957/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub427957#tab=3d"
+    },
+    {
+      "id": "tng100_sub428616",
+      "short_id": "Subhalo 428616",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -44458.67,
+        -29508.95,
+        -39986.54
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.48,
+      "R200c_kpc": 304.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub428616/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub428616#tab=3d"
+    },
+    {
+      "id": "tng100_sub431635",
+      "short_id": "Subhalo 431635",
+      "kind": "galaxy",
+      "pos_kpc": [
+        38446.16,
+        49383.6,
+        41307.43
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.37,
+      "R200c_kpc": 280.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub431635/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub431635#tab=3d"
+    },
+    {
+      "id": "tng100_sub431751",
+      "short_id": "Subhalo 431751",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -4094.04,
+        -614.97,
+        34654.28
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.5,
+      "R200c_kpc": 308.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub431751/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub431751#tab=3d"
+    },
+    {
+      "id": "tng100_sub433936",
+      "short_id": "Subhalo 433936",
+      "kind": "galaxy",
+      "pos_kpc": [
+        35406.74,
+        -22216.11,
+        -19264.04
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.39,
+      "R200c_kpc": 284.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub433936/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub433936#tab=3d"
+    },
+    {
+      "id": "tng100_sub441667",
+      "short_id": "Subhalo 441667",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -44526.01,
+        22546.59,
+        -9851.89
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.41,
+      "R200c_kpc": 288.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub441667/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub441667#tab=3d"
+    },
+    {
+      "id": "tng100_sub442637",
+      "short_id": "Subhalo 442637",
+      "kind": "galaxy",
+      "pos_kpc": [
+        13432.34,
+        -27396.59,
+        3606.44
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.39,
+      "R200c_kpc": 283.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub442637/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub442637#tab=3d"
+    },
+    {
+      "id": "tng100_sub442761",
+      "short_id": "Subhalo 442761",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -20208.54,
+        28876.5,
+        44821.78
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.48,
+      "R200c_kpc": 304.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub442761/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub442761#tab=3d"
+    },
+    {
+      "id": "tng100_sub444929",
+      "short_id": "Subhalo 444929",
+      "kind": "galaxy",
+      "pos_kpc": [
+        30793.63,
+        41118.34,
+        -17845.81
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.39,
+      "R200c_kpc": 285.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub444929/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub444929#tab=3d"
+    },
+    {
+      "id": "tng100_sub445939",
+      "short_id": "Subhalo 445939",
+      "kind": "galaxy",
+      "pos_kpc": [
+        29291.81,
+        29111.86,
+        -5110.89
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.44,
+      "R200c_kpc": 294.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub445939/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub445939#tab=3d"
+    },
+    {
+      "id": "tng100_sub447767",
+      "short_id": "Subhalo 447767",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -50028.6,
+        -17829.38,
+        -53136.36
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.38,
+      "R200c_kpc": 282.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub447767/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub447767#tab=3d"
+    },
+    {
+      "id": "tng100_sub449267",
+      "short_id": "Subhalo 449267",
+      "kind": "galaxy",
+      "pos_kpc": [
+        29653.24,
+        -13720.46,
+        25365.8
+      ],
+      "logMstar": 10.95,
+      "logM200c": 12.3,
+      "R200c_kpc": 264.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub449267/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub449267#tab=3d"
+    },
+    {
+      "id": "tng100_sub449549",
+      "short_id": "Subhalo 449549",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -26777.69,
+        -31091.87,
+        -49577.23
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.38,
+      "R200c_kpc": 281.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub449549/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub449549#tab=3d"
+    },
+    {
+      "id": "tng100_sub452500",
+      "short_id": "Subhalo 452500",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -15942.22,
+        5275.38,
+        -4452.65
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.35,
+      "R200c_kpc": 275.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub452500/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub452500#tab=3d"
+    },
+    {
+      "id": "tng100_sub456538",
+      "short_id": "Subhalo 456538",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -5797.19,
+        -44473.3,
+        49449.04
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.34,
+      "R200c_kpc": 274.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub456538/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub456538#tab=3d"
+    },
+    {
+      "id": "tng100_sub460746",
+      "short_id": "Subhalo 460746",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -7785.76,
+        -52850.4,
+        -467.98
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.29,
+      "R200c_kpc": 263.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub460746/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub460746#tab=3d"
+    },
+    {
+      "id": "tng100_sub465136",
+      "short_id": "Subhalo 465136",
+      "kind": "galaxy",
+      "pos_kpc": [
+        43865.89,
+        15553.35,
+        -28046.18
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.25,
+      "R200c_kpc": 254.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub465136/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub465136#tab=3d"
+    },
+    {
+      "id": "tng100_sub467958",
+      "short_id": "Subhalo 467958",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -26258.89,
+        10563.6,
+        17940.19
+      ],
+      "logMstar": 10.94,
+      "logM200c": 12.31,
+      "R200c_kpc": 267.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub467958/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub467958#tab=3d"
+    },
+    {
+      "id": "tng100_sub468921",
+      "short_id": "Subhalo 468921",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -13612.33,
+        -12513.25,
+        -31345.57
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.21,
+      "R200c_kpc": 248.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng100_sub468921/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng100_sub468921#tab=3d"
+    }
+  ],
+  "tng300_cosmic_web": [
+    {
+      "id": "tng300_sub1338052",
+      "short_id": "Cluster #1 (FoF 0)",
+      "kind": "cluster",
+      "pos_kpc": [
+        0.0,
+        -0.0,
+        -0.01
+      ],
+      "logMstar": 13.46,
+      "logM200c": 15.19,
+      "R200c_kpc": 2432.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1338052/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1338052#tab=3d"
+    },
+    {
+      "id": "tng300_sub1350644",
+      "short_id": "Cluster #2 (FoF 1)",
+      "kind": "cluster",
+      "pos_kpc": [
+        56300.11,
+        106590.91,
+        69291.01
+      ],
+      "logMstar": 13.2,
+      "logM200c": 15.12,
+      "R200c_kpc": 2305.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1350644/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1350644#tab=3d"
+    },
+    {
+      "id": "tng300_sub1355775",
+      "short_id": "Cluster #3 (FoF 2)",
+      "kind": "cluster",
+      "pos_kpc": [
+        111469.36,
+        28045.25,
+        71515.26
+      ],
+      "logMstar": 13.11,
+      "logM200c": 15.01,
+      "R200c_kpc": 2131.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1355775/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1355775#tab=3d"
+    },
+    {
+      "id": "tng300_sub1367418",
+      "short_id": "Cluster #4 (FoF 4)",
+      "kind": "cluster",
+      "pos_kpc": [
+        133992.6,
+        -18382.43,
+        136810.84
+      ],
+      "logMstar": 13.05,
+      "logM200c": 14.93,
+      "R200c_kpc": 1990.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1367418/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1367418#tab=3d"
+    },
+    {
+      "id": "tng300_sub1370133",
+      "short_id": "Cluster #5 (FoF 3)",
+      "kind": "cluster",
+      "pos_kpc": [
+        63173.92,
+        48833.66,
+        -140198.4
+      ],
+      "logMstar": 13.1,
+      "logM200c": 14.95,
+      "R200c_kpc": 2035.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1370133/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1370133#tab=3d"
+    },
+    {
+      "id": "tng300_sub1373756",
+      "short_id": "Cluster #6 (FoF 5)",
+      "kind": "cluster",
+      "pos_kpc": [
+        4709.86,
+        35840.33,
+        -6602.68
+      ],
+      "logMstar": 13.02,
+      "logM200c": 14.87,
+      "R200c_kpc": 1901.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1373756/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1373756#tab=3d"
+    },
+    {
+      "id": "tng300_sub1374416",
+      "short_id": "Cluster #7 (FoF 9)",
+      "kind": "cluster",
+      "pos_kpc": [
+        22819.38,
+        -60093.69,
+        -69737.02
+      ],
+      "logMstar": 12.89,
+      "logM200c": 14.81,
+      "R200c_kpc": 1818.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1374416/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1374416#tab=3d"
+    },
+    {
+      "id": "tng300_sub1378965",
+      "short_id": "Cluster #8 (FoF 7)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -75327.55,
+        93401.07,
+        75107.04
+      ],
+      "logMstar": 13.02,
+      "logM200c": 14.76,
+      "R200c_kpc": 1759.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1378965/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1378965#tab=3d"
+    },
+    {
+      "id": "tng300_sub1379575",
+      "short_id": "Cluster #9 (FoF 10)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -4149.68,
+        73384.44,
+        -50602.93
+      ],
+      "logMstar": 12.94,
+      "logM200c": 14.8,
+      "R200c_kpc": 1813.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1379575/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1379575#tab=3d"
+    },
+    {
+      "id": "tng300_sub1383502",
+      "short_id": "Cluster #10 (FoF 13)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -65591.21,
+        83751.73,
+        64782.82
+      ],
+      "logMstar": 12.92,
+      "logM200c": 14.74,
+      "R200c_kpc": 1731.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1383502/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1383502#tab=3d"
+    },
+    {
+      "id": "tng300_sub1383532",
+      "short_id": "Cluster #11 (FoF 12)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -124418.82,
+        -126672.69,
+        -127657.09
+      ],
+      "logMstar": 12.91,
+      "logM200c": 14.82,
+      "R200c_kpc": 1831.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1383532/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1383532#tab=3d"
+    },
+    {
+      "id": "tng300_sub1387471",
+      "short_id": "Cluster #12 (FoF 15)",
+      "kind": "cluster",
+      "pos_kpc": [
+        74408.49,
+        80151.02,
+        -98125.91
+      ],
+      "logMstar": 12.82,
+      "logM200c": 14.7,
+      "R200c_kpc": 1670.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1387471/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1387471#tab=3d"
+    },
+    {
+      "id": "tng300_sub1390930",
+      "short_id": "Cluster #13 (FoF 11)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -66584.46,
+        89829.27,
+        69164.32
+      ],
+      "logMstar": 12.88,
+      "logM200c": 14.74,
+      "R200c_kpc": 1724.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1390930/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1390930#tab=3d"
+    },
+    {
+      "id": "tng300_sub1396739",
+      "short_id": "Cluster #14 (FoF 8)",
+      "kind": "cluster",
+      "pos_kpc": [
+        7664.4,
+        -95120.05,
+        -72273.91
+      ],
+      "logMstar": 12.96,
+      "logM200c": 14.6,
+      "R200c_kpc": 1551.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1396739/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1396739#tab=3d"
+    },
+    {
+      "id": "tng300_sub1400458",
+      "short_id": "Cluster #15 (FoF 6)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -112789.69,
+        93031.4,
+        22848.85
+      ],
+      "logMstar": 13.07,
+      "logM200c": 14.66,
+      "R200c_kpc": 1626.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1400458/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1400458#tab=3d"
+    },
+    {
+      "id": "tng300_sub1404688",
+      "short_id": "Cluster #16 (FoF 19)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -87659.74,
+        83409.9,
+        28135.29
+      ],
+      "logMstar": 12.85,
+      "logM200c": 14.67,
+      "R200c_kpc": 1636.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1404688/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1404688#tab=3d"
+    },
+    {
+      "id": "tng300_sub1404742",
+      "short_id": "Cluster #17 (FoF 20)",
+      "kind": "cluster",
+      "pos_kpc": [
+        41756.97,
+        -8708.88,
+        15021.06
+      ],
+      "logMstar": 12.82,
+      "logM200c": 14.63,
+      "R200c_kpc": 1593.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1404742/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1404742#tab=3d"
+    },
+    {
+      "id": "tng300_sub1409345",
+      "short_id": "Cluster #18 (FoF 18)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -34719.47,
+        -116149.16,
+        106007.48
+      ],
+      "logMstar": 12.81,
+      "logM200c": 14.61,
+      "R200c_kpc": 1562.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1409345/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1409345#tab=3d"
+    },
+    {
+      "id": "tng300_sub1443129",
+      "short_id": "Cluster #19 (FoF 17)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -115450.86,
+        -115303.27,
+        -64761.85
+      ],
+      "logMstar": 12.82,
+      "logM200c": 14.62,
+      "R200c_kpc": 1574.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1443129/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1443129#tab=3d"
+    },
+    {
+      "id": "tng300_sub1451907",
+      "short_id": "Cluster #20 (FoF 14)",
+      "kind": "cluster",
+      "pos_kpc": [
+        83618.27,
+        -36816.92,
+        -15090.55
+      ],
+      "logMstar": 12.84,
+      "logM200c": 14.64,
+      "R200c_kpc": 1600.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tng300_sub1451907/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tng300_sub1451907#tab=3d"
+    },
+    {
+      "id": "tng300_sub1338052",
+      "short_id": "Subhalo 1338052",
+      "kind": "galaxy",
+      "pos_kpc": [
+        41910.02,
+        141997.67,
+        -59940.5
+      ],
+      "logMstar": 11.27,
+      "logM200c": 12.74,
+      "R200c_kpc": 372.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1338052/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1338052#tab=3d"
+    },
+    {
+      "id": "tng300_sub1350644",
+      "short_id": "Subhalo 1350644",
+      "kind": "galaxy",
+      "pos_kpc": [
+        5031.81,
+        -89986.52,
+        -83701.65
+      ],
+      "logMstar": 11.23,
+      "logM200c": 12.72,
+      "R200c_kpc": 365.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1350644/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1350644#tab=3d"
+    },
+    {
+      "id": "tng300_sub1355775",
+      "short_id": "Subhalo 1355775",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -145876.08,
+        3179.65,
+        95195.55
+      ],
+      "logMstar": 11.19,
+      "logM200c": 12.76,
+      "R200c_kpc": 377.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1355775/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1355775#tab=3d"
+    },
+    {
+      "id": "tng300_sub1367418",
+      "short_id": "Subhalo 1367418",
+      "kind": "galaxy",
+      "pos_kpc": [
+        23470.07,
+        -80816.79,
+        -87228.77
+      ],
+      "logMstar": 11.29,
+      "logM200c": 12.76,
+      "R200c_kpc": 379.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1367418/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1367418#tab=3d"
+    },
+    {
+      "id": "tng300_sub1370133",
+      "short_id": "Subhalo 1370133",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -131451.39,
+        77998.1,
+        -126441.11
+      ],
+      "logMstar": 11.21,
+      "logM200c": 12.75,
+      "R200c_kpc": 375.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1370133/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1370133#tab=3d"
+    },
+    {
+      "id": "tng300_sub1373756",
+      "short_id": "Subhalo 1373756",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -60334.13,
+        -68866.99,
+        -10140.6
+      ],
+      "logMstar": 11.19,
+      "logM200c": 12.76,
+      "R200c_kpc": 378.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1373756/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1373756#tab=3d"
+    },
+    {
+      "id": "tng300_sub1374416",
+      "short_id": "Subhalo 1374416",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -8261.33,
+        -102704.38,
+        40653.56
+      ],
+      "logMstar": 11.19,
+      "logM200c": 12.76,
+      "R200c_kpc": 378.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1374416/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1374416#tab=3d"
+    },
+    {
+      "id": "tng300_sub1378965",
+      "short_id": "Subhalo 1378965",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -9769.46,
+        -69439.09,
+        81770.29
+      ],
+      "logMstar": 11.2,
+      "logM200c": 12.73,
+      "R200c_kpc": 370.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1378965/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1378965#tab=3d"
+    },
+    {
+      "id": "tng300_sub1379575",
+      "short_id": "Subhalo 1379575",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -58283.62,
+        98220.26,
+        73385.58
+      ],
+      "logMstar": 11.17,
+      "logM200c": 12.75,
+      "R200c_kpc": 373.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1379575/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1379575#tab=3d"
+    },
+    {
+      "id": "tng300_sub1383502",
+      "short_id": "Subhalo 1383502",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -144182.17,
+        110335.1,
+        -123274.09
+      ],
+      "logMstar": 11.17,
+      "logM200c": 12.75,
+      "R200c_kpc": 374.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1383502/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1383502#tab=3d"
+    },
+    {
+      "id": "tng300_sub1383532",
+      "short_id": "Subhalo 1383532",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -7354.51,
+        -60495.72,
+        44243.59
+      ],
+      "logMstar": 11.18,
+      "logM200c": 12.72,
+      "R200c_kpc": 367.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1383532/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1383532#tab=3d"
+    },
+    {
+      "id": "tng300_sub1387471",
+      "short_id": "Subhalo 1387471",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -8099.77,
+        112842.83,
+        -107917.44
+      ],
+      "logMstar": 11.17,
+      "logM200c": 12.73,
+      "R200c_kpc": 369.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1387471/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1387471#tab=3d"
+    },
+    {
+      "id": "tng300_sub1390930",
+      "short_id": "Subhalo 1390930",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -128444.18,
+        -2827.8,
+        -98020.61
+      ],
+      "logMstar": 11.25,
+      "logM200c": 12.72,
+      "R200c_kpc": 367.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1390930/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1390930#tab=3d"
+    },
+    {
+      "id": "tng300_sub1396739",
+      "short_id": "Subhalo 1396739",
+      "kind": "galaxy",
+      "pos_kpc": [
+        71438.91,
+        -107229.49,
+        -103763.27
+      ],
+      "logMstar": 11.17,
+      "logM200c": 12.65,
+      "R200c_kpc": 346.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1396739/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1396739#tab=3d"
+    },
+    {
+      "id": "tng300_sub1400458",
+      "short_id": "Subhalo 1400458",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1797.3,
+        73430.18,
+        20295.61
+      ],
+      "logMstar": 11.2,
+      "logM200c": 12.72,
+      "R200c_kpc": 366.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1400458/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1400458#tab=3d"
+    },
+    {
+      "id": "tng300_sub1404688",
+      "short_id": "Subhalo 1404688",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -149157.87,
+        70858.0,
+        -33670.84
+      ],
+      "logMstar": 11.23,
+      "logM200c": 12.74,
+      "R200c_kpc": 372.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1404688/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1404688#tab=3d"
+    },
+    {
+      "id": "tng300_sub1404742",
+      "short_id": "Subhalo 1404742",
+      "kind": "galaxy",
+      "pos_kpc": [
+        78221.96,
+        -55942.15,
+        145596.19
+      ],
+      "logMstar": 11.19,
+      "logM200c": 12.68,
+      "R200c_kpc": 355.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1404742/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1404742#tab=3d"
+    },
+    {
+      "id": "tng300_sub1409345",
+      "short_id": "Subhalo 1409345",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -35920.46,
+        -61076.56,
+        19096.12
+      ],
+      "logMstar": 11.2,
+      "logM200c": 12.72,
+      "R200c_kpc": 367.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1409345/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1409345#tab=3d"
+    },
+    {
+      "id": "tng300_sub1443129",
+      "short_id": "Subhalo 1443129",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -144392.07,
+        29972.89,
+        -12988.43
+      ],
+      "logMstar": 11.18,
+      "logM200c": 12.63,
+      "R200c_kpc": 341.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1443129/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1443129#tab=3d"
+    },
+    {
+      "id": "tng300_sub1451907",
+      "short_id": "Subhalo 1451907",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -69982.4,
+        -55607.09,
+        131266.13
+      ],
+      "logMstar": 11.19,
+      "logM200c": 12.66,
+      "R200c_kpc": 348.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/tng300_sub1451907/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=tng300_sub1451907#tab=3d"
+    }
+  ],
+  "illustris1_cosmic_web": [
+    {
+      "id": "illustris1_c01_fof0",
+      "short_id": "Cluster #1 (FoF 0)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -26782.97,
+        -30182.39,
+        -43551.25
+      ],
+      "logMstar": 13.07,
+      "logM200c": 14.37,
+      "R200c_kpc": 1263.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14579813/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14579813#tab=3d"
+    },
+    {
+      "id": "illustris1_c02_fof1",
+      "short_id": "Cluster #2 (FoF 1)",
+      "kind": "cluster",
+      "pos_kpc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "logMstar": 12.94,
+      "logM200c": 14.35,
+      "R200c_kpc": 1246.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14579813/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14579813#tab=3d"
+    },
+    {
+      "id": "illustris1_c03_fof2",
+      "short_id": "Cluster #3 (FoF 2)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -12698.57,
+        4806.22,
+        -1956.31
+      ],
+      "logMstar": 12.87,
+      "logM200c": 14.34,
+      "R200c_kpc": 1236.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14579813/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14579813#tab=3d"
+    },
+    {
+      "id": "illustris1_c04_fof4",
+      "short_id": "Cluster #4 (FoF 4)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -28558.46,
+        -41493.28,
+        -35644.02
+      ],
+      "logMstar": 12.69,
+      "logM200c": 14.23,
+      "R200c_kpc": 1137.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "illustris1_c05_fof6",
+      "short_id": "Cluster #5 (FoF 6)",
+      "kind": "cluster",
+      "pos_kpc": [
+        29715.96,
+        27569.36,
+        -8376.41
+      ],
+      "logMstar": 12.7,
+      "logM200c": 14.13,
+      "R200c_kpc": 1057.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "illustris1_c06_fof5",
+      "short_id": "Cluster #6 (FoF 5)",
+      "kind": "cluster",
+      "pos_kpc": [
+        33278.35,
+        -13201.4,
+        29904.17
+      ],
+      "logMstar": 12.74,
+      "logM200c": 14.11,
+      "R200c_kpc": 1035.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "illustris1_c07_fof8",
+      "short_id": "Cluster #7 (FoF 8)",
+      "kind": "cluster",
+      "pos_kpc": [
+        5842.72,
+        -20555.34,
+        -10859.8
+      ],
+      "logMstar": 12.71,
+      "logM200c": 14.07,
+      "R200c_kpc": 1005.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "illustris1_c08_fof3",
+      "short_id": "Cluster #8 (FoF 3)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -37257.16,
+        16242.58,
+        6868.6
+      ],
+      "logMstar": 12.84,
+      "logM200c": 14.07,
+      "R200c_kpc": 1005.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "illustris1_c09_fof9",
+      "short_id": "Cluster #9 (FoF 9)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -1411.78,
+        29399.3,
+        40266.73
+      ],
+      "logMstar": 12.65,
+      "logM200c": 14.05,
+      "R200c_kpc": 989.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "illustris1_c10_fof10",
+      "short_id": "Cluster #10 (FoF 10)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -51655.07,
+        39897.88,
+        -15536.63
+      ],
+      "logMstar": 12.61,
+      "logM200c": 14.02,
+      "R200c_kpc": 965.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "illustris1_sub330938",
+      "short_id": "Subhalo 330938",
+      "kind": "galaxy",
+      "pos_kpc": [
+        19533.17,
+        48809.38,
+        -18778.2
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.29,
+      "R200c_kpc": 257.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub330938/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub330938#tab=3d"
+    },
+    {
+      "id": "illustris1_sub343227",
+      "short_id": "Subhalo 343227",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -12517.05,
+        26960.09,
+        33283.1
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.42,
+      "R200c_kpc": 283.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub343227/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub343227#tab=3d"
+    },
+    {
+      "id": "illustris1_sub345080",
+      "short_id": "Subhalo 345080",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -52460.38,
+        16470.27,
+        46474.92
+      ],
+      "logMstar": 10.92,
+      "logM200c": 12.52,
+      "R200c_kpc": 307.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub345080/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub345080#tab=3d"
+    },
+    {
+      "id": "illustris1_sub347255",
+      "short_id": "Subhalo 347255",
+      "kind": "galaxy",
+      "pos_kpc": [
+        13736.87,
+        -22806.5,
+        42805.77
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.62,
+      "R200c_kpc": 331.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub347255/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub347255#tab=3d"
+    },
+    {
+      "id": "illustris1_sub353380",
+      "short_id": "Subhalo 353380",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -14853.51,
+        -46751.89,
+        20099.02
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.56,
+      "R200c_kpc": 316.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub353380/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub353380#tab=3d"
+    },
+    {
+      "id": "illustris1_sub355045",
+      "short_id": "Subhalo 355045",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -5042.14,
+        6911.83,
+        21857.68
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.42,
+      "R200c_kpc": 283.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub355045/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub355045#tab=3d"
+    },
+    {
+      "id": "illustris1_sub355528",
+      "short_id": "Subhalo 355528",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -32051.65,
+        -51305.82,
+        -23981.53
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.52,
+      "R200c_kpc": 306.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub355528/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub355528#tab=3d"
+    },
+    {
+      "id": "illustris1_sub357430",
+      "short_id": "Subhalo 357430",
+      "kind": "galaxy",
+      "pos_kpc": [
+        14562.57,
+        -28247.75,
+        33848.05
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.49,
+      "R200c_kpc": 299.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub357430/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub357430#tab=3d"
+    },
+    {
+      "id": "illustris1_sub360380",
+      "short_id": "Subhalo 360380",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -3587.9,
+        -6979.59,
+        10435.88
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.37,
+      "R200c_kpc": 273.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub360380/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub360380#tab=3d"
+    },
+    {
+      "id": "illustris1_sub369646",
+      "short_id": "Subhalo 369646",
+      "kind": "galaxy",
+      "pos_kpc": [
+        5847.9,
+        50986.05,
+        50955.2
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.36,
+      "R200c_kpc": 271.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub369646/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub369646#tab=3d"
+    },
+    {
+      "id": "illustris1_sub373221",
+      "short_id": "Subhalo 373221",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -11849.46,
+        8486.9,
+        21825.23
+      ],
+      "logMstar": 10.92,
+      "logM200c": 12.42,
+      "R200c_kpc": 283.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub373221/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub373221#tab=3d"
+    },
+    {
+      "id": "illustris1_sub388443",
+      "short_id": "Subhalo 388443",
+      "kind": "galaxy",
+      "pos_kpc": [
+        44323.88,
+        -44361.4,
+        7475.15
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.19,
+      "R200c_kpc": 237.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub388443/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub388443#tab=3d"
+    },
+    {
+      "id": "illustris1_sub390463",
+      "short_id": "Subhalo 390463",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -40865.83,
+        24236.49,
+        -14318.7
+      ],
+      "logMstar": 10.92,
+      "logM200c": 12.29,
+      "R200c_kpc": 256.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub390463/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub390463#tab=3d"
+    },
+    {
+      "id": "illustris1_sub395125",
+      "short_id": "Subhalo 395125",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -45669.42,
+        11714.08,
+        -33848.08
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.3,
+      "R200c_kpc": 258.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub395125/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub395125#tab=3d"
+    },
+    {
+      "id": "illustris1_sub396543",
+      "short_id": "Subhalo 396543",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -19771.72,
+        1697.52,
+        32493.92
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.24,
+      "R200c_kpc": 246.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub396543/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub396543#tab=3d"
+    },
+    {
+      "id": "illustris1_sub402801",
+      "short_id": "Subhalo 402801",
+      "kind": "galaxy",
+      "pos_kpc": [
+        11232.29,
+        -15505.02,
+        52277.07
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.14,
+      "R200c_kpc": 228.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub402801/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub402801#tab=3d"
+    },
+    {
+      "id": "illustris1_sub407128",
+      "short_id": "Subhalo 407128",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -28286.5,
+        47275.64,
+        -23037.55
+      ],
+      "logMstar": 10.92,
+      "logM200c": 12.11,
+      "R200c_kpc": 223.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub407128/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub407128#tab=3d"
+    },
+    {
+      "id": "illustris1_sub408340",
+      "short_id": "Subhalo 408340",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -9030.37,
+        47431.58,
+        -34355.55
+      ],
+      "logMstar": 10.92,
+      "logM200c": 12.1,
+      "R200c_kpc": 221.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub408340/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub408340#tab=3d"
+    },
+    {
+      "id": "illustris1_sub408877",
+      "short_id": "Subhalo 408877",
+      "kind": "galaxy",
+      "pos_kpc": [
+        13117.21,
+        27597.55,
+        39848.32
+      ],
+      "logMstar": 10.93,
+      "logM200c": 12.09,
+      "R200c_kpc": 220.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub408877/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub408877#tab=3d"
+    },
+    {
+      "id": "illustris1_sub420300",
+      "short_id": "Subhalo 420300",
+      "kind": "galaxy",
+      "pos_kpc": [
+        -41932.88,
+        -37724.87,
+        -31236.1
+      ],
+      "logMstar": 10.93,
+      "logM200c": 11.97,
+      "R200c_kpc": 201.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/tng-illustris-z0-web-0/resolve/main/illustris1_sub420300/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=illustris1_sub420300#tab=3d"
+    }
+  ],
+  "camels_l50n512_cosmic_web": [
+    {
+      "id": "camels_l50n512_c01_fof0",
+      "short_id": "Cluster #1 (FoF 0)",
+      "kind": "cluster",
+      "pos_kpc": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "logMstar": 12.68,
+      "logM200c": 14.6,
+      "R200c_kpc": 1566.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h14397702/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h14397702#tab=3d"
+    },
+    {
+      "id": "camels_l50n512_c02_fof2",
+      "short_id": "Cluster #2 (FoF 2)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -31042.69,
+        -4680.93,
+        -18415.25
+      ],
+      "logMstar": 12.32,
+      "logM200c": 14.23,
+      "R200c_kpc": 1176.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "camels_l50n512_c03_fof4",
+      "short_id": "Cluster #3 (FoF 4)",
+      "kind": "cluster",
+      "pos_kpc": [
+        13137.43,
+        23731.47,
+        -33293.79
+      ],
+      "logMstar": 12.13,
+      "logM200c": 14.05,
+      "R200c_kpc": 1024.4,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "camels_l50n512_c04_fof5",
+      "short_id": "Cluster #4 (FoF 5)",
+      "kind": "cluster",
+      "pos_kpc": [
+        10353.26,
+        -22033.46,
+        22541.86
+      ],
+      "logMstar": 12.16,
+      "logM200c": 14.03,
+      "R200c_kpc": 1006.7,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "camels_l50n512_c05_fof3",
+      "short_id": "Cluster #5 (FoF 3)",
+      "kind": "cluster",
+      "pos_kpc": [
+        13871.42,
+        3174.71,
+        -24334.01
+      ],
+      "logMstar": 12.15,
+      "logM200c": 13.81,
+      "R200c_kpc": 851.3,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "camels_l50n512_c06_fof1",
+      "short_id": "Cluster #6 (FoF 1)",
+      "kind": "cluster",
+      "pos_kpc": [
+        18773.08,
+        -2842.35,
+        35328.5
+      ],
+      "logMstar": 12.33,
+      "logM200c": 13.79,
+      "R200c_kpc": 840.5,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "camels_l50n512_c07_fof9",
+      "short_id": "Cluster #7 (FoF 9)",
+      "kind": "cluster",
+      "pos_kpc": [
+        6996.25,
+        -3056.22,
+        21268.48
+      ],
+      "logMstar": 11.89,
+      "logM200c": 13.78,
+      "R200c_kpc": 830.2,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "camels_l50n512_c08_fof7",
+      "short_id": "Cluster #8 (FoF 7)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -29992.03,
+        -16089.87,
+        -35539.69
+      ],
+      "logMstar": 11.98,
+      "logM200c": 13.78,
+      "R200c_kpc": 829.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "camels_l50n512_c09_fof8",
+      "short_id": "Cluster #9 (FoF 8)",
+      "kind": "cluster",
+      "pos_kpc": [
+        -28123.36,
+        -16487.76,
+        -20345.06
+      ],
+      "logMstar": 11.85,
+      "logM200c": 13.75,
+      "R200c_kpc": 813.9,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "camels_l50n512_c10_fof6",
+      "short_id": "Cluster #10 (FoF 6)",
+      "kind": "cluster",
+      "pos_kpc": [
+        16631.37,
+        36502.95,
+        36073.98
+      ],
+      "logMstar": 12.11,
+      "logM200c": 13.73,
+      "R200c_kpc": 800.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/icm-atlas-3d-0/resolve/main/tngc_h15543062/viz/",
+      "portal_url": "https://icm.tanmaysingh.uk/?g=tngc_h15543062#tab=3d"
+    },
+    {
+      "id": "camels_tng_mw25",
+      "short_id": "CAMELS-TNG #25",
+      "kind": "galaxy",
+      "pos_kpc": [
+        1978.65,
+        -22884.72,
+        -4469.28
+      ],
+      "logMstar": 10.47,
+      "logM200c": 12.34,
+      "R200c_kpc": 275.0,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/public-sims-web-0/resolve/main/camels_tng_mw25/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=camels_tng_mw25#tab=3d"
+    },
+    {
+      "id": "camels_tng_mw41",
+      "short_id": "CAMELS-TNG #41",
+      "kind": "galaxy",
+      "pos_kpc": [
+        12188.07,
+        -27857.82,
+        6133.14
+      ],
+      "logMstar": 10.5,
+      "logM200c": 12.33,
+      "R200c_kpc": 272.8,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/public-sims-web-0/resolve/main/camels_tng_mw41/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=camels_tng_mw41#tab=3d"
+    },
+    {
+      "id": "camels_tng_mw53",
+      "short_id": "CAMELS-TNG #53",
+      "kind": "galaxy",
+      "pos_kpc": [
+        11760.73,
+        33415.87,
+        -19914.32
+      ],
+      "logMstar": 10.4,
+      "logM200c": 12.2,
+      "R200c_kpc": 248.1,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/public-sims-web-0/resolve/main/camels_tng_mw53/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=camels_tng_mw53#tab=3d"
+    },
+    {
+      "id": "camels_tng_mw95",
+      "short_id": "CAMELS-TNG #95",
+      "kind": "galaxy",
+      "pos_kpc": [
+        20860.94,
+        -33823.2,
+        -9815.7
+      ],
+      "logMstar": 10.36,
+      "logM200c": 12.0,
+      "R200c_kpc": 211.6,
+      "viz_base": "https://huggingface.co/datasets/tanmay-starslab/public-sims-web-0/resolve/main/camels_tng_mw95/viz/",
+      "portal_url": "https://galaxies.tanmaysingh.uk/?g=camels_tng_mw95#tab=3d"
+    }
+  ]
+}
