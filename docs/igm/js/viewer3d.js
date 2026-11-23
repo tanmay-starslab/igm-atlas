@@ -620,15 +620,15 @@ async function create(app, opts = {}) {
       <div class="v3c-row" id="v3-weight-row" hidden><label for="v3-weight">weight</label><select id="v3-weight" data-tip="Density that weights the velocities: all gas or one ion"></select></div>
       <div class="v3c-row" id="v3-cmap-row"><label for="v3-cmap">colours</label><select id="v3-cmap" data-tip="Colour map of the field"></select></div></section>
     <section class="v3c-card" data-group="view" data-tab="view"><h2>View</h2>
-      <div class="v3c-btns presets"><button type="button" class="v3c-btn" data-p="face-on" data-tip="Look down the disk normal (F)">Face-on</button><button type="button" class="v3c-btn" data-p="edge-on" data-tip="Look at the disk from its side (E)">Edge-on</button>
-        <button type="button" class="v3c-btn" data-p="sightline" data-tip="Look along the selected sightline, as its spectrum sees it (A)">Along ray</button><button type="button" class="v3c-btn" data-p="reset" data-tip="Default camera view (R)">Reset</button></div>
-      <div class="v3c-row v3c-speed"><label for="v3-orbit-axis">orbit axis</label><select id="v3-orbit-axis" data-testid="v3-orbit-axis" data-tip="Axis the orbit turns around"><option value="auto">auto</option><option value="spin">rotation axis</option><option value="major">major axis</option><option value="minor">minor axis</option></select></div>
+      <div class="v3c-btns presets"><button type="button" class="v3c-btn" data-p="face-on" data-tip="Look down the cosmic-web box Z-axis (F)">Z-axis (box Z)</button><button type="button" class="v3c-btn" data-p="edge-on" data-tip="Look across the XY-plane filament bridge (E)">XY-plane</button>
+        <button type="button" class="v3c-btn" data-p="sightline" data-tip="Look along the selected sightline, as its spectrum sees it (A)">Along ray</button><button type="button" class="v3c-btn" data-p="reset" data-tip="Default 3D cosmic-web view (R)">Reset</button></div>
+      <div class="v3c-row v3c-speed"><label for="v3-orbit-axis">orbit axis</label><select id="v3-orbit-axis" data-testid="v3-orbit-axis" data-tip="Axis the orbit turns around"><option value="auto">auto</option><option value="spin">Z-axis</option><option value="major">X-axis (major)</option><option value="minor">Y-axis (minor)</option></select></div>
       <div class="v3c-row v3c-speed"><label for="v3-orbit-speed">orbit speed</label><input id="v3-orbit-speed" data-testid="v3-orbit-speed" type="range" min="1" max="45" step="1" value="20" data-tip="How fast the orbit turns (degrees per second)"><output id="v3-orbit-speed-o">20°/s</output></div>
       <div class="v3c-pair"><button type="button" class="v3c-btn v3c-wide" id="v3-fs" aria-pressed="false" data-tip="Fill the screen with the 3D view (Shift+F)"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4"/></svg><span>Fullscreen</span></button>
       ${(t => `<button type="button" class="v3c-btn v3c-wide" id="v3-head" data-testid="v3-head" aria-pressed="false" data-tip="${t ? "Head, hands or tilt." : "Head steers, hands act."} Your camera video stays on your device."><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5.5 8.5V3.6a1.1 1.1 0 0 1 2.2 0V7.5M7.7 7V2.6a1.1 1.1 0 0 1 2.2 0V7.3M9.9 7.3V3.6a1.1 1.1 0 0 1 2.2 0v5.6c0 3-1.9 5.3-4.6 5.3-2 0-3.1-1-4.2-2.7L2 9.4a1.1 1.1 0 0 1 1.8-1.2l1.7 1.7"/></svg><span>Hands-free</span></button>`)(matchMedia("(pointer: coarse)").matches && !matchMedia("(any-pointer: fine)").matches)}</div>
       <div class="v3c-pair v3c-save-row"><button type="button" class="v3c-btn v3c-wide" id="v3-save-open" aria-haspopup="dialog" aria-controls="v3-save-pop" aria-expanded="false" data-tip="Save publication PNG, vector SVG or PDF, or HTML snapshot"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.2v7.6M4.8 6.8 8 10l3.2-3.2M2.8 13.2h10.4"/></svg><span>Save view</span></button>
       <button type="button" class="v3c-btn v3c-wide" id="v3-copy-link" data-tip="Copy a link to this exact 3D camera view"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M6.6 9.4 9.4 6.6"/><path d="M7.4 4.6 8.6 3.4a2.6 2.6 0 0 1 3.7 3.7l-1.2 1.2M8.6 11.4l-1.2 1.2a2.6 2.6 0 0 1-3.7-3.7l1.2-1.2"/></svg><span>Copy link</span></button></div>
-      <div class="v3c-row v3c-pvrow" id="v3-pv-row"><span class="lab">centre</span><div class="v3c-btns v3c-pvb"><button type="button" class="v3c-btn" id="v3-pv-gal" aria-pressed="true" data-tip="Orbit about the galaxy centre (C); double-click elsewhere to move">galaxy</button><button type="button" class="v3c-btn" id="v3-pv-ray" aria-pressed="false" data-tip="Orbit about the selected sightline's closest point">ray</button></div></div>
+      <div class="v3c-row v3c-pvrow" id="v3-pv-row"><span class="lab">centre</span><div class="v3c-btns v3c-pvb"><button type="button" class="v3c-btn" id="v3-pv-gal" aria-pressed="true" data-tip="Orbit about the cosmic-web nexus / box centre (C); double-click elsewhere to move">nexus</button><button type="button" class="v3c-btn" id="v3-pv-ray" aria-pressed="false" data-tip="Orbit about the selected sightline's closest point">ray</button></div></div>
       <details id="v3-pv-more"><summary data-tip="Type an orbit centre in kpc, cosmic web box axes">kpc</summary><form class="v3tf-g v3c-pvxyz" id="v3-pv-form"><input id="v3-pv-x" type="number" step="100" min="-200000" max="200000" aria-label="centre x, kpc" placeholder="x" data-tip="x in kpc from the box/nexus centre"><input id="v3-pv-y" type="number" step="100" min="-200000" max="200000" aria-label="centre y, kpc" placeholder="y" data-tip="y in kpc from the box/nexus centre"><input id="v3-pv-z" type="number" step="100" min="-200000" max="200000" aria-label="centre z, kpc" placeholder="z" data-tip="z in kpc from the box/nexus centre"><button type="submit" class="v3c-btn" data-tip="Move the orbit centre there">go</button></form></details></section>
     <section class="v3c-card" data-group="layers" data-tab="layers"><h2>Layers</h2>
       <div class="v3c-row"><label for="v3-gasmix">gas</label><input id="v3-gasmix" type="range" min="0" max="1" step="0.05" data-tip="Strength of the gas layer; 0 hides it"><output id="v3-gasmix-o" for="v3-gasmix"></output></div>
@@ -724,6 +724,22 @@ async function create(app, opts = {}) {
   RM.uniforms.uDustScat = {value: DUST_LAWS.skirt.scat};
   RM.material.fragmentShader = RM.material.fragmentShader
     .replace("in vec3 vPos;", "uniform float uDust, uDustScat; uniform vec3 uDustVec; in vec3 vPos;")
+    .replace(`vec3 gradAt(vec3 p, int l) {
+  vec3 t = p / (2.0 * hl(l)) + 0.5; float e = 1.0 / uN, s = 0.5 * (uGasRange.y - uGasRange.x) / 254.0;
+  s *= hl(1) / hl(l);
+  return s * vec3(qAt(t + vec3(e, 0.0, 0.0), l) - qAt(t - vec3(e, 0.0, 0.0), l), qAt(t + vec3(0.0, e, 0.0), l) - qAt(t - vec3(0.0, e, 0.0), l),
+                  qAt(t + vec3(0.0, 0.0, e), l) - qAt(t - vec3(0.0, 0.0, e), l)); }`,
+      `vec3 gradAt(vec3 p, int l) {
+  if (l == 0 && length(p) + 2.5 * hl(0) / uN > uMask0) return vec3(0.0);
+  vec3 t = p / (2.0 * hl(l)) + 0.5; float e = 1.0 / uN, s = 0.5 * (uGasRange.y - uGasRange.x) / 254.0;
+  s *= ${(100.0 * boxScale).toFixed(4)} / hl(l);
+  float qxp = qAt(t + vec3(e, 0.0, 0.0), l), qxm = qAt(t - vec3(e, 0.0, 0.0), l);
+  float qyp = qAt(t + vec3(0.0, e, 0.0), l), qym = qAt(t - vec3(0.0, e, 0.0), l);
+  float qzp = qAt(t + vec3(0.0, 0.0, e), l), qzm = qAt(t - vec3(0.0, 0.0, e), l);
+  if (min(min(min(qxp, qxm), min(qyp, qym)), min(qzp, qzm)) < 1.0) return vec3(0.0);
+  return s * vec3(qxp - qxm, qyp - qym, qzp - qzm); }`)
+    .replace("float fp = uPxAng * max(length(pm - o), 1e-4 * uHalf.x), mg = 1.0, mw = 1.0, ms = 1.0;",
+      "float fp = uPxAng * max(length(o), 1e-4 * uHalf.x), mg = 1.0, mw = 1.0, ms = 1.0;")
     .replace("vec3 starAt(vec3 p, int l) {", `float decDust(float q) { return q < 0.5 || q >= 254.5 ? 0.0 : exp2(LOG2_10 * (-4.5 + (q - 1.0) * 6.0 / 253.0)); }
 float exactDust(sampler3D s, vec3 p, float h) {
   vec3 g = (p / (2.0 * h) + 0.5) * uN - 0.5, i0 = floor(g), f = g - i0; ivec3 b = ivec3(i0), hi = ivec3(int(uN) - 1); float v = 0.0;
@@ -1541,7 +1557,8 @@ vec3 starAt(vec3 p, int l) {`)
     selUniforms();
     renderer.getDrawingBufferSize(accSize); U.uPxAng.value = 2 * Math.tan(camera.fov * Math.PI / 360) / Math.max(accSize.y, 1);
     U.uLodC.value.set(species ? lodField(species) : LOD_C.gas, LOD_C.stars);
-    const dT = camera.position.distanceTo(controls.target); U.uNear.value.set(NEAR[0] * dT, NEAR[1] * dT);
+    const dT = camera.position.distanceTo(controls.target), nearD = U.uMode.value === 0 ? 0 : Math.min(dT * 0.12, 12.0 * boxScale);
+    U.uNear.value.set(0.35 * nearD, nearD);
     if (exact) {
       if (accRT.width !== accSize.x || accRT.height !== accSize.y) { accRT.setSize(accSize.x, accSize.y); accK = 0; }
       const k = accK, [sx, sy] = SUB[k % ACC_N]; U.uSub.value.set(2 * sx / accSize.x, 2 * sy / accSize.y); U.uAccW.value = 1 / (k + 1);
@@ -1942,9 +1959,11 @@ vec3 starAt(vec3 p, int l) {`)
   const idEl = q("#v3-id");
   function idBadge() { if (!idEl) return; const g = app.config?.galaxy || G, id = (typeof app.galaxy === "function" ? app.galaxy() : null) ?? g.subhalo_id;
     idEl.hidden = id == null || typeof app.openCredits !== "function"; if (id == null) return;
-    const sim = g.sim || "SIMBA-100", z = g.redshift ?? 0, boxMpc = g.box_kpc ? `${+(g.box_kpc / 1000).toFixed(1)} Mpc` : (g.R200c_kpc >= 1000 ? `${+(2 * g.R200c_kpc / 1000).toFixed(1)} Mpc` : `${id}`);
-    idEl.querySelector(".s").textContent = sim; idEl.querySelector(".g").textContent = `Cosmic Web (${boxMpc})`; idEl.querySelector(".z").textContent = `z = ${z}`;
-    idEl.setAttribute("aria-label", `${sim} Cosmic Web ${boxMpc} at redshift ${z}, data credits`); }
+    const ge = (typeof app.galaxies === "function" ? app.galaxies().find(x => x.id === id) : null) || {};
+    const sim = ge.sim || g.sim || "SIMBA-100", z = g.redshift ?? 0;
+    const boxMpc = ge.box_Mpc ? `${ge.box_Mpc} Mpc` : g.box_Mpc ? `${g.box_Mpc} Mpc` : g.box_kpc ? `${+(g.box_kpc / 1000).toFixed(1)} Mpc` : (g.R200c_kpc >= 1000 ? `${+(8 * g.R200c_kpc / 1000).toFixed(1)} Mpc` : `${id}`);
+    idEl.querySelector(".s").textContent = sim; idEl.querySelector(".g").textContent = `Cosmic Web · ${boxMpc} Box`; idEl.querySelector(".z").textContent = `z = ${z}`;
+    idEl.setAttribute("aria-label", `${sim} Cosmic Web · ${boxMpc} Box at redshift ${z}, data credits`); }
   idEl?.addEventListener("click", ev => { ev.stopPropagation(); app.openCredits?.(idEl); });
   idEl?.addEventListener("pointerdown", ev => ev.stopPropagation());
   const onGal = () => idBadge(); addEventListener("tng:galaxy", onGal); idBadge();

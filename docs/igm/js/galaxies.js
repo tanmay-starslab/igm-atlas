@@ -14,6 +14,38 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;",
 const ID_OK = /^(?:\d{1,9}|[A-Za-z][A-Za-z0-9_-]{1,36})$/;
 export const normId = x => (/^\d{1,9}$/.test(String(x ?? "")) ? +x : String(x ?? ""));
 export const isFire = e => !!(e && (/^fire/i.test(String(e.sim || e.simKey || "")) || /^m\d|^Romeo|^Juliet|^Romulus|^Remus|^Thelma|^Louise/i.test(String(e.id ?? ""))));
+export function inferSim(e) {
+  if (e && e.sim) return String(e.sim);
+  const id = String(e?.id ?? e ?? "");
+  if (/^m\d|^Romeo|^Juliet|^Romulus|^Remus|^Thelma|^Louise/i.test(id)) return "FIRE-2";
+  if (/^simba100/i.test(id)) return "SIMBA-100";
+  if (/^camels/i.test(id)) return "CAMELS-IllustrisTNG-L50n512";
+  if (/^tng100/i.test(id)) return "TNG100-1";
+  if (/^tng300/i.test(id)) return "TNG300-1";
+  if (/^illustris/i.test(id)) return "Illustris-1";
+  return "TNG50-1";
+}
+export function inferSimKey(e) {
+  if (e && e.simKey && ["simba100", "camels", "tng50", "tng100", "tng300", "illustris1", "fire2"].includes(e.simKey)) return e.simKey;
+  const s = inferSim(e).toLowerCase(), id = String(e?.id ?? e ?? "").toLowerCase();
+  if (s.startsWith("simba") || id.startsWith("simba")) return "simba100";
+  if (s.startsWith("camels") || id.startsWith("camels")) return "camels";
+  if (s.startsWith("tng100") || id.startsWith("tng100")) return "tng100";
+  if (s.startsWith("tng300") || id.startsWith("tng300")) return "tng300";
+  if (s.startsWith("illustris") || id.startsWith("illustris")) return "illustris1";
+  if (s.startsWith("fire") || isFire(e)) return "fire2";
+  return "tng50";
+}
+export const SIM_META = {
+  simba100:   {label: "SIMBA-100",   box: "147.1 Mpc", title: "IGM & Cosmic Web Atlas", groupTitle: "SIMBA-100 Cosmic Web (147.1 Mpc box)", msg: "SIMBA-100 z = 0 whole-box cosmic web (147.1 Mpc)", tip: "Show SIMBA-100 cosmic web (147.1 Mpc)", topTip: "Switch to SIMBA-100 whole-box cosmic web (147.1 Mpc, z = 0)", tag: "147.1 Mpc", tagTip: "SIMBA m100n1024_s50 whole-box cosmic web (147.1 Mpc)", credit: "Simulation: SIMBA-100 (147.1 Mpc box, z = 0)"},
+  camels:     {label: "CAMELS-L50",  box: "74.5 Mpc",  title: "IGM & Cosmic Web Atlas", groupTitle: "CAMELS-IllustrisTNG-L50n512 Cosmic Web (74.5 Mpc box)", msg: "CAMELS-IllustrisTNG-L50n512 z = 0 whole-box cosmic web (74.5 Mpc)", tip: "Show CAMELS-L50n512 cosmic web (74.5 Mpc)", topTip: "Switch to CAMELS-IllustrisTNG-L50n512 whole-box cosmic web (74.5 Mpc, z = 0)", tag: "74.5 Mpc", tagTip: "CAMELS-IllustrisTNG-L50n512 CV_0 whole-box cosmic web (74.5 Mpc)", credit: "Simulation: CAMELS-IllustrisTNG-L50n512 (74.5 Mpc box, z = 0)"},
+  tng50:      {label: "TNG50-1",     box: "51.7 Mpc",  title: "IGM & Cosmic Web Atlas", groupTitle: "TNG50-1 Cosmic Web (51.7 Mpc box)", msg: "TNG50-1 z = 0 whole-box cosmic web (51.7 Mpc)", tip: "Show TNG50-1 cosmic web (51.7 Mpc)", topTip: "Switch to IllustrisTNG TNG50-1 whole-box cosmic web (51.7 Mpc, z = 0)", tag: "51.7 Mpc", tagTip: "IllustrisTNG TNG50-1 whole-box cosmic web (51.7 Mpc)", credit: "Simulation: TNG50-1 (51.7 Mpc box, z = 0)"},
+  tng100:     {label: "TNG100-1",    box: "110.7 Mpc", title: "IGM & Cosmic Web Atlas", groupTitle: "TNG100-1 Cosmic Web (110.7 Mpc box)", msg: "TNG100-1 z = 0 whole-box cosmic web (110.7 Mpc)", tip: "Show TNG100-1 cosmic web (110.7 Mpc)", topTip: "Switch to IllustrisTNG TNG100-1 whole-box cosmic web (110.7 Mpc, z = 0)", tag: "110.7 Mpc", tagTip: "IllustrisTNG TNG100-1 whole-box cosmic web (110.7 Mpc)", credit: "Simulation: TNG100-1 (110.7 Mpc box, z = 0)"},
+  tng300:     {label: "TNG300-1",    box: "302.6 Mpc", title: "IGM & Cosmic Web Atlas", groupTitle: "TNG300-1 Cosmic Web (302.6 Mpc box)", msg: "TNG300-1 z = 0 whole-box cosmic web (302.6 Mpc)", tip: "Show TNG300-1 cosmic web (302.6 Mpc)", topTip: "Switch to IllustrisTNG TNG300-1 whole-box cosmic web (302.6 Mpc, z = 0)", tag: "302.6 Mpc", tagTip: "IllustrisTNG TNG300-1 whole-box cosmic web (302.6 Mpc)", credit: "Simulation: TNG300-1 (302.6 Mpc box, z = 0)"},
+  illustris1: {label: "Illustris-1", box: "106.5 Mpc", title: "IGM & Cosmic Web Atlas", groupTitle: "Illustris-1 Cosmic Web (106.5 Mpc box)", msg: "Illustris-1 z = 0 whole-box cosmic web (106.5 Mpc)", tip: "Show Illustris-1 cosmic web (106.5 Mpc)", topTip: "Switch to Illustris-1 whole-box cosmic web (106.5 Mpc, z = 0)", tag: "106.5 Mpc", tagTip: "Original Illustris-1 whole-box cosmic web (106.5 Mpc)", credit: "Simulation: Illustris-1 (106.5 Mpc box, z = 0)"},
+  fire2:      {label: "FIRE-2",      box: "",          title: "FIRE-2 sightlines", groupTitle: "FIRE-2 zoom-in halos", msg: "FIRE-2 z = 0 zoom-in halos", tip: "Show only FIRE-2 zoom-in halos", topTip: "Switch to FIRE-2 zoom-in halos", tag: "FIRE-2", tagTip: "FIRE-2 cosmological zoom-in simulation", credit: "Simulation: FIRE-2 (FIRE Collaboration)"}
+};
+export const SIM_ORDER = ["simba100", "camels", "tng50", "tng100", "tng300", "illustris1", "fire2"];
 export const galNoun = e => (isFire(e) ? "Halo" : "Cosmic Web");
 export const galWord = (e, id) => (e && e.label ? String(e.label) : `${isFire(e) ? "Halo" : "Cosmic Web"} ${id ?? e?.id ?? ""}`.trim());
 
@@ -24,8 +56,8 @@ export function galaxyIndex(cfg) {
   if (!G || !Array.isArray(G.list)) return null;
   const list = G.list.filter(e => e && ID_OK.test(String(e.id))).map(e => {
     const id = normId(e.id);
-    const sim = e.sim ? String(e.sim) : (/^m\d|^Romeo|^Juliet|^Romulus|^Remus|^Thelma|^Louise/i.test(String(id)) ? "FIRE-2" : "TNG50-1");
-    const simKey = e.simKey ? String(e.simKey) : (/fire/i.test(sim) ? "fire2" : "tng50");
+    const sim = inferSim({...e, id});
+    const simKey = inferSimKey({...e, id, sim});
     return {...e, id, sim, simKey};
   });
   const byId = new Map(list.map(e => [e.id, e]));
@@ -35,10 +67,10 @@ export function galaxyIndex(cfg) {
   return {default: def, base, vizBase: typeof G.viz_base === "string" && G.viz_base.includes("{id}") ? G.viz_base : null, list, byId};
 }
 
-const normSimKey = s => {
+export const normSimKey = s => {
   const v = String(s || "").trim().toLowerCase();
   if (v === "simba" || v === "simba100" || v === "simba-100") return "simba100";
-  if (v === "camels" || v === "camels-l50n512" || v === "camels_l50n512") return "camels";
+  if (v === "camels" || v === "camels-l50" || v === "camels-l50n512" || v === "camels_l50n512") return "camels";
   if (v === "tng50" || v === "tng50-1") return "tng50";
   if (v === "tng100" || v === "tng100-1") return "tng100";
   if (v === "tng300" || v === "tng300-1") return "tng300";
@@ -199,7 +231,10 @@ const COLS = [["id", "id", "Galaxy or subhalo id; click to sort"], ["Mstar", "lo
   ["SFR", "SFR", "Star formation rate, M⊙/yr; click to sort, again to reverse"], ["M200c", "log M200", "Halo mass M200c, log M⊙; click to sort, again to reverse"]];
 function tags(e) {
   const t = [];
-  if (isFire(e)) t.push('<span class="tag" data-tip="FIRE-2 cosmological zoom-in simulation">FIRE-2</span>');
+  const sk = inferSimKey(e);
+  if (e.box_Mpc) t.push(`<span class="tag" data-tip="Periodic simulation box length at z = 0">${esc(e.box_Mpc + " Mpc")}</span>`);
+  else if (isFire(e)) t.push('<span class="tag" data-tip="FIRE-2 cosmological zoom-in simulation">FIRE-2</span>');
+  else if (SIM_META[sk]?.tag) t.push(`<span class="tag" data-tip="${esc(SIM_META[sk].tagTip || "Cosmological simulation")}">${esc(SIM_META[sk].tag)}</span>`);
   if (e.central === false) t.push('<span class="tag" data-tip="A satellite: not the central galaxy of its halo">sat</span>');
   if (e.m31 === true) t.push('<span class="tag" data-tip="M31-like in the sample definition">M31</span>');
   else if (e.mw === true) t.push('<span class="tag" data-tip="Milky Way-like in the sample definition">MW</span>');
@@ -212,12 +247,12 @@ export function galaxyCard(e) {
   if (!e) return "";
   const kv = (k, v, tip) => `<span class="pv" data-tip="${esc(tip)}"><i>${k}</i>${esc(v)}</span>`;
   const fire = isFire(e), head = e.label || (fire ? `Halo ${e.id}` : `Cosmic Web ${e.id}`);
-  const boxTxt = e.box_Mpc ? `${e.box_Mpc} Mpc` : (Number.isFinite(+e.R200c) && +e.R200c >= 1000 ? `${+(2 * +e.R200c / 1000).toFixed(1)} Mpc` : null);
+  const boxTxt = e.box_Mpc ? `${e.box_Mpc} Mpc` : (Number.isFinite(+e.R200c) && +e.R200c >= 1000 ? `${+(8 * +e.R200c / 1000).toFixed(1)} Mpc` : null);
   return `<span class="gxid">${esc(head)}</span>${fire ? '<span class="tag" data-tip="FIRE-2 cosmological zoom-in simulation">FIRE-2</span>' : ""}${kindWord(e) ? `<span class="gxk">${kindWord(e)}</span>` : ""}` +
-    (boxTxt ? kv("Box", boxTxt, "Periodic simulation box length at z = 0") : "") +
+    (boxTxt ? kv("Box", boxTxt, "Periodic simulation box length at z = 0 (L0)") : "") +
     kv("log M*", lg(e.Mstar), "Supercluster stellar mass, log M⊙") +
     kv("log M200c", lg(e.M200c), "Supercluster halo mass sum(M200c), log M⊙") +
-    (Number.isFinite(+e.R200c) && e.R200c ? kv("L1", `${+(+e.R200c >= 1000 ? (+e.R200c / 1000).toFixed(1) + " Mpc" : Math.round(+e.R200c) + " kpc")}`, "Supercluster L1 half-width") : "") +
+    (Number.isFinite(+e.R200c) && e.R200c ? kv("L1", `${+(+e.R200c >= 1000 ? (2 * +e.R200c / 1000).toFixed(1) + " Mpc" : Math.round(+e.R200c) + " kpc")}`, "Supercluster nexus L1 box width (Box/4)") : "") +
     (e.gas_poor ? '<span class="gxk" data-tip="Little cold gas: expect weak low-ion absorption">gas-poor</span>' : "");
 }
 
@@ -252,72 +287,57 @@ export function defaultSightline(entries, R200c, rho = 0.25) {
 export function createGalaxyPicker(els, opts) {
   let view = [], hl = -1, sort = {key: "Mstar", dir: -1}, simFilter = "all";
   const shown = () => view.slice(0, MAX_ROWS);
-  const sims = new Set((opts.index.list || []).map(e => e.simKey || (isFire(e) ? "fire2" : "tng50")));
+  const allList = opts.index.list || [];
+  const counts = {};
+  for (const sk of SIM_ORDER) counts[sk] = 0;
+  for (const e of allList) {
+    const sk = inferSimKey(e);
+    counts[sk] = (counts[sk] || 0) + 1;
+  }
+  const activeSimKeys = SIM_ORDER.filter(sk => counts[sk] > 0);
+  const sims = new Set(activeSimKeys);
   const multiSim = sims.size > 1;
   let simBar = els.pop ? els.pop.querySelector("#gxy-sim") : null;
-  const nTng = (opts.index.list || []).filter(e => (e.simKey || (isFire(e) ? "fire2" : "tng50")) === "tng50").length;
-  const nFire = (opts.index.list || []).filter(e => (e.simKey || (isFire(e) ? "fire2" : "tng50")) === "fire2").length;
   if (multiSim && els.pop && !simBar) {
-    simBar = document.createElement("div");
+    simBar = document.createElement("select");
     simBar.id = "gxy-sim";
-    simBar.className = "seg";
-    simBar.setAttribute("role", "radiogroup");
     simBar.setAttribute("aria-label", "Simulation filter");
-    simBar.innerHTML = [
-      ["all", `All (${nTng + nFire})`, "Show TNG50 and FIRE-2 galaxies grouped by simulation"],
-      ["tng50", `TNG50 (${nTng})`, "Show only TNG50-1 galaxies"],
-      ["fire2", `FIRE-2 (${nFire})`, "Show only FIRE-2 zoom-in halos"]
-    ].map(([v, lab, tip], i) => `<label><input type="radio" name="gxy-sim" value="${v}" data-tip="${esc(tip)}"${i === 0 ? " checked" : ""}><span>${lab}</span></label>`).join("");
-    const fl = els.pop.querySelector(".fl");
-    if (fl) els.pop.insertBefore(simBar, fl); else els.pop.prepend(simBar);
+    simBar.dataset.tip = "Filter whole-box cosmic web volumes by simulation suite";
+    const items = [
+      ["all", `all sims (${allList.length})`],
+      ...activeSimKeys.map(sk => [sk, `${SIM_META[sk]?.label || sk} (${SIM_META[sk]?.box || counts[sk]})`])
+    ];
+    simBar.innerHTML = items.map(([v, lab]) => `<option value="${v}">${esc(lab)}</option>`).join("");
+    const fl = els.pop.querySelector(".fl"), filt = els.pop.querySelector("#gxy-filter");
+    if (fl && filt) fl.insertBefore(simBar, filt);
+    else if (fl) fl.appendChild(simBar);
+    else els.pop.prepend(simBar);
   }
   const msgEl = els.pop ? els.pop.querySelector(".galf .msg") : null;
   function updateMsg() {
     if (!msgEl) return;
     if (!multiSim) {
-      msgEl.textContent = sims.has("fire2") ? "FIRE-2 z = 0 zoom-in halos" : "TNG50-1 z = 0 Milky Way and M31 analogues";
+      const onlySk = activeSimKeys[0] || "simba100";
+      msgEl.textContent = SIM_META[onlySk]?.msg || "Whole-Box z = 0 IGM & Cosmic Web Simulation";
       return;
     }
-    msgEl.textContent = simFilter === "fire2" ? "FIRE-2 z = 0 zoom-in halos"
-      : simFilter === "tng50" ? "TNG50-1 z = 0 Milky Way and M31 analogues"
-      : "TNG50-1 and FIRE-2 z = 0 galaxies grouped by simulation";
+    msgEl.textContent = simFilter !== "all" && SIM_META[simFilter]
+      ? SIM_META[simFilter].msg
+      : "6 Whole-Box z = 0 IGM & Cosmic Web Simulations (51.7 to 302.6 Mpc)";
   }
   els.head.innerHTML = COLS.map(([k, lab, tip]) => `<button type="button" class="gxs" data-sort="${k}" data-tip="${esc(tip)}" aria-sort="none">${lab}<b aria-hidden="true"></b></button>`).join("") + "<span></span>";
   function row(e, i, cur) {
-    const idTxt = e.label ? String(e.label) : (multiSim ? `${isFire(e) ? "Halo" : "Cosmic Web"} ${e.id}` : String(e.id));
+    const idTxt = e.short_label || e.label || (multiSim ? `${isFire(e) ? "Halo" : "Cosmic Web"} ${e.id}` : String(e.id));
     return `<li role="option" id="gxy-opt-${i}" data-id="${esc(e.id)}" aria-selected="${e.id === cur}" aria-label="${esc(galaxyAria(e))}" data-tip="${esc(galaxyTip(e))}"${i === hl ? ' class="hl"' : ""}>` +
       `<span class="gxid">${esc(idTxt)}</span><span class="num">${lg(e.Mstar)}</span><span class="num">${fmtSfr(e.SFR)}</span><span class="num">${lg(e.M200c)}</span><span class="gxt">${tags(e)}</span></li>`;
   }
   function render() {
     const f = els.filter.value, all = opts.index.list, cur = opts.current();
     const filtered = filterGalaxies(all, els.search.value, f, simFilter);
-    if (multiSim && simFilter === "all") {
-      const curE = opts.index.byId.get(cur), curFire = isFire(curE);
-      const fireList = sortGalaxies(filtered.filter(e => (e.simKey || (isFire(e) ? "fire2" : "tng50")) === "fire2"), sort.key, sort.dir);
-      const tngList = sortGalaxies(filtered.filter(e => (e.simKey || (isFire(e) ? "fire2" : "tng50")) === "tng50"), sort.key, sort.dir);
-      const groups = curFire
-        ? [["FIRE-2 zoom-in halos", fireList], ["TNG50-1 Milky Way and M31 analogues", tngList]]
-        : [["FIRE-2 zoom-in halos", fireList], ["TNG50-1 Milky Way and M31 analogues", tngList]];
-      view = groups.flatMap(([, g]) => g);
-      if (hl >= shown().length) hl = shown().length - 1;
-      let idx = 0;
-      const htmlParts = [];
-      for (const [title, g] of groups) {
-        if (!g.length) continue;
-        htmlParts.push(`<li class="gxy-sec" role="presentation"><span>${esc(title)}</span><b>${g.length}</b></li>`);
-        for (const e of g) {
-          if (idx >= MAX_ROWS) break;
-          htmlParts.push(row(e, idx++, cur));
-        }
-      }
-      els.list.innerHTML = htmlParts.length ? htmlParts.join("")
-        : '<li class="empty" role="presentation">No match<button type="button" class="lk" data-act="clear" data-tip="Clear the search and the filter">clear</button></li>';
-    } else {
-      view = sortGalaxies(filtered, sort.key, sort.dir);
-      if (hl >= shown().length) hl = shown().length - 1;
-      els.list.innerHTML = view.length ? shown().map((e, i) => row(e, i, cur)).join("")
-        : '<li class="empty" role="presentation">No match<button type="button" class="lk" data-act="clear" data-tip="Clear the search and the filter">clear</button></li>';
-    }
+    view = sortGalaxies(filtered, sort.key, sort.dir);
+    if (hl >= shown().length) hl = shown().length - 1;
+    els.list.innerHTML = view.length ? shown().map((e, i) => row(e, i, cur)).join("")
+      : '<li class="empty" role="presentation">No match<button type="button" class="lk" data-act="clear" data-tip="Clear the search and the filter">clear</button></li>';
     els.count.textContent = `${view.length} of ${all.length}`;
     updateMsg();
     for (const b of els.head.querySelectorAll("[data-sort]")) { const on = b.dataset.sort === sort.key;
@@ -327,12 +347,13 @@ export function createGalaxyPicker(els, opts) {
   }
   function setSort(key) { sort = sort.key === key ? {key, dir: -sort.dir} : {key, dir: key === "id" ? 1 : -1}; hl = -1; render(); }
   function setSim(s) {
-    simFilter = ["all", "tng50", "fire2"].includes(s) ? s : "all";
-    if (simBar) for (const r of simBar.querySelectorAll('input[name="gxy-sim"]')) r.checked = r.value === simFilter;
+    const k = s === "all" ? "all" : (normSimKey(s) || s);
+    simFilter = (k === "all" || SIM_ORDER.includes(k)) ? k : "all";
+    if (simBar) simBar.value = simFilter;
     hl = -1; render();
   }
   function clear() { els.search.value = ""; els.filter.value = "all"; setSim("all"); els.search.focus(); }
-  if (simBar) simBar.addEventListener("change", ev => { if (ev.target && ev.target.name === "gxy-sim") setSim(ev.target.value); });
+  if (simBar) simBar.addEventListener("change", ev => { if (ev.target) setSim(ev.target.value); });
   els.head.addEventListener("click", ev => { const b = ev.target.closest("[data-sort]"); if (b) setSort(b.dataset.sort); });
   els.list.addEventListener("click", ev => { if (ev.target.closest('[data-act="clear"]')) { setTimeout(clear); return; }
     const li = ev.target.closest("li[data-id]"); if (li) opts.onPick(normId(li.dataset.id)); });

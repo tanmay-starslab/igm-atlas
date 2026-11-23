@@ -39,10 +39,16 @@ export function sightParams(e) {
 
 /* the label of an entry as {html, text}: glyph, orientation word, parameters; the text form puts two spaces between
    fields (no dot separators) */
+export const ORIENT_LABEL = {
+  "face-on": "Z-axis",
+  "edge-on": "XY-plane",
+  random: "Oblique 3D",
+  custom: "custom"
+};
 export function sightLabel(e) {
-  const o = orientOf(e), ps = sightParams(e);
-  return {html: glyph(o) + `<span class="ow">${o}</span>` + ps.map(([k, v]) => `<span class="pv"><i>${esc(k)}</i>${esc(v)}</span>`).join(""),
-    text: [o, ...ps.map(([k, v]) => `${k} ${v}`)].join("  ")};
+  const o = orientOf(e), ow = ORIENT_LABEL[o] || o, ps = sightParams(e);
+  return {html: glyph(o) + `<span class="ow">${esc(ow)}</span>` + ps.map(([k, v]) => `<span class="pv"><i>${esc(k)}</i>${esc(v)}</span>`).join(""),
+    text: [ow, ...ps.map(([k, v]) => `${k} ${v}`)].join("  ")};
 }
 
 /* the one-line tip of the top-bar sightline button: the id (and the seed of a random ray), then the action */
@@ -81,7 +87,7 @@ export function parseQuery(q) {
   return out;
 }
 const fields = e => { const f = {}; for (const [k, v] of sightParams(e)) f[k] = parseFloat(v); if (e.seed != null) f.seed = +e.seed; return f; };
-const words = e => [e.id, orientOf(e), kindOf(e) !== "library" ? "yours generated" : ""].join(" ").toLowerCase();
+const words = e => [e.id, orientOf(e), ORIENT_LABEL[orientOf(e)] || "", kindOf(e) !== "library" ? "yours generated" : ""].join(" ").toLowerCase();
 export function matches(e, terms) {
   if (!terms.length) return true;
   const f = fields(e), w = words(e);

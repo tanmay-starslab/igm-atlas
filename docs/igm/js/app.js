@@ -16,7 +16,7 @@ import {initLiquidTabs, initLiquidSeg, initLiquidButtons} from "./liquidtabs.js"
 import {initLiquidBg} from "./liquidbg.js";   /* liquid metal shader background (3D tab; Spectra only with SPECTRA_BG) */
 import {uiSound, sfx} from "./uisound.js";   /* optional UI sound effects (off by default; top-bar switch #sfx) */
 import {galaxyIndex, resolveGalaxy, parseGalaxy, galaxyHashPart, packFor, createGalaxyPicker, galaxyTip, unlistedGalaxy,
-  nearestSightline, defaultSightline, srcOf, galaxySummary, normId, isFire} from "./galaxies.js";
+  nearestSightline, defaultSightline, srcOf, galaxySummary, normId, isFire, inferSim, inferSimKey, SIM_META, SIM_ORDER, galNoun} from "./galaxies.js";
 import {tier, tierReady} from "./tier.js";   /* perf R5: device tier (html[data-tier]) and its one-off WebGL probe */
 const {degradeV, decodeTNGS, seedFor, cacheKey, fitPanel, FIT_VERSION, FIT_PARAMS} = FITM;
 
@@ -1020,9 +1020,9 @@ for (const el of [$("#tab-3d"), $("#v3d-mini")]) el.addEventListener("pointerent
 let FORCE3D = false;
 function poster3d() {
   const root = $("#v3d-root"); $("#v3d-wait").hidden = true; if (root.querySelector(".v3d-poster")) return;
-  root.innerHTML = `<div class="v3d-poster" data-testid="v3d-poster"><img src="img/og/explorer.jpg" alt="A TNG50 galaxy's gas in purple and orange, crossed by a quasar sightline" width="1200" height="630" decoding="async">
-    <p class="msg">This device looks slow for the live 3D view, so it shows a still.</p><button type="button" class="pbtn" data-testid="v3d-anyway">Render 3D anyway</button></div>`;
-  root.querySelector("button").addEventListener("click", () => { FORCE3D = true; root.replaceChildren(); $("#v3d-wait").hidden = false; open3d().catch(() => {}); });
+  root.innerHTML = `<div class="v3d-poster" data-testid="v3d-poster"><img src="img/og/explorer.jpg" alt="A 3D cosmological intergalactic medium and WHIM filament web crossed by quasar absorption sightlines" width="1200" height="630" decoding="async">
+    <p class="msg">This device looks slow for the live 3D cosmic web view, so it shows a still.</p><button type="button" class="pbtn" data-testid="v3d-anyway">Render 3D anyway</button></div>`;
+  root.querySelector("button").addEventListener("click", () => { FORCE3D = true; root.replaceChildren(); $("#v3d-wait").hidden = false; open3d().then(autoSheet, () => {}); });
 }
 function open3d() {
   if (V3P) return V3P;
@@ -1063,45 +1063,112 @@ $("#v3d-mini").addEventListener("pointerenter", () => { if (thumbOk() && tier() 
 /* ---------------- galaxy sample: picker and switching (js/galaxies.js) ---------------- */
 const GPICK = GIX ? createGalaxyPicker({pop: $("#gxy-pop"), cur: $("#gxy-cur"), search: $("#gxy-search"), filter: $("#gxy-filter"), head: $("#gxy-head"),
   list: $("#gxy-list"), count: $("#gxy-count")}, {index: GIX, current: () => GAL, onPick: id => { closePops(); sfx("select"); switchGalaxy(id, {source: "picker"}); }}) : null;
-if (GPICK && $("#gxy-sim")) initLiquidSeg($("#gxy-sim"));
-const LAST_BY_SIM = {tng50: GIX?.default ?? 488530, fire2: "m12i"};
-let topSimEl = null;
-const topSimSelEl = $("#igm-sim-select");
-if (topSimSelEl && GIX) {
-  topSimSelEl.addEventListener("change", ev => {
-    const id = normId(ev.target.value);
-    if (id != null && GIX.byId.has(id) && id !== GAL) {
-      sfx("select");
-      switchGalaxy(id, {source: "sim-switch"});
-    }
+const LAST_BY_SIM = {
+  simba100: "simba100_cosmic_web",
+  camels: "camels_l50n512_cosmic_web",
+  tng50: "tng50_cosmic_web",
+  tng100: "tng100_cosmic_web",
+  tng300: "tng300_cosmic_web",
+  illustris1: "illustris1_cosmic_web",
+  fire2: "m12i"
+};
+const activeSim = () => String((GIX && GIX.byId.get(GAL)?.sim) || CFG.galaxy?.sim || inferSim({id: GAL}));
+const activeSimKey = () => (GIX && GIX.byId.get(GAL)?.simKey) || inferSimKey({id: GAL, sim: CFG.galaxy?.sim});
+const activeIsFire = () => activeSimKey() === "fire2";
+const activeNoun = (cap = false) => { const n = galNoun((GIX && GIX.byId.get(GAL)) || {id: GAL, sim: CFG.galaxy?.sim}); return cap ? n : n.toLowerCase(); };
+let topSimEl = null, simPopEl = null;
+if (GIX && new Set(GIX.list.map(e => e.simKey)).size > 1 && $("#grp-gal") && !$("#top-sim")) {
+  const simCounts = {};
+  for (const e of GIX.list) simCounts[e.simKey] = (simCounts[e.simKey] || 0) + 1;
+  const presentSims = SIM_ORDER.filter(sk => simCounts[sk] > 0);
+  const SIM_SUB = {
+    simba100:   "GIZMO MFM 1024³ · L2 35.9 kpc voxels",
+    camels:     "AREPO 512³ · L2 18.2 kpc voxels",
+    tng50:      "AREPO MHD 2160³ · L2 12.6 kpc voxels",
+    tng100:     "AREPO MHD 1820³ · L2 27.0 kpc voxels",
+    tng300:     "AREPO MHD 2500³ · L2 73.9 kpc voxels",
+    illustris1: "AREPO 1820³ · L2 26.0 kpc voxels",
+    fire2:      "GIZMO MFM zoom-in halos"
+  };
+  topSimEl = document.createElement("button");
+  topSimEl.type = "button";
+  topSimEl.id = "top-sim";
+  topSimEl.className = "pbtn lq-metal";
+  topSimEl.setAttribute("aria-haspopup", "dialog");
+  topSimEl.setAttribute("aria-controls", "sim-pop");
+  topSimEl.setAttribute("aria-expanded", "false");
+  topSimEl.setAttribute("aria-label", "Cosmic Web Simulation");
+  topSimEl.dataset.tip = "Switch between the 6 whole-box z = 0 Cosmic Web simulations (51.7 to 302.6 Mpc)";
+  topSimEl.innerHTML = `<span class="slab">SIMBA-100</span><svg class="chev" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m4.5 6.5 3.5 3.5 3.5-3.5"/></svg>`;
+  const grpGal = $("#grp-gal"), gxyOpen = $("#gxy-open");
+  if (gxyOpen) grpGal.insertBefore(topSimEl, gxyOpen); else grpGal.prepend(topSimEl);
+
+  simPopEl = document.createElement("div");
+  simPopEl.className = "pop";
+  simPopEl.id = "sim-pop";
+  simPopEl.setAttribute("role", "dialog");
+  simPopEl.setAttribute("aria-label", "Cosmic Web Simulation");
+  simPopEl.hidden = true;
+  simPopEl.innerHTML = `<div class="sim-hd"><span>Cosmic Web Simulation</span><b>${GIX.list.length} whole-box volumes</b></div><div class="sim-grid" role="listbox" aria-label="Simulations">${presentSims.map(sk => {
+    const m = SIM_META[sk] || {label: sk.toUpperCase(), box: "", topTip: `Switch to ${sk}`};
+    const sub = SIM_SUB[sk] || "Cosmological simulation";
+    const badge = m.box || `${simCounts[sk]}`;
+    return `<button type="button" class="sim-opt" role="option" data-sim="${sk}" data-tip="${esc(m.topTip)}" aria-selected="false"><span class="so-top"><span class="so-name">${esc(m.label)}</span><b class="so-cnt">${esc(badge)}</b></span><span class="so-sub">${esc(sub)}</span></button>`;
+  }).join("")}</div>`;
+  document.body.appendChild(simPopEl);
+
+  topSimEl.addEventListener("click", ev => {
+    ev.stopPropagation();
+    if (simPopEl.hidden) { sfx("open"); openPop(topSimEl, simPopEl); }
+    else { sfx("close"); closePops(); }
+  });
+  simPopEl.addEventListener("click", ev => {
+    const b = ev.target.closest(".sim-opt[data-sim]");
+    if (!b) return;
+    const sk = b.dataset.sim;
+    closePops();
+    topSimEl?.focus({preventScroll: true});
+    if (!sk || sk === activeSimKey()) return;
+    sfx("select");
+    if (GPICK && typeof GPICK.setSim === "function") GPICK.setSim("all");
+    const target = (LAST_BY_SIM[sk] && GIX.byId.has(LAST_BY_SIM[sk])) ? LAST_BY_SIM[sk]
+      : GIX.list.find(e => e.simKey === sk)?.id;
+    if (target != null && target !== GAL) switchGalaxy(target, {source: "sim-switch"});
   });
 }
-const activeSim = () => String((GIX && GIX.byId.get(GAL)?.sim) || CFG.galaxy?.sim || "SIMBA-100");
-const activeIsFire = () => /^FIRE/i.test(activeSim());
-const activeNoun = (cap = false) => (activeIsFire() ? (cap ? "Halo" : "halo") : (cap ? "Cosmic Web" : "cosmic web"));
 function galaxyUI() {
-  const fire = activeIsFire(), ttl = $("#title"), sk = (GIX && GIX.byId.get(GAL)?.simKey) || (fire ? "fire2" : "tng50");
+  const sk = activeSimKey(), meta = SIM_META[sk] || SIM_META.simba100, ttl = $("#title");
   if (GAL != null) LAST_BY_SIM[sk] = GAL;
   const e = GIX && GIX.byId.get(GAL);
-  const simName = (e && e.sim) || CFG.galaxy?.sim || "SIMBA-100";
-  const boxMpc = (e && e.box_Mpc) ? `${e.box_Mpc} Mpc` : (CFG.galaxy?.box_kpc ? `${+(CFG.galaxy.box_kpc / 1000).toFixed(1)} Mpc` : "");
+  const simName = (e && e.sim) || meta.label || CFG.galaxy?.sim || "SIMBA-100";
+  const boxMpc = (e && e.box_Mpc) ? `${e.box_Mpc} Mpc` : meta.box || (CFG.galaxy?.box_kpc ? `${+(CFG.galaxy.box_kpc / 1000).toFixed(1)} Mpc` : "");
   if (ttl) ttl.textContent = `IGM & Cosmic Web Atlas`;
   const cf = $("#credits-foot span");
   if (cf) cf.textContent = `Simulation: ${simName}${boxMpc ? ` (${boxMpc} box, z = 0)` : ""}`;
-  if (topSimEl) for (const r of topSimEl.querySelectorAll('input[name="top-sim"]')) r.checked = r.value === sk;
+  if (topSimEl) {
+    const sl = topSimEl.querySelector(".slab");
+    if (sl) sl.textContent = meta.label || simName;
+    topSimEl.dataset.sim = sk;
+    topSimEl.setAttribute("aria-label", `Cosmic Web Simulation: ${meta.label || simName}. Switch whole-box simulation`);
+  }
+  if (simPopEl) {
+    for (const b of simPopEl.querySelectorAll(".sim-opt[data-sim]")) {
+      const on = b.dataset.sim === sk;
+      b.setAttribute("aria-selected", on ? "true" : "false");
+      b.classList.toggle("on", on);
+    }
+  }
   const grp = $("#grp-gal"); if (!grp) return; grp.hidden = !GIX; if (!GIX) return;
   const b = $("#gxy-open"), lab = b.querySelector(".glab");
-  const btnTxt = (e && e.short_label) || (e && e.label) || String(GAL);
+  const btnTxt = boxMpc || (e && e.short_label) || (e && e.label) || String(GAL);
   lab.textContent = btnTxt; lab.dataset.id = String(GAL);
-  b.dataset.tip = `${(e && e.label) || simName}, ${e && e.n ? e.n + " IGM sightlines" : "whole-box cosmic web"}; click to switch simulation`;
-  b.setAttribute("aria-label", `Simulation: ${(e && e.label) || simName}. Switch whole-box IGM simulation`);
-  const topSimSel = $("#igm-sim-select");
-  if (topSimSel && topSimSel.value !== String(GAL)) topSimSel.value = String(GAL);
+  b.dataset.tip = `${(e && e.label) || simName}, ${e && e.n ? e.n + " THOR IGM sightlines" : "whole-box cosmic web"}; click to compare all 6 simulation boxes`;
+  b.setAttribute("aria-label", `Volume metrics: ${(e && e.label) || simName}. Inspect and compare all 6 whole-box IGM simulations`);
   document.body.dataset.galaxy = String(GAL);
   document.body.dataset.sim = sk;
 }
-/* the provenance chip in the plot footer (visible on phones too, review2_ux S3): the galaxy id and its spectra source;
-   a click opens Data and methods, whose spectra paragraphs follow the source */
+/* the provenance chip in the plot footer (visible on phones too, review2_ux S3): the simulation box and its spectra source;
+   a click opens Data and methods */
 function sourceUI() {
   const bar = $("#bar"); if (!bar) return;
   let chip = $("#src-chip");
@@ -1109,40 +1176,27 @@ function sourceUI() {
     chip.setAttribute("aria-haspopup", "dialog"); chip.style.cssText = "flex:none;white-space:nowrap;cursor:pointer;background:none;font-family:inherit";
     chip.addEventListener("click", ev => { ev.stopPropagation(); const pop = $("#pop-methods"); if (pop) { if (pop.hidden) openPop(chip, pop); else closePops(); } });
     bar.insertBefore(chip, bar.firstChild); }
-  const sbi = srcOf(SRC) === "sbi", gid = GAL ?? CFG.galaxy?.subhalo_id, fire = activeIsFire(), noun = fire ? `FIRE-2 halo ${gid}` : `Subhalo ${gid}`;
-  chip.textContent = `${GIX && gid != null ? gid + "  " : ""}${sbi ? "THOR" : "Trident"}${GFLAGS.gas_poor ? "  gas-poor" : ""}`;
-  chip.dataset.tip = sbi ? `${noun}: THOR rays through the Voronoi mesh, CLOUDY FG11 ions; click for details`
-    : `${noun}: Trident HM2012 spectra, ±R200c; click for details`;
+  const sbi = srcOf(SRC) === "sbi", gid = GAL ?? CFG.galaxy?.subhalo_id, e = GIX && GIX.byId.get(GAL);
+  const simName = (e && e.sim) || SIM_META[activeSimKey()]?.label || CFG.galaxy?.sim || String(gid);
+  const boxTxt = e && e.box_Mpc ? `${e.box_Mpc} Mpc` : "";
+  const noun = `${simName} Cosmic Web${boxTxt ? ` (${boxTxt} box)` : ""}`;
+  chip.textContent = `${simName}  ${sbi ? "THOR" : "Trident"}${GFLAGS.gas_poor ? "  gas-poor" : ""}`;
+  chip.dataset.tip = `${noun}: 160 THOR 3D Voronoi rays, CLOUDY c17.03 FG11 + Rahmati13 ions, SBI_CGM FP64 Voigt profiles; click for details`;
   chip.setAttribute("aria-label", `${noun}, spectra source ${sbi ? "THOR" : (SRC.label || "Trident")}. Open data and methods`);
   methodsText(sbi);
 }
-const MEL = {}, MTX = {};
-function methodsText(sbi) {
-  const ag = $("#about-gal"); if (!ag) return;
-  if (!("tau" in MEL)) { const n = ag.nextElementSibling; MEL.tau = n && !n.id && /Trident/.test(n.textContent) ? n : null;
-    MEL.ions = $("#methods-ions"); MEL.atomic = $("#methods-atomic");
-    MEL.lic = $("#lic-spectra"); MEL.lic2 = MEL.lic && MEL.lic.nextElementSibling;
-    MEL.simTng = $("#lic-sim-tng"); MEL.simFire = $("#lic-sim-fire");
-    const pv = document.createElement("p"); pv.id = "methods-source"; pv.hidden = true; ag.after(pv); MEL.src = pv; }
-  const fire = activeIsFire();
-  const SBI_TXT = {
-    tau: "Optical depths from a GPU Voigt renderer (fp64) at 0.5 km/s over ±1500 km/s, resampled by velocity; sightlines ±2 R200c long. Velocities are relative to the galaxy's systemic velocity.",
-    ions: "Spectra: rays through the TNG50 Voronoi mesh traced by THOR (Byrohl & Nelson 2025, arXiv:2507.11603), ion fractions from CLOUDY (Ferland et al. 2017) with the FG11 UV background (Faucher-Giguère et al. 2009) and Rahmati et al. (2013) self-shielding for H I. 3D ion cubes: Trident HM2012 (H I from the TNG neutral fraction) within r ≤ 400 kpc, so a sightline drawn through a cube can differ from its spectrum by a few tenths of a dex.",
-    atomic: "Atomic data: the profile components (H I Lyα Γ = 6.265 × 10⁸ s⁻¹, Wiese and Fuhr 2009); the catalogue fits and your in-browser refits use the same f and Γ. Saturated components are lower limits."};
-  const FIRE_IONS = "H I: FIRE-2 neutral hydrogen fraction (self-shielding included); metal ions: Trident HM2012 table with tracked FIRE-2 element abundances.";
-  /* Data and credits: both simulation and spectra paragraphs are shown; the ones that apply to this galaxy lead with "This galaxy" */
-  for (const [el, on] of [[MEL.lic, !sbi], [MEL.lic2, sbi], [MEL.simTng, !fire], [MEL.simFire, fire]]) { if (!el) continue; let t = el.querySelector(".cur-l");
-    if (on && !t) { t = document.createElement("strong"); t.className = "cur-l"; t.textContent = "This galaxy: "; el.prepend(t); } else if (!on && t) t.remove(); }
-  for (const k of ["tau", "ions", "atomic"]) { const el = MEL[k]; if (!el) continue; if (!(k in MTX)) MTX[k] = el.innerHTML;
-    if (sbi) el.textContent = SBI_TXT[k]; else if (k === "ions" && fire) el.textContent = FIRE_IONS; else el.innerHTML = MTX[k]; }
-  MEL.src.hidden = !sbi; MEL.src.textContent = sbi ? (SRC.text || "") : "";
+function methodsText() {
+  aboutText();
 }
 function aboutText() {
-  const g = CFG.galaxy || {}; if (!g.R200c_kpc) return;
-  const sim = g.sim || activeSim() || "SIMBA-100", gid = g.subhalo_id ?? GAL;
-  const boxMpc = g.box_kpc ? `${+(g.box_kpc / 1000).toFixed(1)} Mpc` : `${+(4 * g.R200c_kpc / 1000).toFixed(1)} Mpc`;
-  const l1Mpc = `${+(2 * g.R200c_kpc / 1000).toFixed(1)} Mpc`;
-  $("#about-gal").textContent = `Sightlines through the z = 0 Intergalactic Medium (IGM), Warm-Hot Intergalactic Medium (WHIM), and Cosmic Web of ${sim} (${gid}, ${boxMpc} periodic box; L0 whole-box, L1 ${l1Mpc} supercluster nexus, L2 inter-cluster WHIM filament bridge), tracing Lyα forest, O VI, Ne VIII, O VII, C IV, and low-ion absorbers.`;
+  const g = CFG.galaxy || {}, e = (GIX && GIX.byId.get(GAL)) || {};
+  const r200 = +(g.R200c_kpc || e.R200c || 18382.35);
+  const sim = e.sim || g.sim || activeSim() || "SIMBA-100", gid = g.subhalo_id ?? GAL;
+  const boxVal = +(e.box_Mpc || (g.box_kpc ? g.box_kpc / 1000 : 8 * r200 / 1000)).toFixed(1);
+  const l1Val = +(boxVal / 4).toFixed(1), l2Val = +(boxVal / 16).toFixed(2);
+  const voxL0 = Math.round(boxVal * 1000 / 256), voxL1 = +(boxVal * 1000 / (4 * 256)).toFixed(1), voxL2 = +(boxVal * 1000 / (16 * 256)).toFixed(1);
+  const ag = $("#about-gal");
+  if (ag) ag.textContent = `Sightlines through the z = 0 Intergalactic Medium (IGM), Warm-Hot Intergalactic Medium (WHIM), and Cosmic Web of ${sim} (${gid}: L0 ${boxVal} Mpc full periodic box at ${voxL0} kpc/voxel, L1 ${l1Val} Mpc supercluster nexus at ${voxL1} kpc/voxel, L2 ${l2Val} Mpc WHIM filament bridge at ${voxL2} kpc/voxel), with 160 whole-box sightlines (960 across all 6 simulations) tracing Lyα forest, O VI, Ne VIII, O VII, C IV, and low-ion absorbers.`;
 }
 /* the 3D engine is per galaxy (its cubes, frame and lines): dispose it and remount on demand (the tab, or the thumbnail
    where it was live). viewer.dispose() also removes its control column with the #picker-root it adopted: put one back */
@@ -1164,7 +1218,7 @@ async function switchGalaxy(id, {want = null, source = "picker"} = {}) {
   id = normId(id);
   if (!GIX || !GIX.byId.has(id)) return false; if (id === GAL) return true;
   if (JOB) { note("a sightline is being generated; switch galaxies when it is done", "bad"); return false; }
-  const tok = ++GTOK, pack = packFor(GIX, id, LEGACY), b = $("#gxy-open"), targetNoun = isFire(GIX.byId.get(id)) ? "halo" : "subhalo";
+  const tok = ++GTOK, pack = packFor(GIX, id, LEGACY), b = $("#gxy-open"), targetNoun = galNoun(GIX.byId.get(id)).toLowerCase();
   b.dataset.state = "loading"; note(`loading ${targetNoun} ${id}`);
   let cat, gj = null;
   try { const [r, g] = await Promise.all([fetch(pack.catalog_url), galaxyJson(pack)]); if (!r.ok) throw new Error("HTTP " + r.status); cat = await r.json(); gj = g; }
@@ -1186,7 +1240,9 @@ async function switchGalaxy(id, {want = null, source = "picker"} = {}) {
   if (first) await select(first, true, "galaxy"); else { status(); draw(); }
   writeHash(); emit("tng:galaxy", {id, source, n: CAT.size});
   note(`${activeNoun()} ${id}: ${CAT.size} sightlines`); bcatFor = null;
-  if (source === "picker" && document.activeElement === document.body) $("#gxy-open")?.focus({preventScroll: true});   /* S4: keep keyboard focus */
+  if ((source === "picker" || source === "sim-switch") && document.activeElement === document.body) {
+    (source === "sim-switch" ? topSimEl : $("#gxy-open"))?.focus({preventScroll: true});   /* S4: keep keyboard focus */
+  }
   return true;
 }
 
@@ -1199,7 +1255,7 @@ const FIND_TIPS = {fq_ion: "Ion whose fitted components are searched",
   fq_logN_lo: "Lowest column density, log10 cm⁻²; saturated fits count as lower limits", fq_logN_hi: "Highest column density, log10 cm⁻²; leave empty to keep saturated fits",
   fq_b_lo: "Components with Doppler b below this do not match, km/s", fq_b_hi: "Components with Doppler b above this do not match, km/s",
   fq_bkpc_lo: "Smallest sightline impact parameter, kpc", fq_bkpc_hi: "Largest sightline impact parameter, kpc",
-  fq_orient: "Sightline orientation relative to the disk", fq_sort: "Rank by match score, impact parameter or component count"};
+  fq_orient: "Sightline orientation relative to the cosmic-web box axes", fq_sort: "Rank by match score, impact parameter or component count"};
 function tipFind() { for (const [id, t] of Object.entries(FIND_TIPS)) { const e = document.getElementById(id); if (e) e.dataset.tip = t; } }
 function mountFind() { if (FINDP) return; FINDP = import(modUrl("search.js")).then(m => { const r = m.mountFind($("#find-body"), window.tngApp); tipFind(); return r; })
   .catch(x => { FINDP = null; $("#find-body").insertAdjacentHTML("beforeend", `<p class="msg bad">Search failed to load: ${esc(x.message)}</p>`); }); }
@@ -1495,13 +1551,13 @@ initTips();
   if (H.tab === "3d") showTab("3d");
   const disc = discover();
   const asked = unlistedGalaxy(GIX, location.hash, location.search);
-  if (asked != null) note(`subhalo ${asked} is not in this sample; showing subhalo ${GAL}`, "bad");   /* S2: never silently */
+  if (asked != null) note(`${activeNoun()} ${asked} is not in this sample; showing ${activeNoun()} ${GAL}`, "bad");   /* S2: never silently */
   sourceUI();
   const loadCat = async () => { const r = await fetch(CFG.catalog_url); if (!r.ok) throw new Error("HTTP " + r.status); const c = await r.json(); for (const e of c.entries || []) upsert(e, true); setSource(c); };
   try { await loadCat(); staticOk = true; }
   catch (x) {
     if (!isDefGal()) { const g = GAL; GAL = GIX.default; applyPack(packFor(GIX, GAL, LEGACY), null); GAL_READY = Promise.resolve(); galaxyUI(); aboutText();   /* a listed pack that is not there: back to the default galaxy */
-      note(`subhalo ${g} could not be loaded (${x.message}); showing subhalo ${GAL}`, "bad");
+      note(`${activeNoun()} ${g} could not be loaded (${x.message}); showing ${activeNoun()} ${GAL}`, "bad");
       try { await loadCat(); staticOk = true; } catch (y) { $("#galcount").textContent = `catalogue unavailable (${y.message})`; } }
     else $("#galcount").textContent = `catalogue unavailable (${x.message})`; }
   const cached = await IDB.all(); if (Array.isArray(cached)) for (const c of cached) if (c && c.entry && (!GIX || (c.galaxy ?? GIX.default) === GAL) && !CAT.has(c.entry.id)) upsert(c.entry, false);
