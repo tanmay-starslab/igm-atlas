@@ -100,6 +100,12 @@ ok("galaxy switch keeps a comparable sightline (review2_ux S1)", () => {
   assert.equal(defaultSightline(E, 200).id, "rand_b051_a080_s3");                     // random near 0.25 R200c, best rank
   assert.notEqual(defaultSightline(E, 200).id, "face_b000_a029_s39");
   assert.equal(defaultSightline([], 200), null);
+  const EShow = [
+    {id: "rand_b050_a080_s1", orientation: "random", b_kpc: 50, azimuth_deg: 80, rank: 1, showcase: false, ew: {HI: 0.1}},
+    {id: "face_b1310_a222_s42", orientation: "face-on", b_kpc: 1310, azimuth_deg: 222, rank: 40, showcase: true, ew: {HI: 1.2, OVI: 0.4, OVII: 0.9, NeVIII: 0.6, CIV: 0.8, CIII: 1.1}},
+    {id: "edge_b300_a120_s9", orientation: "edge-on", b_kpc: 300, azimuth_deg: 120, rank: 5, showcase: true, ew: {HI: 0.5, OVI: 0.2}}
+  ];
+  assert.equal(defaultSightline(EShow, 18382).id, "face_b1310_a222_s42");
 });
 ok("spectra source and gas-poor flags in tags, tips, search and card", () => {
   const e = {...LIST[1], src: "sbi", gas_poor: true}, t = {...LIST[0], src: "trident"};

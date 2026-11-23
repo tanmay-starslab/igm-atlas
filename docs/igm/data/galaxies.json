@@ -19,7 +19,8 @@
       "m31": null,
       "n": 160,
       "viz": true,
-      "src": "sbi"
+      "src": "sbi",
+      "default_id": "face_b1310_a222_s42"
     },
     {
       "id": "camels_l50n512_cosmic_web",
@@ -37,7 +38,8 @@
       "m31": null,
       "n": 160,
       "viz": true,
-      "src": "sbi"
+      "src": "sbi",
+      "default_id": "face_b34378_a306_s155"
     },
     {
       "id": "tng50_cosmic_web",
@@ -55,7 +57,8 @@
       "m31": null,
       "n": 160,
       "viz": true,
-      "src": "sbi"
+      "src": "sbi",
+      "default_id": "face_b1588_a221_s27"
     },
     {
       "id": "tng100_cosmic_web",
@@ -73,7 +76,8 @@
       "m31": null,
       "n": 160,
       "viz": true,
-      "src": "sbi"
+      "src": "sbi",
+      "default_id": "edge_b36877_a262_s117"
     },
     {
       "id": "tng300_cosmic_web",
@@ -91,7 +95,8 @@
       "m31": null,
       "n": 160,
       "viz": true,
-      "src": "sbi"
+      "src": "sbi",
+      "default_id": "rand_b162869_a269_s145"
     },
     {
       "id": "illustris1_cosmic_web",
@@ -109,7 +114,8 @@
       "m31": null,
       "n": 160,
       "viz": true,
-      "src": "sbi"
+      "src": "sbi",
+      "default_id": "edge_b2322_a357_s13"
     }
   ]
 }

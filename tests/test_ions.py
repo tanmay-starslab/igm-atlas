@@ -52,9 +52,9 @@ def test_registry_shape_and_order():
     assert {I.get(k)["band"] for k in I.KEYS} == {"uv", "euv", "xray"}
     assert I.get("NeVIII")["band"] == "euv" and I.get("OVII")["band"] == "xray"
     assert I.BANDS["uv"]["R"] == {"min": 5000, "max": 150000, "default": 30000, "pair": [15000, 50000]}
-    assert I.BANDS["xray"]["R"] == {"min": 100, "max": 5000, "default": 1000, "pair": [300, 3000]}
+    assert I.BANDS["xray"]["R"] == {"min": 100, "max": 5000, "default": 3000, "pair": [3000, 300]}
     assert I.SNR["max"] == 100 and I.SNR["pair"] == [20, 5]
-    assert I.DEFAULTS == {"ions": ["HI", "MgII", "SiIII", "CIV", "OVI"], "layout": "4", "vhw_kms": 400}
+    assert I.DEFAULTS == {"ions": ["HI", "MgII", "SiIII", "CIV", "OVI"], "layout": "4", "vhw_kms": 1000}
     for k in I.KEYS:
         i = I.get(k)
         assert I.KEY_RE.match(k) and i["ion"].replace(" ", "") == k

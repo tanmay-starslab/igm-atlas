@@ -8,6 +8,11 @@ export const LAYOUT_TITLE = {"1": "One case: one R and one S/N", "2R": "Two R at
   "4": "Two R by two S/N"};
 export const ID_RE = /^((face|edge|rand)_b\d{3,6}_a\d{3}(_s\d+)?|cust_[0-9a-f]{10})$/;
 export const PAGE_LAYOUT = "1";                 // owner's decision (pick.md): the page opens on one large case
+export const DEF_CFG = {
+  vhw: 1000,
+  vhw_kms: 1000,
+  R: {uv: [30000, 15000], euv: [30000, 15000], xray: [3000, 300]},
+};
 
 /* CFG v3 -> {IONS, ION, KEYS, BANDS, BAND_KEYS, SNR, DEF}. Missing pieces give an empty registry (bare template). */
 export function makeRegistry(cfg) {
@@ -18,10 +23,10 @@ export function makeRegistry(cfg) {
   const BANDS = Object.assign(Object.create(null), cfg.bands || {}), BAND_KEYS = Object.keys(BANDS);
   const SNR = Object.assign({min: 2, max: 100, default: 10, pair: [20, 5]}, cfg.snr || {});
   const d = cfg.defaults || {};
-  const R = {}; for (const b of BAND_KEYS) { const r = (d.R || {})[b] || BANDS[b].R.pair || [BANDS[b].R.default, BANDS[b].R.default]; R[b] = [r[0], r[1] ?? r[0]]; }
+  const R = {}; for (const b of BAND_KEYS) { const r = (d.R || {})[b] || BANDS[b].R.pair || DEF_CFG.R[b] || [BANDS[b].R.default, BANDS[b].R.default]; R[b] = [r[0], r[1] ?? r[0]]; }
   const ions = (d.ions || []).filter(k => ION[k]);
   const DEF = {id: d.id || null, ions: ions.length ? ions : KEYS.slice(0, 5), layout: LAYOUTS.includes(d.layout) ? d.layout : PAGE_LAYOUT,
-    R, sn: (d.sn || SNR.pair).slice(0, 2), vc: +d.vc || 0, vhw: +d.vhw || 400, seed: +d.seed || 0, intr: !!d.intrinsic, fit: !!d.fit, tab: "spectra"};
+    R, sn: (d.sn || SNR.pair).slice(0, 2), vc: +d.vc || 0, vhw: +d.vhw || +d.vhw_kms || DEF_CFG.vhw, seed: +d.seed || 0, intr: !!d.intrinsic, fit: !!d.fit, tab: "spectra"};
   return {IONS, ION, KEYS, BANDS, BAND_KEYS, SNR, DEF};
 }
 export const cloneState = s => JSON.parse(JSON.stringify(s));

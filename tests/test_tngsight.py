@@ -707,10 +707,10 @@ def test_figure_layout_and_bytes():
     txt = [t.get_text() for t in axes[0].texts]
     assert any("15,000" in t for t in txt)                                 # uv pair R0 = 15000
     fx = build_figure(p, intrinsic=True, vwin=300, ions=["HI", "OVII"])   # O VII is not a default ion; ask for it
-    xr = [t.get_text() for t in fx.get_axes()[1 * 4 + 1].texts]             # O VII row, case (R1, s0)
+    xr = [t.get_text() for t in fx.get_axes()[1 * 4 + 0].texts]             # O VII row, case (R0, s0)
     assert any("3,000" in t for t in xr)
-    assert cases_for("2SN") == [{"R": {"uv": 15000, "euv": 15000, "xray": 300}, "snr": 20},
-                                {"R": {"uv": 15000, "euv": 15000, "xray": 300}, "snr": 5}]
+    assert cases_for("2SN") == [{"R": {"uv": 15000, "euv": 15000, "xray": 3000}, "snr": 20},
+                                {"R": {"uv": 15000, "euv": 15000, "xray": 3000}, "snr": 5}]
     f2 = render(p, ions=["NeVIII", "CII"], cases=cases_for("1", R={"uv": [40000], "euv": [20000]}, sn=[30]), vc=50,
                 vhw=100)
     a2 = f2.get_axes()
