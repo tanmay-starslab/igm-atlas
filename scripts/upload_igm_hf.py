@@ -38,7 +38,7 @@ tags:
 
 # Multi-Simulation Intergalactic Medium (IGM) & Cosmic Web Atlas (`igm.tanmaysingh.uk`)
 
-Public 3D volumetric WebP lossless slice atlases (`tng50-viz/2` schema, `256^3` nested levels `L0, L1, L2` + starlight `S0, S1, S2` across 18 gas/ion/velocity fields) and 12-ion Voigt absorption sightline packs (`TNGS` v2 binaries, `catalog.json`, `components.json`) for the live explorer at **[igm.tanmaysingh.uk](https://igm.tanmaysingh.uk)** ([`tanmay-starslab/igm-atlas`](https://github.com/tanmay-starslab/igm-atlas)).
+Public 3D volumetric WebP lossless slice atlases (`tng50-viz/2` schema, `256^3` nested levels `L0, L1, L2` + starlight `S0, S1, S2` across 18 gas/ion/velocity fields) and 160-ray 12-ion THOR 3D Voronoi + CLOUDY c17.03 FG11 + Rahmati13 self-shielding + `SBI_CGM` FP64 compact Voigt absorption sightline packs (`TNGS` v2 binaries, `catalog.json`, `components.json`) for the live explorer at **[igm.tanmaysingh.uk](https://igm.tanmaysingh.uk)** ([`tanmay-starslab/igm-atlas`](https://github.com/tanmay-starslab/igm-atlas)).
 
 ## Included Whole-Box $z=0$ Cosmological Simulations
 
@@ -102,7 +102,11 @@ def main() -> int:
     for idx, sim_id in enumerate(SIM_IDS):
         pack_dir = DATA_DIR if idx == 0 else (DATA_DIR / "gal" / sim_id)
         items = collect_pack_files(sim_id, pack_dir)
-        todo = [(rel, p) for rel, p in items if rel not in existing or rel.endswith(".json")]
+        todo = [
+            (rel, p)
+            for rel, p in items
+            if rel not in existing or rel.endswith(".json") or "/s/" in rel
+        ]
         total_mb = sum(p.stat().st_size for _, p in todo) / 1e6
         print(f"[hf] {sim_id}: {len(todo)}/{len(items)} files to upload ({total_mb:.1f} MB)", flush=True)
         for b0 in range(0, len(todo), args.batch_size):

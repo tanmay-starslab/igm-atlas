@@ -379,15 +379,30 @@ def build_one_sim_pack(
         "disk_frame_source": "comoving_box_xyz",
     }
 
+    # Sync THOR whole-box sightline web bundle (<src_dir>/web/) if present
+    src_web = src_dir / "web"
+    if (src_web / "catalog.json").is_file() and (src_web / "components.json").is_file() and (src_web / "s").is_dir():
+        print(f"  [{sim_cfg['sim']}] Syncing THOR 160-ray sightline bundle from {src_web} -> {pack_dir} ...", flush=True)
+        for fname in ("catalog.json", "components.json", "galaxy.json"):
+            if (src_web / fname).is_file():
+                shutil.copy2(src_web / fname, pack_dir / fname)
+        dst_s = pack_dir / "s"
+        if dst_s.exists():
+            shutil.rmtree(dst_s)
+        shutil.copytree(src_web / "s", dst_s)
+
     # Fast-path: if sightlines already exist in pack_dir and either src_viz or viz_dst has manifest_v2.json
     has_sightlines = (pack_dir / "catalog.json").is_file() and (pack_dir / "components.json").is_file()
     if (src_viz / "manifest_v2.json").is_file():
-        print(f"  [{sim_cfg['sim']}] Syncing completed whole-box 3D cubes from {src_viz} -> {viz_dst} ...", flush=True)
-        if viz_dst.exists():
-            shutil.rmtree(viz_dst)
-        shutil.copytree(src_viz, viz_dst)
+        if not (viz_dst / "manifest_v2.json").is_file():
+            print(f"  [{sim_cfg['sim']}] Syncing completed whole-box 3D cubes from {src_viz} -> {viz_dst} ...", flush=True)
+            if viz_dst.exists():
+                shutil.rmtree(viz_dst)
+            shutil.copytree(src_viz, viz_dst)
+        else:
+            shutil.copy2(src_viz / "manifest_v2.json", viz_dst / "manifest_v2.json")
         if has_sightlines:
-            print(f"  [{sim_cfg['sim']}] Sightline catalog already present in {pack_dir}; synced in {time.time() - t0:.1f}s", flush=True)
+            print(f"  [{sim_cfg['sim']}] Sightline catalog & 3D manifest synced in {time.time() - t0:.1f}s", flush=True)
             return sim_meta
     elif has_sightlines and (viz_dst / "manifest_v2.json").is_file():
         print(f"  [{sim_cfg['sim']}] Complete 3D pack + sightlines already present in {pack_dir}; skipping rebuild", flush=True)
@@ -428,7 +443,19 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
     gal_meta = cat["galaxy"]
 
     gal_list = []
-    for s in IGM_SIMS:
+    for idx, s in enumerate(IGM_SIMS):
+        s_pack = (igm_dir / "data") if idx == 0 else (igm_dir / "data" / "gal" / s["id"])
+        s_cat_path = s_pack / "catalog.json"
+        s_n = n_rays
+        s_src = "sbi"
+        if s_cat_path.is_file():
+            try:
+                s_cat = json.loads(s_cat_path.read_text())
+                s_n = len(s_cat.get("entries", [])) or n_rays
+                gen_src = str((s_cat.get("generation") or {}).get("source") or "")
+                s_src = "sbi" if ("thor" in gen_src or "sbi" in gen_src) else "trident"
+            except Exception:
+                pass
         entry = {
             "id": s["id"],
             "sim": s["sim"],
@@ -443,9 +470,9 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
             "central": True,
             "mw": None,
             "m31": None,
-            "n": n_rays,
+            "n": s_n,
             "viz": True,
-            "src": "trident",
+            "src": s_src,
         }
         if hf_base and s["id"] != IGM_SIMS[0]["id"]:
             pass  # keep catalog.json, components.json, s/*.bin, manifest_v2.json served locally from data/gal/<id>/ while 3D cubes load from viz_base
@@ -514,9 +541,14 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Build the 6-Simulation Whole-Box IGM & Cosmic Web Atlas showcase.")
-    ap.add_argument("--nrays", type=int, default=120, help="Sightlines per simulation (default 120)")
+    ap.add_argument("--nrays", type=int, default=160, help="Sightlines per simulation (default 160)")
     ap.add_argument("--workers", type=int, default=8, help="Worker processes (default 8)")
-    ap.add_argument("--hf-base", type=str, default=None, help="Optional Hugging Face dataset resolve base URL")
+    ap.add_argument(
+        "--hf-base",
+        type=str,
+        default="https://huggingface.co/datasets/tanmay-starslab/igm-atlas-data/resolve/main",
+        help="Optional Hugging Face dataset resolve base URL",
+    )
     args = ap.parse_args(argv)
 
     igm_dir = ROOT / "docs" / "igm"
