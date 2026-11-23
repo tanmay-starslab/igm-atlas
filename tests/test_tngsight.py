@@ -390,6 +390,8 @@ ROW_KEYS = {"id", "orientation", "b_kpc", "azimuth_deg", "seed", "v_sys", "sourc
 
 def test_catalog_and_entry(scratch):
     pd = pytest.importorskip("pandas")
+    if not GRID_INDEX.is_file():
+        pytest.skip("tng50/data/grid_index.csv not present in repository")
     p = synth_payload()
     p["logN"]["CIII"] = -np.inf
     row = pd.read_csv(GRID_INDEX).set_index("geom_id").loc["edge_b100_a090"].to_dict()
@@ -425,9 +427,11 @@ def test_package_json_scrubbed():
     s = (Path(config.__file__).parent / "galaxy_488530.json").read_text()
     for bad in ("/data/sborthak", "/home/tsingh65", "/scratch/tsingh65", "cutout_hdf5", "ion_table"):
         assert bad not in s
-    orig = json.loads((GRID_INDEX.parent.parent / "galaxy_488530.json").read_text())
-    for k, v in config.GALAXY.items():
-        assert orig[k] == v
+    orig_path = GRID_INDEX.parent.parent / "galaxy_488530.json"
+    if orig_path.is_file():
+        orig = json.loads(orig_path.read_text())
+        for k, v in config.GALAXY.items():
+            assert orig[k] == v
     reg = (Path(config.__file__).parent / "ions.json").read_text()
     for bad in ("/Users/", "/Volumes/", "/home/"):
         assert bad not in reg

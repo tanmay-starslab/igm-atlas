@@ -9,7 +9,9 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+/lib/
+!tests/js/lib/
+!tests/js/lib/**
 lib64/
 parts/
 sdist/

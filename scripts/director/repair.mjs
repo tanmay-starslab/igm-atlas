@@ -8,7 +8,7 @@
 //                                   corridor crossings, G12 chrome in flight
 //   continuity(E)                   self-check: |Δpos| per 0.001 p, NaN, up vector, cuts
 //   repair(E, build)                per beat, the first VARIANT that passes (logged)
-import {v3, project, projectSegment, viewFor, keepWeight, keepPts, KEEP_MARGIN_PX} from "../../docs/tng50/learn/how-a-spectrum-is-made/js/core/shots.js";
+import {v3, project, projectSegment, viewFor, keepWeight, keepPts, KEEP_MARGIN_PX} from "../../docs/igm/learn/how-a-spectrum-is-made/js/core/shots.js";
 import {VARIANTS} from "./styles.mjs";
 
 const {add, sub, mul, dot, cross, len, norm} = v3;

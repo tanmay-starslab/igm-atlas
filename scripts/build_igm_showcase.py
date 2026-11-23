@@ -440,7 +440,12 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
         raise RuntimeError(f"Placeholder {MARK!r} not found in {igm_dir / '_template.html'}")
 
     cat = json.loads((igm_dir / "data" / "catalog.json").read_text())
-    gal_meta = cat["galaxy"]
+    gal_json_path = igm_dir / "data" / "galaxy.json"
+    gal_disk = json.loads(gal_json_path.read_text()) if gal_json_path.is_file() else {}
+    man_path = igm_dir / "data" / "viz" / "manifest_v2.json"
+    man_disk = json.loads(man_path.read_text()) if man_path.is_file() else {}
+    gal_meta = {**(cat.get("galaxy") or {}), **(man_disk.get("galaxy") or {}), **gal_disk}
+    spectra_src = cat.get("spectra_source") or gal_meta.get("spectra_source")
 
     gal_list = []
     for idx, s in enumerate(IGM_SIMS):
@@ -489,6 +494,7 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
         "n_static": len(cat["entries"]),
         "backends": [],
         "galaxy": gal_meta,
+        "spectra_source": spectra_src,
         "ions": I.page_ions(),
         "bands": I.BANDS,
         "snr": I.SNR,
@@ -500,7 +506,7 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
         },
         "grid": I.GRID,
         "registry_tag": I.registry_tag(),
-        "fitter": {"worker": "js/fitworker.js", "budget_ms": 300, "cap_ms": 1500, "version": "fit/1"},
+        "fitter": {"worker": "js/fitworker.js?v=20261123d", "budget_ms": 300, "cap_ms": 1500, "version": "fit/1"},
         "frame": {
             "Lhat": gal_meta.get("Lhat", [0.0, 0.0, 1.0]),
             "xhat": gal_meta.get("xhat", [1.0, 0.0, 0.0]),
@@ -512,6 +518,7 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
             "base": default_viz_base,
             "fallback_base": "data/viz/" if hf_base else None,
             "dataset": HF_DATASET_REPO,
+            "levels": list((man_disk.get("levels") or {}).keys()) or ["L0", "L1", "L2", "L3", "L4", "S0", "S1", "S2", "S3", "S4"],
         },
         "js_base": "js/",
         "three": "0.169.0",
@@ -525,6 +532,9 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
         },
     }
 
+    (igm_dir / "data" / "galaxies.json").write_text(
+        json.dumps(cfg["galaxies"], allow_nan=False, indent=2) + "\n"
+    )
     blob = json.dumps(cfg, allow_nan=False, separators=(",", ":"))
     html = tpl.replace(MARK, blob, 1)
     (igm_dir / "index.html").write_text(html)

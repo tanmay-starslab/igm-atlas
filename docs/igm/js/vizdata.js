@@ -4,7 +4,7 @@
 import {
   initFastVizWasm, wasmReady, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions,
   wasm_decode_lut_volume, wasm_pack_velocity
-} from "./fast_viz_wasm.js?v=20261123c";
+} from "./fast_viz_wasm.js?v=20261123d";
 export {initFastVizWasm, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions, wasm_decode_lut_volume};
 export const SCHEMA = "tng50-viz/2";
 /* Phase 3: the gas fields are nH, T, Z plus the 12 registry ions in ladder order (tngsight.vizpack.VOL_KEYS) */
@@ -337,7 +337,7 @@ export function viewPlan({ratio = {}, hVisKpc, hVisPhysKpc, halfL2 = 25, halfL3 
   const order = [...gas.map(L => ["gas", L]), ...st.map(S => ["stars", S])];
   if (fine && r("L2") >= 1) order.push(["gas", "L2"]);
   if (stars && fine && r("S2") >= 1) order.push(["stars", "S2"]);
-  const thL3 = Math.max(25, 1.5 * h2), thL4 = Math.max(6.25, 1.5 * h3);
+  const thL3 = Math.max(25, h2), thL4 = Math.max(6.25, h3);
   if (fine && hPhys < thL3 && (r("L3") >= 0.35 || (hasL3 && (r("L3") >= 0.15 || !Number.isFinite(ratio.L3))))) order.push(["gas", "L3"]);
   if (stars && fine && hPhys < thL3 && (r("S3") >= 0.35 || r("L3") >= 0.35 || (hasL3 && (r("S3") >= 0.15 || r("L3") >= 0.15 || !Number.isFinite(ratio.S3))))) order.push(["stars", "S3"]);
   if (fine && hPhys < thL4 && (r("L4") >= 0.35 || (hasL4 && (r("L4") >= 0.15 || !Number.isFinite(ratio.L4))))) order.push(["gas", "L4"]);

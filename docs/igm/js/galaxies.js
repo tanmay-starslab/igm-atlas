@@ -141,7 +141,7 @@ export const lg = x => (Number.isFinite(+x) && +x > 0 ? (Math.log10(+x)).toFixed
 export const fmtSfr = x => (!Number.isFinite(+x) || x === null ? "–" : +x >= 10 ? String(Math.round(+x)) : +x >= 0.1 ? (+x).toFixed(1) : +x > 0 ? (+x).toFixed(2) : "0");
 export const kindWord = e => (e.central === true ? "central" : e.central === false ? "satellite" : "");
 /* the spectra source of an index entry or a catalogue's spectra_source block: "sbi" | "trident" | "" (unknown) */
-export const srcOf = x => { const v = String((x && (x.src ?? x.source)) || "").toLowerCase(); return v.startsWith("sbi") ? "sbi" : v === "trident" ? "trident" : ""; };
+export const srcOf = x => { const v = String((x && (x.src ?? x.source)) || "").toLowerCase(); return (v.startsWith("sbi") || v.startsWith("thor") || v.includes("sbi")) ? "sbi" : v === "trident" ? "trident" : ""; };
 export const SRC_WORD = {sbi: "THOR spectra", trident: "Trident spectra"};
 /* the compact properties of a galaxy (an index entry) for the chat's tools and page snapshot: log masses and SFR rounded,
    the spectra source in words */
@@ -252,7 +252,7 @@ export function galaxyCard(e) {
     (boxTxt ? kv("Box", boxTxt, "Periodic simulation box length at z = 0 (L0)") : "") +
     kv("log M*", lg(e.Mstar), "Supercluster stellar mass, log M⊙") +
     kv("log M200c", lg(e.M200c), "Supercluster halo mass sum(M200c), log M⊙") +
-    (Number.isFinite(+e.R200c) && e.R200c ? kv("L1", `${+(+e.R200c >= 1000 ? (2 * +e.R200c / 1000).toFixed(1) + " Mpc" : Math.round(+e.R200c) + " kpc")}`, "Supercluster nexus L1 box width (Box/4)") : "") +
+    (Number.isFinite(+e.R200c) && e.R200c ? kv("L1", `${+e.R200c >= 1000 ? (2 * +e.R200c / 1000).toFixed(1) + " Mpc" : Math.round(+e.R200c) + " kpc"}`, "Supercluster nexus L1 box width (Box/4)") : "") +
     (e.gas_poor ? '<span class="gxk" data-tip="Little cold gas: expect weak low-ion absorption">gas-poor</span>' : "");
 }
 

@@ -4,15 +4,15 @@
 // Lower limits (owner decision 2): a NOERR, or SAT but not DAMPED, component is a lower limit at col = min(logN,
 // logN_lo) (state.js; the page annotates every catalogue it loads). It meets logN_min when col does, and logN_max only
 // when logN_max is absent or at the ion's ceiling; score and reason use col and the reason counts the limits.
-import {isLowerLimit, columnOf} from "./state.js?v=20261123c";
-import {sfx} from "./uisound.js?v=20261123c";
+import {isLowerLimit, columnOf} from "./state.js?v=20261123d";
+import {sfx} from "./uisound.js?v=20261123d";
 /* Generated from tngsight/ions.json and tngsight.search.QUERY_SCHEMA by `python -m server.make_chat_tools`.
    Do not edit between the markers. */
 /*__GEN:QUERY__*/
 export const ION_SHORT = {"HI":"H I","MgII":"Mg II","SiII":"Si II","CII":"C II","SiIII":"Si III","CIII":"C III","SiIV":"Si IV","CIV":"C IV","NV":"N V","OVI":"O VI","NeVIII":"Ne VIII","OVII":"O VII"};
 export const ION_LABEL = {"HI":"H I 1216","MgII":"Mg II 2796","SiII":"Si II 1260","CII":"C II 1335","SiIII":"Si III 1206","CIII":"C III 977","SiIV":"Si IV 1403","CIV":"C IV 1548","NV":"N V 1239","OVI":"O VI 1032","NeVIII":"Ne VIII 770","OVII":"O VII 21.6"};
 export const ION_LOGN_MAX = {"HI":22.5,"MgII":19.0,"SiII":19.0,"CII":19.0,"SiIII":19.0,"CIII":19.0,"SiIV":19.0,"CIV":19.0,"NV":19.0,"OVI":19.0,"NeVIII":19.0,"OVII":19.0};
-export const QUERY_SCHEMA = {"type":"object","additionalProperties":false,"required":["ion"],"properties":{"ion":{"type":"string","enum":["HI","MgII","SiII","CII","SiIII","CIII","SiIV","CIV","NV","OVI","NeVIII","OVII"]},"n_min":{"type":"integer","minimum":0,"maximum":30},"n_max":{"type":"integer","minimum":0,"maximum":30},"sep_kms":{"type":"array","items":{"type":"number","minimum":0,"maximum":3000},"minItems":2,"maxItems":2},"logN_min":{"type":"number","minimum":10,"maximum":22.5},"logN_max":{"type":"number","minimum":10,"maximum":22.5},"b_min":{"type":"number","minimum":0,"maximum":150},"b_max":{"type":"number","minimum":0,"maximum":150},"b_kpc":{"type":"array","items":{"type":"number","minimum":0,"maximum":400000},"minItems":2,"maxItems":2},"orientation":{"type":"string","enum":["face-on","edge-on","random","custom"]},"sort":{"type":"string","enum":["score","b_kpc","n"]},"limit":{"type":"integer","minimum":1,"maximum":200}}};
+export const QUERY_SCHEMA = {"type":"object","additionalProperties":false,"required":["ion"],"properties":{"ion":{"type":"string","enum":["HI","MgII","SiII","CII","SiIII","CIII","SiIV","CIV","NV","OVI","NeVIII","OVII"]},"n_min":{"type":"integer","minimum":0,"maximum":30},"n_max":{"type":"integer","minimum":0,"maximum":30},"sep_kms":{"type":"array","items":{"type":"number","minimum":0,"maximum":3000},"minItems":2,"maxItems":2},"logN_min":{"type":"number","minimum":10,"maximum":22.5},"logN_max":{"type":"number","minimum":10,"maximum":22.5},"b_min":{"type":"number","minimum":0,"maximum":150},"b_max":{"type":"number","minimum":0,"maximum":150},"b_kpc":{"type":"array","items":{"type":"number","minimum":0,"maximum":400},"minItems":2,"maxItems":2},"orientation":{"type":"string","enum":["face-on","edge-on","random","custom"]},"sort":{"type":"string","enum":["score","b_kpc","n"]},"limit":{"type":"integer","minimum":1,"maximum":200}}};
 /*__END__*/
 export const DEFAULTS = {n_min: 1, sort: "score", limit: 50};   // n_max: unbounded
 
@@ -38,14 +38,19 @@ function checkValue(name, x, s) {
   return x;
 }
 /* -> normalised query (defaults filled in) or {error: "<field>: <reason>"} */
-export function validateQuery(q) {
+export function validateQuery(q, opts = {}) {
   try {
     if (!q || typeof q !== "object" || Array.isArray(q)) throw "query: must be an object";
     const props = QUERY_SCHEMA.properties;
     for (const k of Object.keys(q).sort()) if (!(k in props)) throw `${k}: unknown field`;
     if (!("ion" in q)) throw "ion: required";
     const out = {};
-    for (const [k, spec] of Object.entries(props)) if (k in q) out[k] = checkValue(k, q[k], spec);
+    for (const [k, spec] of Object.entries(props)) {
+      if (k in q) {
+        const sp = k === "b_kpc" && opts.maxBkpc ? {...spec, items: {...spec.items, maximum: opts.maxBkpc}} : spec;
+        out[k] = checkValue(k, q[k], sp);
+      }
+    }
     for (const k of ["logN_min", "logN_max"])            // per-ion logN bound (tngsight.search.LOGN_MAX)
       if (k in out && out[k] > ION_LOGN_MAX[out.ion]) throw `${k}: must be <= ${numTxt(ION_LOGN_MAX[out.ion])} for ${out.ion}`;
     for (const [lo, hi] of [["n_min", "n_max"], ["logN_min", "logN_max"], ["b_min", "b_max"]]) {
@@ -67,8 +72,8 @@ function reason(ion, n, matching, pairs, sep, bKpc) {
   return s + (isNum(bKpc) ? `, ${fmt(bKpc, 0)} kpc` : "");
 }
 /* Full ranked list (no truncation) or {error}. entries: catalog entries; components: {id: {ion: [comp]}} */
-export function rankAll(q, entries, components) {
-  const o = validateQuery(q); if (o.error) return o;
+export function rankAll(q, entries, components, opts = {}) {
+  const o = validateQuery(q, opts); if (o.error) return o;
   const ion = o.ion, lo = o.logN_min ?? -Infinity, hi = o.logN_max ?? Infinity, bl = o.b_min ?? -Infinity, bh = o.b_max ?? Infinity;
   const byId = new Map(); for (const e of entries) byId.set(e.id, e);      // duplicates: the later entry wins
   const es = [...byId.values()].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)), out = [];
@@ -151,12 +156,12 @@ export function mountFind(root, app, opts = {}) {
       b.textContent = `${r.id}  ${r.reason}  score ${r.score.toFixed(2)}`; b.addEventListener("click", () => app.select(r.id, {source: "find"}));
       list.appendChild(h("li", {}, b)); } mark(); }
   form.addEventListener("submit", async ev => { ev.preventDefault(); await ready; if (!IX) return;
-    const q = query(); render(rankAll(q, app.entries(), IX.entries || {}), q); sfx("notification"); });
+    const q = query(); render(rankAll(q, app.entries(), IX.entries || {}, {maxBkpc: 400000}), q); sfx("notification"); });
   form.addEventListener("reset", () => setTimeout(() => { list.textContent = ""; msg.className = "msg"; msg.textContent = IX ? "form reset" : msg.textContent; }, 0));
   list.addEventListener("keydown", ev => { const bs = [...list.querySelectorAll("button")], i = bs.indexOf(doc.activeElement); if (i < 0) return;
     const j = ev.key === "ArrowDown" ? i + 1 : ev.key === "ArrowUp" ? i - 1 : ev.key === "Home" ? 0 : ev.key === "End" ? bs.length - 1 : null;
     if (j == null) return; ev.preventDefault(); bs[Math.max(0, Math.min(bs.length - 1, j))].focus(); });
   const mark = () => { const id = app.getState().id; for (const b of list.querySelectorAll("button")) b.setAttribute("aria-current", String(b.dataset.id === id)); };
   form.addEventListener("submit", () => setTimeout(mark, 0)); addEventListener("tng:select", mark);
-  return {ready, query, run: q => ready.then(() => IX ? rankAll(q, app.entries(), IX.entries || {}) : {error: "components unavailable"})};
+  return {ready, query, run: q => ready.then(() => IX ? rankAll(q, app.entries(), IX.entries || {}, {maxBkpc: 400000}) : {error: "components unavailable"})};
 }

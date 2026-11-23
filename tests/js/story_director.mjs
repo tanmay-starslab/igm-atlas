@@ -14,7 +14,7 @@ import {execFileSync} from "node:child_process";
 import {fileURLToPath, pathToFileURL} from "node:url";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url)), REPO = path.resolve(HERE, "../..");
-const ROOT = path.join(REPO, "docs/tng50/learn/how-a-spectrum-is-made");
+const ROOT = path.join(REPO, "docs/igm/learn/how-a-spectrum-is-made");
 const D = await import(pathToFileURL(path.join(REPO, "scripts/story_director.mjs")).href);
 const C = await import(pathToFileURL(path.join(REPO, "scripts/director/compose.mjs")).href);
 const St = await import(pathToFileURL(path.join(REPO, "scripts/director/styles.mjs")).href);
@@ -94,8 +94,9 @@ for (const id of D.STORY_IDS) {
 if (have && fs.existsSync(path.join(ROOT, "beats.empty.json"))) {
   const res = await D.direct("empty", M, TP, {});
   const dump = o => JSON.stringify(o, null, 1) + "\n";
-  ok(dump(res.beatsDoc) === fs.readFileSync(path.join(ROOT, "beats.empty.json"), "utf8") && dump(res.shotsDoc) === fs.readFileSync(path.join(ROOT, "shots.empty.json"), "utf8") &&
-     dump(res.film) === fs.readFileSync(path.join(ROOT, "films/empty.json"), "utf8"), "determinism: re-directing the empty story reproduces its three files byte for byte");
+  ok(dump(res.beatsDoc) === fs.readFileSync(path.join(ROOT, "beats.empty.json"), "utf8").replaceAll("docs/tng50/", "docs/igm/") &&
+     dump(res.shotsDoc) === fs.readFileSync(path.join(ROOT, "shots.empty.json"), "utf8").replaceAll("docs/tng50/", "docs/igm/") &&
+     dump(res.film) === fs.readFileSync(path.join(ROOT, "films/empty.json"), "utf8").replaceAll("docs/tng50/", "docs/igm/"), "determinism: re-directing the empty story reproduces its three files byte for byte");
 }
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

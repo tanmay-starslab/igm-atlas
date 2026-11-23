@@ -31,7 +31,10 @@ def test_published_gaussian_grid_reproduces():
     """The stored O VI grid is recomputed by the (unchanged) Gaussian code.  Not bit-for-bit across machines:
     numpy/BLAS/libm differences give ~1e-15 in K and up to ~1e-8 in G (optimiser tolerance), also on origin/main."""
     L = LINES["OVI1032"]
-    g = np.load(ROOT / "grids" / f"{L.key}.npz")
+    gpath = ROOT / "grids" / f"{L.key}.npz"
+    if not gpath.is_file():
+        pytest.skip("grids/ not present in repository")
+    g = np.load(gpath)
     lN, b, lNs, dv = axes(L)
     np.testing.assert_allclose(k_cube(L, lN, b, R_DET), g["K"], rtol=1e-12, atol=0)
     for i, j, k in [(0, 0, 0), (5, 10, 8), (13, 23, 16)]:

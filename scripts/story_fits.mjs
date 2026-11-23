@@ -1,6 +1,6 @@
 // Precomputed noisy fits for the Learn page "How a spectrum is made" (PLAN_final section 6, data/page_fits_*.json).
-// Runs the explorer's own degradeV + fitPanel (docs/tng50/js/fit.js) on the stored sightline binary, with exactly the
-// request the explorer builds (docs/tng50/js/app.js fitRequest: same atom fields, seeds, regions, panel noise seed
+// Runs the explorer's own degradeV + fitPanel (docs/igm/js/fit.js) on the stored sightline binary, with exactly the
+// request the explorer builds (docs/igm/js/app.js fitRequest: same atom fields, seeds, regions, panel noise seed
 // seedFor(seed, ion, caseIndex)), so a hand-off to the explorer shows the same noise draw and the same fit. The only
 // difference: capMs/budgetMs are lifted (1e9) so the result does not depend on the machine's speed; the page's
 // live fits keep the 1.5 s cap and are flagged BUDGET when they hit it.
@@ -15,7 +15,7 @@ import {fileURLToPath} from "node:url";
 import {gzipSync} from "node:zlib";
 
 const HERE = dirname(fileURLToPath(import.meta.url)), REPO = resolve(HERE, "..");
-const FIT = await import(join(REPO, "docs/tng50/js/fit.js"));
+const FIT = await import(join(REPO, "docs/igm/js/fit.js"));
 const {fitPanel, degradeV, decodeTNGS, seedFor, FIT_VERSION} = FIT;
 
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
@@ -25,7 +25,7 @@ let LIB = arg("--library", GAL === 488530 ? (process.env.TNG_STORY_LIBRARY || jo
 // a host without a library: the one-ray library export_story_data.py cells made in its --work dir
 const SWORK = arg("--work", process.env.STORY_WORK || join(WORK, "scratch/story_data"));
 if (!existsSync(join(LIB, "web", `${RAY}.bin`)) && existsSync(join(SWORK, `lib_${GAL}`, "web", `${RAY}.bin`))) LIB = join(SWORK, `lib_${GAL}`);
-const OUT = resolve(arg("--out", join(REPO, "docs/tng50/learn/how-a-spectrum-is-made/data")));
+const OUT = resolve(arg("--out", join(REPO, "docs/igm/learn/how-a-spectrum-is-made/data")));
 // Tier A (DESIGN_tierA §4.4): --ions OVI,HI,MgII adds the story's extra ion; --page adds the page-default case (R 15 000,
 // S/N 10, page seed 0) the case/1 claims are judged at; --noise searches the empty-case noise seed. Without these flags
 // the output is exactly the v2 file (the hero and staged stories are never rebuilt with them).

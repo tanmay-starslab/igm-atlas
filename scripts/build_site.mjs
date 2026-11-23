@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Builds the Cloudflare site (galaxies.tanmaysingh.uk) from docs/ into dist/, no dependencies:
-//   /                                   the TNG50 explorer          (docs/tng50/)
-//   /learn/how-a-spectrum-is-made/      the explainer               (docs/tng50/learn/...)
+//   /                                   the TNG50 explorer          (docs/igm/)
+//   /learn/how-a-spectrum-is-made/      the explainer               (docs/igm/learn/...)
 //   /detect/                            Detect & Resolve            (docs/index.html, also served at /observe/ and /requirements/)
 // The relative links inside the explorer and the explainer already work at this layout; only the links between
 // Detect & Resolve and the explorer are rewritten. dist/_redirects keeps old /tng50/... and /requirements/ paths working.
@@ -15,13 +15,13 @@ import {fileURLToPath} from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(ROOT, "docs"), OUT = process.env.BUILD_SITE_OUT || join(ROOT, "dist");
-const SKIP_NAMES = new Set(["_template.html", ".gitignore", ".DS_Store", "build"]);
+const SKIP_NAMES = new Set(["_template.html", ".gitignore", ".DS_Store", "build", "gas", "stars", ...(process.env.BUILD_SITE_OUT ? ["gal"] : [])]);
 const SKIP_EXT = [".md", ".py", ".sh"];
-const skip = p => { const b = basename(p); return SKIP_NAMES.has(b) || SKIP_EXT.some(e => b.endsWith(e)) || b.endsWith(".mp4"); };
+const skip = p => { const b = basename(p); return SKIP_NAMES.has(b) || SKIP_EXT.some(e => b.endsWith(e)) || b.endsWith(".mp4") || b.endsWith(".u8.gz") || b.endsWith(".rgba.gz"); };
 
 rmSync(OUT, {recursive: true, force: true});
 mkdirSync(OUT, {recursive: true});
-cpSync(join(SRC, "tng50"), OUT, {recursive: true, filter: src => !skip(src)});
+cpSync(join(SRC, "igm"), OUT, {recursive: true, filter: src => !skip(src)});
 
 // Detect & Resolve at /detect/ (with /observe/ and /requirements/ also populated so every short or legacy URL serves HTTP 200):
 let dr = readFileSync(join(SRC, "index.html"), "utf8");

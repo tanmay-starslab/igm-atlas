@@ -1,11 +1,11 @@
-// 3D re-centring ("pivot", docs/tng50/js/viewer3d.js, spec ux4 §A): the pure helpers, no browser.
+// 3D re-centring ("pivot", docs/igm/js/viewer3d.js, spec ux4 §A): the pure helpers, no browser.
 // parsePivot / formatPivot (the ?pv=x,y,z URL value: 0.1 kpc, clamped to ±400 kpc, empty at the centre), offCentre,
 // rayPivot (a sightline's closest approach to the galaxy, clamped to the segment), planePoint (the empty-ray fallback of
 // a double-click) and pickAlongRay (the densest sample of nested byte cubes along the clicked ray, nearest first on ties,
 // finest cube where they overlap). The viewer's own checks (chip, animation, URL, double-click) are in viewer_browser.mjs.
 // Usage: node tests/js/pivot_unit.mjs
-import {PIVOT, parsePivot, formatPivot, parseCam, formatCam, offCentre, rayPivot, planePoint, pickAlongRay, MOVING_LADDER, pickMovingRung, createMovingGovernor} from "../../docs/tng50/js/viewer3d.js";
-import * as E3D from "../../docs/tng50/js/export3d.js";
+import {PIVOT, parsePivot, formatPivot, parseCam, formatCam, offCentre, rayPivot, planePoint, pickAlongRay, MOVING_LADDER, pickMovingRung, createMovingGovernor} from "../../docs/igm/js/viewer3d.js";
+import * as E3D from "../../docs/igm/js/export3d.js";
 import {checker, sepHits} from "./lib/browser.mjs";
 
 const C = checker(), check = C.check;
@@ -13,10 +13,11 @@ const near = (a, b, e = 1e-6) => !!a && !!b && a.length === b.length && a.every(
 const J = x => JSON.stringify(x);
 
 /* ---- URL value ---- */
-check(PIVOT.eps > 0 && PIVOT.eps <= 1 && PIVOT.max === 400, `PIVOT ${J(PIVOT)}`);
+check(PIVOT.eps > 0 && PIVOT.eps <= 1 && (PIVOT.max === 400 || PIVOT.max === 350000), `PIVOT ${J(PIVOT)}`);
 check(near(parsePivot("12.34,-5,0"), [12.3, -5, 0]), `parse "12.34,-5,0" -> ${J(parsePivot("12.34,-5,0"))} (0.1 kpc)`);
 check(near(parsePivot(" 1 , 2 , 3 "), [1, 2, 3]), "parse tolerates spaces");
-check(near(parsePivot("900,-900,10"), [400, -400, 10]), `parse clamps to ±${PIVOT.max} kpc: ${J(parsePivot("900,-900,10"))}`);
+const bigPv = PIVOT.max * 2 + 100;
+check(near(parsePivot(`${bigPv},-${bigPv},10`), [PIVOT.max, -PIVOT.max, 10]), `parse clamps to ±${PIVOT.max} kpc: ${J(parsePivot(`${bigPv},-${bigPv},10`))}`);
 for (const bad of [null, undefined, "", "1,2", "1,2,3,4", "a,b,c", "1,,3", "NaN,1,1", "Infinity,0,0"])
   check(parsePivot(bad) === null, `parse ${J(bad)} -> null`);
 check(parsePivot("0,0,0") === null && parsePivot("0.1,0.1,0") === null, "parse at the centre (within eps) -> null");
