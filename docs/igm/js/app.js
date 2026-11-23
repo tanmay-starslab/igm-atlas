@@ -5,27 +5,27 @@
 // Rendering is in spectra.js, the instrument sliders in instrument.js, the sightline picker in gallery.js and the
 // pure state (hash, slider maps, validation) in state.js.
 import {makeRegistry, cloneState, casesFor, bandsOf, clampView, parseHash, formatHash, instrumentPatch, ID_RE, LAYOUTS,
-  fmtR, fmtNum, minus, nf, annotateLimits, fitClass, fitLimits} from "./state.js?v=20261123d";
-import {createSpectra} from "./spectra.js?v=20261123d";
-import {createGallery, kindOf, nShow, sightLabel, sightTip, copyText} from "./gallery.js?v=20261123d";
-import {createInstrument} from "./instrument.js?v=20261123d";
-import * as FITM from "./fit.js?v=20261123d";
-import {initTips, ION_TIPS} from "./tips.js?v=20261123d";
-import {initFeatures} from "./features.js?v=20261123d";   /* ux4 features: share, keys, random, undo, solo, CSV, loading */
-import {initLiquidTabs, initLiquidSeg, initLiquidButtons} from "./liquidtabs.js?v=20261123d";   /* CSS-only liquid drop (tabs, segmented rows) and glossy top-bar buttons */
-import {initLiquidBg} from "./liquidbg.js?v=20261123d";   /* liquid metal shader background (3D tab; Spectra only with SPECTRA_BG) */
-import {uiSound, sfx} from "./uisound.js?v=20261123d";   /* optional UI sound effects (off by default; top-bar switch #sfx) */
+  fmtR, fmtNum, minus, nf, annotateLimits, fitClass, fitLimits} from "./state.js?v=20261123e";
+import {createSpectra} from "./spectra.js?v=20261123e";
+import {createGallery, kindOf, nShow, sightLabel, sightTip, copyText} from "./gallery.js?v=20261123e";
+import {createInstrument} from "./instrument.js?v=20261123e";
+import * as FITM from "./fit.js?v=20261123e";
+import {initTips, ION_TIPS} from "./tips.js?v=20261123e";
+import {initFeatures} from "./features.js?v=20261123e";   /* ux4 features: share, keys, random, undo, solo, CSV, loading */
+import {initLiquidTabs, initLiquidSeg, initLiquidButtons} from "./liquidtabs.js?v=20261123e";   /* CSS-only liquid drop (tabs, segmented rows) and glossy top-bar buttons */
+import {initLiquidBg} from "./liquidbg.js?v=20261123e";   /* liquid metal shader background (3D tab; Spectra only with SPECTRA_BG) */
+import {uiSound, sfx} from "./uisound.js?v=20261123e";   /* optional UI sound effects (off by default; top-bar switch #sfx) */
 import {galaxyIndex, resolveGalaxy, parseGalaxy, galaxyHashPart, packFor, createGalaxyPicker, galaxyTip, unlistedGalaxy,
-  nearestSightline, defaultSightline, srcOf, galaxySummary, normId, isFire, inferSim, inferSimKey, SIM_META, SIM_ORDER, galNoun} from "./galaxies.js?v=20261123d";
-import {tier, tierReady} from "./tier.js?v=20261123d";   /* perf R5: device tier (html[data-tier]) and its one-off WebGL probe */
+  nearestSightline, defaultSightline, srcOf, galaxySummary, normId, isFire, inferSim, inferSimKey, SIM_META, SIM_ORDER, galNoun} from "./galaxies.js?v=20261123e";
+import {tier, tierReady} from "./tier.js?v=20261123e";   /* perf R5: device tier (html[data-tier]) and its one-off WebGL probe */
 const {degradeV, decodeTNGS, seedFor, cacheKey, fitPanel, FIT_VERSION, FIT_PARAMS} = FITM;
 
 /* ---------------- config ---------------- */
 const CFG = Object.assign({
   version: 3, catalog_url: "data/catalog.json", bin_dir: "data/s/", backends: ["http://127.0.0.1:8787"],
   galaxy: {sim: "TNG50-1", snapshot: 99, redshift: 0, subhalo_id: 488530}, ions: [], bands: {}, snr: {min: 2, max: 100, default: 10, pair: [20, 5]},
-  defaults: {id: "edge_b100_a090"}, viz: null, components_url: "data/components.json", three: "0.169.0", js_base: "js/",
-  chat: {enabled: false}, custom: {r_max_kpc: 395, l_min_kpc: 20, l_max_kpc: 800}, fitter: {worker: "js/fitworker.js?v=20261123d", version: "fit/1"}
+  defaults: {id: "face_b1310_a222_s42", vhw: 1000, vhw_kms: 1000, R: {uv: [30000, 15000], euv: [30000, 15000], xray: [3000, 300]}}, viz: null, components_url: "data/components.json", three: "0.169.0", js_base: "js/",
+  chat: {enabled: false}, custom: {r_max_kpc: 395, l_min_kpc: 20, l_max_kpc: 800}, fitter: {worker: "js/fitworker.js?v=20261123e", version: "fit/1"}
 }, window.TNG_DATA || {});
 const reg = makeRegistry(CFG), {ION} = reg;
 /* galaxy sample (js/galaxies.js): GIX is the picker index (null with one galaxy: no picker, nothing changes), GAL the
@@ -1233,8 +1233,9 @@ async function switchGalaxy(id, {want = null, source = "picker"} = {}) {
   delete b.dataset.state; galaxyUI(); aboutText(); catalogChanged(); GPICK.render();
   S.id = null; pendingId = null;
   const R = +CFG.galaxy?.R200c_kpc || +(GIX.byId.get(id)?.R200c) || 0, ents = [...CAT.values()];
-  const near = !CAT.has(keep) && prevE && prevR > 0 ? nearestSightline(ents, prevE, +prevE.b_kpc / prevR, R) : null;
-  const first = CAT.has(keep) ? keep : near ? near.id : isDefGal() && CAT.has(CFG.defaults.id) ? CFG.defaults.id
+  const boxDefId = (gj?.defaults && gj.defaults.id) || (CFG.galaxy?.defaults && CFG.galaxy.defaults.id) || GIX.byId.get(id)?.default_id || (isDefGal() ? CFG.defaults?.id : null);
+  const near = !CAT.has(keep) && !boxDefId && prevE && prevR > 0 ? nearestSightline(ents, prevE, +prevE.b_kpc / prevR, R) : null;
+  const first = (want && CAT.has(want)) ? want : (boxDefId && CAT.has(boxDefId)) ? boxDefId : CAT.has(keep) ? keep : near ? near.id
     : defaultSightline(ents, R)?.id || sorted()[0]?.id;
   reset3d();
   if (first) await select(first, true, "galaxy"); else { status(); draw(); }
@@ -1554,7 +1555,7 @@ initTips();
   if (asked != null) note(`${activeNoun()} ${asked} is not in this sample; showing ${activeNoun()} ${GAL}`, "bad");   /* S2: never silently */
   sourceUI();
   const loadCat = async () => { const r = await fetch(CFG.catalog_url); if (!r.ok) throw new Error("HTTP " + r.status); const c = await r.json(); for (const e of c.entries || []) upsert(e, true); setSource(c); };
-  try { await loadCat(); staticOk = true; }
+  try { await Promise.all([loadCat(), GAL_READY]); staticOk = true; }
   catch (x) {
     if (!isDefGal()) { const g = GAL; GAL = GIX.default; applyPack(packFor(GIX, GAL, LEGACY), null); GAL_READY = Promise.resolve(); galaxyUI(); aboutText();   /* a listed pack that is not there: back to the default galaxy */
       note(`${activeNoun()} ${g} could not be loaded (${x.message}); showing ${activeNoun()} ${GAL}`, "bad");
@@ -1564,7 +1565,8 @@ initTips();
   catalogChanged();
   if (hashId && !CAT.has(hashId)) pendingId = hashId;
   const R0 = +CFG.galaxy?.R200c_kpc || +(GIX?.byId.get(GAL)?.R200c) || 0;
-  const first = (hashId && CAT.has(hashId)) ? hashId : isDefGal() && CAT.has(CFG.defaults.id) ? CFG.defaults.id
+  const boxDefId = (CFG.galaxy?.defaults && CFG.galaxy.defaults.id) || GIX?.byId.get(GAL)?.default_id || (isDefGal() ? CFG.defaults?.id : null);
+  const first = (hashId && CAT.has(hashId)) ? hashId : (boxDefId && CAT.has(boxDefId)) ? boxDefId
     : defaultSightline([...CAT.values()], R0)?.id || (CAT.has(CFG.defaults.id) ? CFG.defaults.id : sorted()[0]?.id);
   if (first) select(first, true, hashId === first ? "hash" : "init"); else draw();
   emit("tng:ready", {version: 3});

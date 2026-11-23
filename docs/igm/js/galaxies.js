@@ -273,11 +273,36 @@ export function nearestSightline(entries, cur, rhoCur, R200c) {
   }
   return best;
 }
-/* a galaxy's opening sightline when nothing is carried over: a random-orientation ray near 0.25 R200c (mid CGM, not the
-   b ~ 0 disk-centre rays that sort first), the best ranked of the closest ones */
+/* a galaxy's opening sightline when nothing is carried over: strongly prioritizes multi-ion showcase sightlines
+   (e.showcase === true and maximum total equivalent width / absorption across HI, OVI, OVII, NeVIII, CIV, CIII),
+   falling back to a random-orientation ray near 0.25 R200c */
+const SHOWCASE_IONS = ["HI", "OVI", "OVII", "NeVIII", "CIV", "CIII"];
+function sightlineRichness(e) {
+  let ew = 0, nRich = 0;
+  const ewMap = e.ew || e.EW || null, ions = e.ions || null, logN = e.logN || e.logN_aod || null;
+  for (const k of SHOWCASE_IONS) {
+    const ewVal = ewMap && Number.isFinite(+ewMap[k]) ? Math.max(0, +ewMap[k])
+      : ions && ions[k] && Number.isFinite(+ions[k].EW) ? Math.max(0, +ions[k].EW) : 0;
+    const depthVal = ions && ions[k] && Number.isFinite(+ions[k].min_flux) ? Math.max(0, 1 - +ions[k].min_flux) : 0;
+    const colVal = logN && Number.isFinite(+logN[k]) ? Math.max(0, (+logN[k] - 12.5) * 0.25) : 0;
+    const w = ewVal > 0 ? ewVal : Math.max(depthVal, colVal);
+    ew += w;
+    if (w >= 0.1 || (logN && +logN[k] >= 13.3)) nRich++;
+  }
+  const show = e.showcase === true || (+e.n_showcase_ions || 0) > 0 ? 1 : 0;
+  return {show, nRich, ew, score: +e.score || 0, hasData: !!(show || ew > 0 || (+e.score || 0) > 0)};
+}
 export function defaultSightline(entries, R200c, rho = 0.25) {
   const R = +R200c, lib = (entries || []).filter(e => e && e.orientation && e.orientation !== "custom" && e.source !== "generated" && Number.isFinite(+e.b_kpc));
   if (!lib.length || !(R > 0)) return null;
+  if (lib.some(e => sightlineRichness(e).hasData)) {
+    return lib.slice().sort((a, b) => {
+      const ra = sightlineRichness(a), rb = sightlineRichness(b);
+      return rb.show - ra.show || rb.ew - ra.ew || rb.nRich - ra.nRich || rb.score - ra.score
+        || ((Number.isFinite(+a.rank) && a.rank !== null ? +a.rank : 1e9) - (Number.isFinite(+b.rank) && b.rank !== null ? +b.rank : 1e9))
+        || (String(a.id) < String(b.id) ? -1 : String(a.id) > String(b.id) ? 1 : 0);
+    })[0];
+  }
   const pref = lib.filter(e => e.orientation === "random"), pool = pref.length ? pref : lib;
   const key = e => [Math.round(Math.abs(+e.b_kpc / R - rho) / 0.025), Number.isFinite(+e.rank) && e.rank !== null ? +e.rank : 1e9, String(e.id)];
   return pool.slice().sort((a, b) => { const x = key(a), y = key(b); return x[0] - y[0] || x[1] - y[1] || (x[2] < y[2] ? -1 : x[2] > y[2] ? 1 : 0); })[0];

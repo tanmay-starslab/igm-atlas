@@ -66,6 +66,7 @@ IGM_SIMS = [
         "SFR": 180.0,
         "M200c": 1.444e15,
         "R200c": 18382.35,
+        "default_id": "face_b1310_a222_s42",
     },
     {
         "id": "camels_l50n512_cosmic_web",
@@ -83,6 +84,7 @@ IGM_SIMS = [
         "SFR": 42.0,
         "M200c": 4.021e14,
         "R200c": 9313.07,
+        "default_id": "face_b34378_a306_s155",
     },
     {
         "id": "tng50_cosmic_web",
@@ -100,6 +102,7 @@ IGM_SIMS = [
         "SFR": 35.0,
         "M200c": 1.944e14,
         "R200c": 6458.52,
+        "default_id": "face_b1588_a221_s27",
     },
     {
         "id": "tng100_cosmic_web",
@@ -117,6 +120,7 @@ IGM_SIMS = [
         "SFR": 95.0,
         "M200c": 7.702e14,
         "R200c": 13839.68,
+        "default_id": "edge_b36877_a262_s117",
     },
     {
         "id": "tng300_cosmic_web",
@@ -134,6 +138,7 @@ IGM_SIMS = [
         "SFR": 310.0,
         "M200c": 3.246e15,
         "R200c": 37828.46,
+        "default_id": "rand_b162869_a269_s145",
     },
     {
         "id": "illustris1_cosmic_web",
@@ -151,6 +156,7 @@ IGM_SIMS = [
         "SFR": 115.0,
         "M200c": 4.717e14,
         "R200c": 13316.76,
+        "default_id": "edge_b2322_a357_s13",
     },
 ]
 
@@ -387,9 +393,56 @@ def build_one_sim_pack(
             if (src_web / fname).is_file():
                 shutil.copy2(src_web / fname, pack_dir / fname)
         dst_s = pack_dir / "s"
+        hero_bin = (dst_s / "rand_b062_a062.bin").read_bytes() if (dst_s / "rand_b062_a062.bin").is_file() else None
         if dst_s.exists():
             shutil.rmtree(dst_s)
         shutil.copytree(src_web / "s", dst_s)
+        if hero_bin is not None and not (dst_s / "rand_b062_a062.bin").is_file():
+            (dst_s / "rand_b062_a062.bin").write_bytes(hero_bin)
+
+    # Ensure galaxy.json in pack_dir carries defaults.id, vhw=1000, and bands.xray.default=3000
+    gal_json_p = pack_dir / "galaxy.json"
+    gal_obj = json.loads(gal_json_p.read_text()) if gal_json_p.is_file() else dict(sim_meta)
+    def_id = sim_cfg.get("default_id")
+    if (pack_dir / "catalog.json").is_file():
+        try:
+            cat_entries = json.loads((pack_dir / "catalog.json").read_text()).get("entries", [])
+            cat_ids = {e.get("id") for e in cat_entries}
+            if def_id not in cat_ids and cat_entries:
+                # Pick richest multi-ion showcase sightline in catalog
+                show_ions = ("HI", "OVI", "OVII", "NeVIII", "CIV", "CIII")
+                def _rich(e):
+                    logn = e.get("logN") or {}
+                    ions_m = e.get("ions") or {}
+                    s = sum(
+                        max(
+                            max(0.0, 1.0 - float((ions_m.get(k) or {}).get("min_flux", 1.0))),
+                            max(0.0, (float(logn.get(k, -99.0)) - 12.5) * 0.25),
+                        )
+                        for k in show_ions
+                    )
+                    return (1 if e.get("showcase") or (e.get("n_showcase_ions") or 0) > 0 else 0, s, float(e.get("score") or 0.0))
+                def_id = max(cat_entries, key=_rich)["id"]
+        except Exception:
+            pass
+    gal_obj["defaults"] = {
+        **(gal_obj.get("defaults") or {}),
+        "id": def_id,
+        "ions": ["HI", "CIV", "OVI", "NeVIII", "OVII"],
+        "layout": "1",
+        "R": {"uv": [15000, 50000], "euv": [15000, 50000], "xray": [3000, 300]},
+        "vhw": 1000,
+        "vhw_kms": 1000,
+    }
+    gal_obj["bands"] = {
+        **(gal_obj.get("bands") or {}),
+        "xray": {
+            "label": "X-ray",
+            "R": {"min": 100, "max": 5000, "default": 3000, "pair": [3000, 300]},
+            "R_eval": 1000,
+        },
+    }
+    gal_json_p.write_text(json.dumps(gal_obj, indent=2) + "\n")
 
     # Fast-path: if sightlines already exist in pack_dir and either src_viz or viz_dst has manifest_v2.json
     has_sightlines = (pack_dir / "catalog.json").is_file() and (pack_dir / "components.json").is_file()
@@ -399,8 +452,6 @@ def build_one_sim_pack(
             if viz_dst.exists():
                 shutil.rmtree(viz_dst)
             shutil.copytree(src_viz, viz_dst)
-        else:
-            shutil.copy2(src_viz / "manifest_v2.json", viz_dst / "manifest_v2.json")
         if has_sightlines:
             print(f"  [{sim_cfg['sim']}] Sightline catalog & 3D manifest synced in {time.time() - t0:.1f}s", flush=True)
             return sim_meta
@@ -461,6 +512,14 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
                 s_src = "sbi" if ("thor" in gen_src or "sbi" in gen_src) else "trident"
             except Exception:
                 pass
+        s_gal_path = s_pack / "galaxy.json"
+        s_def_id = s.get("default_id")
+        if s_gal_path.is_file():
+            try:
+                s_gal_disk = json.loads(s_gal_path.read_text())
+                s_def_id = (s_gal_disk.get("defaults") or {}).get("id") or s_def_id
+            except Exception:
+                pass
         entry = {
             "id": s["id"],
             "sim": s["sim"],
@@ -478,6 +537,7 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
             "n": s_n,
             "viz": True,
             "src": s_src,
+            "default_id": s_def_id,
         }
         if hf_base and s["id"] != IGM_SIMS[0]["id"]:
             pass  # keep catalog.json, components.json, s/*.bin, manifest_v2.json served locally from data/gal/<id>/ while 3D cubes load from viz_base
@@ -485,6 +545,11 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
 
     default_viz_base = f"{hf_base.rstrip('/')}/{IGM_SIMS[0]['id']}/viz/" if hf_base else "data/viz/"
     default_manifest_url = "data/viz/manifest_v2.json"
+
+    bands_cfg = json.loads(json.dumps(I.BANDS))
+    bands_cfg["xray"]["R"]["default"] = 3000
+    bands_cfg["xray"]["R"]["pair"] = [3000, 300]
+    default_sightline_id = (gal_disk.get("defaults") or {}).get("id") or IGM_SIMS[0].get("default_id")
 
     cfg = {
         "version": 3,
@@ -496,17 +561,24 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
         "galaxy": gal_meta,
         "spectra_source": spectra_src,
         "ions": I.page_ions(),
-        "bands": I.BANDS,
+        "bands": bands_cfg,
         "snr": I.SNR,
         "defaults": {
             **I.DEFAULTS,
+            "id": default_sightline_id,
             "ions": ["HI", "CIV", "OVI", "NeVIII", "OVII"],
             "layout": "1",
-            "vhw_kms": 600,
+            "R": {
+                "uv": list(bands_cfg["uv"]["R"]["pair"]),
+                "euv": list(bands_cfg["euv"]["R"]["pair"]),
+                "xray": [3000, 300],
+            },
+            "vhw": 1000,
+            "vhw_kms": 1000,
         },
         "grid": I.GRID,
         "registry_tag": I.registry_tag(),
-        "fitter": {"worker": "js/fitworker.js?v=20261123d", "budget_ms": 300, "cap_ms": 1500, "version": "fit/1"},
+        "fitter": {"worker": "js/fitworker.js?v=20261123e", "budget_ms": 300, "cap_ms": 1500, "version": "fit/1"},
         "frame": {
             "Lhat": gal_meta.get("Lhat", [0.0, 0.0, 1.0]),
             "xhat": gal_meta.get("xhat", [1.0, 0.0, 0.0]),

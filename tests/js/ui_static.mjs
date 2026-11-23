@@ -209,8 +209,8 @@ else {
   const St = await import(pathToFileURL(join(DIR, "js", "state.js")).href);
   const SCFG = {ions: [{key: "HI", order: 0, band: "uv", label: "H I 1216"}, {key: "CIV", order: 7, band: "uv", label: "C IV 1548"}, {key: "NeVIII", order: 10, band: "euv", label: "Ne VIII 770"}, {key: "OVII", order: 11, band: "xray", label: "O VII 21.6"}],
     bands: {uv: {label: "UV", R: {min: 5000, max: 150000, default: 30000, pair: [15000, 50000]}}, euv: {label: "EUV", R: {min: 5000, max: 150000, default: 30000, pair: [15000, 50000]}},
-      xray: {label: "X-ray", R: {min: 100, max: 5000, default: 1000, pair: [300, 3000]}}}, snr: {min: 2, max: 100, default: 10, pair: [20, 5]},
-    defaults: {id: "edge_b100_a090", ions: ["HI", "CIV", "OVII"], layout: "1", R: {uv: [15000, 50000], euv: [15000, 50000], xray: [300, 3000]}, sn: [20, 5], vc: 0, vhw: 400}};
+      xray: {label: "X-ray", R: {min: 100, max: 5000, default: 3000, pair: [3000, 300]}}}, snr: {min: 2, max: 100, default: 10, pair: [20, 5]},
+    defaults: {id: "edge_b100_a090", ions: ["HI", "CIV", "OVII"], layout: "1", R: {uv: [15000, 50000], euv: [15000, 50000], xray: [3000, 300]}, sn: [20, 5], vc: 0, vhw: 1000}};
   const reg = St.makeRegistry(SCFG), S0 = Object.assign(St.cloneState(reg.DEF), {id: "edge_b100_a090"});
   check(reg.DEF.layout === "1" && reg.DEF.ions.join() === "HI,CIV,OVII", "registry defaults: layout 1, default ions");
   check(JSON.stringify(["1", "2R", "2SN", "4"].map(l => St.casesFor(l))) === JSON.stringify([[[0, 0]], [[0, 0], [1, 0]], [[0, 0], [0, 1]], [[0, 0], [1, 0], [0, 1], [1, 1]]]), "cases per layout (§6.3 table)");
@@ -234,7 +234,7 @@ else {
     err({ions: []})?.startsWith("ions:") && err({ions: ["HILyb"]})?.startsWith("ions:") && err({vhw: 5})?.startsWith("vhw:") && err({vc: 1200, vhw: 400})?.startsWith("vc:") &&
     err({fit: "yes"})?.startsWith("fit:") && err({zoom: 2})?.startsWith("zoom:"), "setInstrument: each invalid field gives a RangeError naming it");
   const PT = St.instrumentPatch({R: {uv: [20000, 60000], xray: 1000}, snr: [100, 2], layout: "2SN", ions: ["OVII", "HI"], vhw: 20, vc: 30.5, fit: true}, reg, S0, vmaxFor);
-  check(PT.R.uv.join() === "20000,60000" && PT.R.xray.join() === "1000,3000" && PT.sn.join() === "100,2" && PT.layout === "2SN" && PT.ions.join() === "HI,OVII" && PT.vhw === 20 && PT.vc === 30.5 && PT.fit === true,
+  check(PT.R.uv.join() === "20000,60000" && PT.R.xray.join() === "1000,300" && PT.sn.join() === "100,2" && PT.layout === "2SN" && PT.ions.join() === "HI,OVII" && PT.vhw === 20 && PT.vc === 30.5 && PT.fit === true,
     "setInstrument: a valid patch, ions put into registry order, a scalar R sets the first case");
   check(St.minus(-400) === "−400" && St.fmtNum(-0.004, 2) === "0.00", "U+2212 minus for negatives, no negative zero");
   /* C2: lower limits (owner decision 2), readout flags (code 2), the AOD lower bound, the boot clamp (code 6) */
