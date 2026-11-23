@@ -1,0 +1,33 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+node_modules/
+# Heavy 3D cube binaries are hosted on https://huggingface.co/datasets/tanmay-starslab/igm-atlas-data
+# while all manifests, LUTs, sightline catalogues, Voigt components, and 720 .bin spectra live in docs/igm/data/
+docs/igm/data/viz/gas/
+docs/igm/data/viz/stars/
+docs/igm/data/gal/*/viz/gas/
+docs/igm/data/gal/*/viz/stars/
+*.u8.gz
+*.rgba.gz
