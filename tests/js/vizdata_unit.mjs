@@ -4,7 +4,8 @@
 import {readFileSync} from "node:fs";
 import {join, dirname} from "node:path";
 import {fileURLToPath} from "node:url";
-import {GAS_LEVELS, STAR_LEVELS, SMOOTH, STAR_COMP, STAR_ZOOM, validateManifestV2, viewPlan, cubeRef} from "../../docs/igm/js/vizdata.js";
+import {GAS_LEVELS, STAR_LEVELS, SMOOTH, STAR_COMP, STAR_ZOOM, validateManifestV2, viewPlan, cubeRef,
+  THERMO_KEYS, THERMO_FIELDS, thermoList, thermoField, computeThermoCube, decodeU8, encodeLinear} from "../../docs/igm/js/vizdata.js";
 import {FRAG} from "../../docs/igm/js/raymarch.js";
 
 const HERE = dirname(fileURLToPath(import.meta.url)), ROOT = join(HERE, "../..");
@@ -103,6 +104,61 @@ const M = JSON.parse(readFileSync(join(ROOT, "docs/igm/data/viz/manifest_v2.json
         patched.includes("exp(-1.15 * m") && patched.includes("transS = vec3(1.0)") &&
         patched.includes("/* dust patched */") && patched.includes("uGasW * dustT"),
     "viewer3d.js shader patch anchors match raymarch.js FRAG cleanly without modifying raymarch.js"); }
+
+/* ---- 5. Zero-storage TEMET cosmic-web thermodynamic fields & 3D Emission mode (uMode == 2) ---- */
+{
+  check(JSON.stringify(THERMO_KEYS) === JSON.stringify(["Pth", "K", "EM", "tcool", "Mach"]),
+    `THERMO_KEYS lists all 5 TEMET fields (${THERMO_KEYS.join(", ")})`);
+  const tl = thermoList(M);
+  check(tl.length === 5 && tl.every(x => x.available && x.group === "thermo"),
+    "thermoList marks all 5 fields available on SIMBA-100 manifest");
+  check(thermoList(null).every(x => !x.available && x.reason),
+    "thermoList disables all 5 fields with a reason when manifest is null");
+  for (const k of THERMO_KEYS) {
+    const tf = thermoField(k, M);
+    check(!!tf && tf.cubes.L0 && tf.cubes.L4 && tf.cubes.L0.derived === true,
+      `thermoField("${k}") synthesizes L0..L4 cube descriptors with 0 extra storage`);
+  }
+  // Exact physics verification on synthetic voxels (empty voxel 0 + WHIM voxel 1 + cluster voxel 2)
+  const enc = (vals, vmin, vmax) => {
+    const out = new Uint8Array(vals.length), s = 254 / (vmax - vmin);
+    for (let i = 0; i < vals.length; i++) out[i] = Number.isFinite(vals[i]) ? Math.max(1, Math.min(255, Math.round((vals[i] - vmin) * s) + 1)) : 0;
+    return out;
+  };
+  const rNH = [-8.8, -0.5], rT = [2.5, 10.1], rZ = [-12.5, 1.2], V = 900;
+  const inputs = {
+    nH: enc([NaN, -5.0, -3.0], ...rNH),
+    T:  enc([NaN,  6.0,  7.0], ...rT),
+    Z:  enc([NaN, -1.0, -0.5], ...rZ),
+    vx: encodeLinear([NaN, 300, 0], V),
+    vy: encodeLinear([NaN, 0, 480], V),
+    vz: encodeLinear([NaN, 0, 0], V),
+  };
+  const ranges = {nH: rNH, T: rT, Z: rZ, V};
+  const dec1 = (k, q) => { const m = THERMO_FIELDS.find(f => f.key === k); return decodeU8(q, m.vmin, m.vmax); };
+  const qP = computeThermoCube("Pth", inputs, ranges), dP = dec1("Pth", qP);
+  check(qP[0] === 0 && Math.abs(dP[1] - (Math.log10(2.3) - 5.0 + 6.0)) < 0.08 && Math.abs(dP[2] - (Math.log10(2.3) - 3.0 + 7.0)) < 0.08,
+    `computeThermoCube("Pth"): empty=0, WHIM=${dP[1].toFixed(2)}, cluster=${dP[2].toFixed(2)}`);
+  const qK = computeThermoCube("K", inputs, ranges), dK = dec1("K", qK);
+  const expK1 = Math.log10(8.617333262e-8 * 1e6 / ((1.16 * 1e-5) ** (2 / 3)));
+  check(qK[0] === 0 && Math.abs(dK[1] - expK1) < 0.08,
+    `computeThermoCube("K"): WHIM=${dK[1].toFixed(2)} vs expected ${expK1.toFixed(2)}`);
+  const qEM = computeThermoCube("EM", inputs, ranges), dEM = dec1("EM", qEM);
+  check(qEM[0] === 0 && Math.abs(dEM[1] - (-10.0 + 3.0)) < 0.12 && Math.abs(dEM[2] - (-6.0 + 3.5)) < 0.12,
+    `computeThermoCube("EM"): WHIM=${dEM[1].toFixed(2)}, cluster=${dEM[2].toFixed(2)}`);
+  const qTc = computeThermoCube("tcool", inputs, ranges), dTc = dec1("tcool", qTc);
+  check(qTc[0] === 0 && dTc[1] > 1.0 && dTc[1] < 2.5 && dTc[2] > 0.3 && dTc[2] < 1.5,
+    `computeThermoCube("tcool"): WHIM=${dTc[1].toFixed(2)} log Gyr, cluster=${dTc[2].toFixed(2)} log Gyr`);
+  const qM = computeThermoCube("Mach", inputs, ranges), dM = dec1("Mach", qM);
+  const expM1 = Math.log10(300 / 151.4), expM2 = Math.log10(480 / 478.7);
+  check(qM[0] === 0 && Math.abs(dM[1] - expM1) < 0.08 && Math.abs(dM[2] - expM2) < 0.08,
+    `computeThermoCube("Mach"): WHIM=${dM[1].toFixed(2)} (exp ${expM1.toFixed(2)}), cluster=${dM[2].toFixed(2)} (exp ${expM2.toFixed(2)})`);
+  check(FRAG.includes("bool emisMode = !velMode && uMode == 2;") && FRAG.includes("else if (uMode == 2)") && FRAG.includes("sumG += w * v * hw;"),
+    "raymarch.js FRAG implements uMode == 2 surface-brightness emission projection (nH * n_field * ds)");
+  const vsrc = readFileSync(join(ROOT, "docs/igm/js/viewer3d.js"), "utf8");
+  check(vsrc.includes('data-testid="v3-mode-emission"') && vsrc.includes('value="emission"') && vsrc.includes("thermoTex("),
+    "viewer3d.js wires Emission pill and zero-storage thermoTex()");
+}
 
 console.log(fails ? `\n${fails} check(s) FAILED` : "\nall checks passed");
 process.exit(fails ? 1 : 0);

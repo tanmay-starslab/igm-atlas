@@ -4,7 +4,7 @@
 import {
   initFastVizWasm, wasmReady, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions,
   wasm_decode_lut_volume, wasm_pack_velocity
-} from "./fast_viz_wasm.js?v=20261123f";
+} from "./fast_viz_wasm.js?v=20261124a";
 export {initFastVizWasm, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions, wasm_decode_lut_volume};
 export const SCHEMA = "tng50-viz/2";
 /* Phase 3: the gas fields are nH, T, Z plus the 12 registry ions in ladder order (tngsight.vizpack.VOL_KEYS) */
@@ -64,6 +64,65 @@ export function velocityInfo(manifest) {
 export function velocityList(manifest) {
   const ok = !!velocityInfo(manifest), reason = ok ? "" : !manifest ? "no 3D data in this build" : "the velocity cubes are not built yet";
   return VEL_VIEWS.map(x => ({...x, group: "vel", color: null, color_dark: null, available: ok, reason}));
+}
+
+/* Zero-storage TEMET cosmic-web thermodynamic fields (computed on-the-fly from nH, T, Z, vx, vy, vz). */
+const L23 = Math.log10(2.3), LK0 = Math.log10(8.617333262e-8) - (2 / 3) * Math.log10(1.16);
+const LTC0 = Math.log10((1.5 * 2.3 / 1.16) * 1.380649e-16 / 3.15576e16);
+const LCS0 = Math.log10(Math.sqrt((5 / 3) * 1.380649e-16 / (0.6 * 1.6726219e-24)) / 1e5);
+export const THERMO_FIELDS = [
+  ["Pth", "Pth", "P<sub>th</sub>", "thermal pressure", "WHIM thermal pressure Pth / kB", "K cm^-3", "mass_weighted", -5, 7, "inferno", "weighted_mean", "K cm^-3", -1, 4.5, -2, 5, ["nH", "T"], []],
+  ["K", "K", "K", "cosmic-web entropy", "cosmic-web entropy K", "keV cm^2", "mass_weighted", -2, 5.5, "viridis", "weighted_mean", "keV cm^2", 0.5, 4, 0.5, 4.5, ["nH", "T"], []],
+  ["EM", "EM", "EM", "emission measure", "WHIM emission measure nH^2 T^(1/2)", "cm^-6 K^1/2", "density", -14, 2, "magma", "column", "cm^-5 K^1/2", 14.5, 21.5, -10, -1, ["nH", "T"], []],
+  ["tcool", "tcool", "t<sub>cool</sub>", "cooling time", "radiative cooling time", "Gyr", "mass_weighted", -3, 4, "tng_ice", "weighted_mean", "Gyr", -1, 2.5, -1.5, 2.5, ["nH", "T"], ["Z"]],
+  ["Mach", "Mach", "ℳ", "thermal Mach number", "accretion-shock thermal Mach number", "", "mass_weighted", -1.5, 2, "inferno", "weighted_mean", "", -0.5, 1.2, -0.3, 1.3, ["T", "vx", "vy", "vz"], []]
+].map(([key, label, html, spoken, long, units, kind, vmin, vmax, cmap, pk, pu, p0, p1, w0, w1, deps, optDeps]) => ({
+  key, label, html, spoken, long, units, kind, vmin, vmax, cmap,
+  proj: {kind: pk, ...(pk === "weighted_mean" ? {weight: "nH"} : {}), units: pu, vmin: p0, vmax: p1},
+  vol_window: [w0, w1], deps, optDeps
+}));
+export const THERMO_KEYS = THERMO_FIELDS.map(f => f.key);
+export const thermoMeta = key => THERMO_FIELDS.find(f => f.key === key) || null;
+export function thermoField(key, m) {
+  const f = thermoMeta(key), F = m?.gas?.fields; if (!f || !F || (key === "Mach" && !velocityInfo(m)) || !f.deps.every(d => F[d]?.cubes)) return null;
+  const lv = (m.gas.levels || Object.keys(m.levels || {})).filter(L => f.deps.every(d => F[d]?.cubes?.[L]));
+  if (!lv.length) return null;
+  const cubes = {}; for (const L of lv) { const n = m.levels?.[L]?.n || 256; cubes[L] = {vmin: f.vmin, vmax: f.vmax, raw_bytes: n * n * n, derived: true}; }
+  return {...f, cubes};
+}
+export function thermoList(m) {
+  return THERMO_FIELDS.map(f => { const ok = !!thermoField(f.key, m);
+    return {key: f.key, group: "thermo", label: f.label, html: f.html, spoken: f.spoken, long: f.long, color: null, color_dark: null, available: ok,
+      reason: ok ? "" : !m ? "no 3D data in this build" : f.key === "Mach" ? "requires T and velocity cubes" : "requires nH and T cubes"}; });
+}
+export function computeThermoCube(key, inp, rng) {
+  const f = thermoMeta(key); if (!f) throw new Error(`unknown thermo field ${key}`);
+  const N = inp[f.deps[0]].length, out = new Uint8Array(N), v0 = f.vmin, sc = 254 / (f.vmax - v0);
+  const lutL = r => { const a = new Float32Array(256), s = (r[1] - r[0]) / 254; for (let q = 1; q < 256; q++) a[q] = r[0] + (q - 1) * s; return a; };
+  const enc = v => { const q = Math.round((v - v0) * sc) + 1; return q < 1 ? 1 : q > 255 ? 255 : q; };
+  const lT = lutL(rng.T);
+  if (key === "Mach") {
+    const {T: qT, vx: qx, vy: qy, vz: qz} = inp, V = rng.V, cs = new Float32Array(256), vl = new Float32Array(256);
+    for (let q = 1; q < 256; q++) { cs[q] = LCS0 + 0.5 * lT[q]; vl[q] = -V + (q - 1) * (2 * V / 254); }
+    for (let i = 0; i < N; i++) { const t = qT[i], a = qx[i], b = qy[i], c = qz[i]; if (!t || !a || !b || !c) continue;
+      const v2 = vl[a] ** 2 + vl[b] ** 2 + vl[c] ** 2; out[i] = enc(0.5 * Math.log10(v2 > 0.01 ? v2 : 0.01) - cs[t]); }
+    return out;
+  }
+  const {nH: qN, T: qT, Z: qZ} = inp, lN = lutL(rng.nH);
+  if (key === "tcool") {
+    const ff = new Float64Array(256), hh = new Float64Array(256), zz = new Float64Array(256), zL = new Float64Array(256).fill(0.1);
+    for (let q = 1; q < 256; q++) { const t = lT[q], cut = 1 / (1 + Math.exp(-10 * (t - 3.95)));
+      ff[q] = 1.8e-27 * (10 ** (0.5 * t));
+      hh[q] = cut * (10 ** -21.8 * Math.exp(-((t - 4.3) ** 2) / 0.18) + 10 ** -22.2 * Math.exp(-((t - 4.95) ** 2) / 0.25)) + 1e-26;
+      zz[q] = cut * (10 ** -21.1 * Math.exp(-((t - 5.3) ** 2) / 0.32) + 10 ** -22.1 * Math.exp(-((t - 6.3) ** 2) / 0.4)); }
+    if (qZ && rng.Z) { const lZ = lutL(rng.Z); for (let q = 1; q < 256; q++) zL[q] = Math.min(10, 10 ** lZ[q]); }
+    for (let i = 0; i < N; i++) { const a = qN[i], b = qT[i]; if (!a || !b) continue;
+      out[i] = enc(LTC0 + lT[b] - lN[a] - Math.log10(ff[b] + hh[b] + (qZ ? zL[qZ[i]] : 0.1) * zz[b])); }
+    return out;
+  }
+  for (let i = 0; i < N; i++) { const a = qN[i], b = qT[i]; if (!a || !b) continue;
+    out[i] = enc(key === "Pth" ? L23 + lN[a] + lT[b] : key === "K" ? lT[b] - (2 / 3) * lN[a] + LK0 : 2 * lN[a] + 0.5 * lT[b]); }
+  return out;
 }
 /* linear u8 decoding (encoding "linear"): q = 0 empty (NaN), else v = vmin + (q − 1)(vmax − vmin)/254, so q = 128 is 0 for vmin = −vmax */
 export function decodeLinear(q, vmin, vmax) {
