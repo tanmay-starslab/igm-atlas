@@ -35,19 +35,19 @@
 //   that has no gas.vectors). setWeight(k) picks their weight (nH or an ion with cubes; viewer.weight reads it),
 //   setTransfer({W, opacity, cmap}) their window (±W km/s, 0..W for vmag and sigmalos); viewer.velocity = {V, units, frame} or null.
 // ------------------------------------------------------------------------------------------------------------------------
-import {initLiquidSeg} from "./liquidtabs.js?v=20261124a";   /* CSS-only liquid drop behind the Field and Render mode rows */
-import {lut, cssGradient, NAMES as CMAPS, VEL_NAMES} from "./colormaps.js?v=20261124a";
+import {initLiquidSeg} from "./liquidtabs.js?v=20261124c";   /* CSS-only liquid drop behind the Field and Render mode rows */
+import {lut, cssGradient, NAMES as CMAPS, VEL_NAMES} from "./colormaps.js?v=20261124c";
 import {VOL_KEYS, ION_KEYS, decodeU8, gunzipIfNeeded, loadManifestV2, viewPlan, speciesList, MU_ZERO,
   VEL_KEYS, VEL_COMP_KEYS, velocityInfo, velocityList, packVelocity,
   THERMO_KEYS, thermoList, thermoField, computeThermoCube,
-  initFastVizWasm, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions, wasm_decode_lut_volume} from "./vizdata.js?v=20261124a";
-import {makeMaterial} from "./raymarch.js?v=20261124a";
-import {makeLoader, HostError, fetchText} from "./vizload.js?v=20261124a";
-import {preset as tfPreset, encodeTF, decodeTF, buildTF, tfUniforms, defaultWRef, histogram2D, GMAX_DEFAULT, THOR, NELSON16, TF_W, TF_H} from "./tf.js?v=20261124a";
-import {createTfEditor, histCodes, histWindow} from "./tfeditor.js?v=20261124a";
-import {initTips} from "./tips.js?v=20261124a";
-import {sfx} from "./uisound.js?v=20261124a";
-import {createHaloOverlay} from "./halonodes.js?v=20261124a";
+  initFastVizWasm, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions, wasm_decode_lut_volume} from "./vizdata.js?v=20261124c";
+import {makeMaterial} from "./raymarch.js?v=20261124c";
+import {makeLoader, HostError, fetchText} from "./vizload.js?v=20261124c";
+import {preset as tfPreset, encodeTF, decodeTF, buildTF, tfUniforms, defaultWRef, histogram2D, GMAX_DEFAULT, THOR, NELSON16, TF_W, TF_H} from "./tf.js?v=20261124c";
+import {createTfEditor, histCodes, histWindow} from "./tfeditor.js?v=20261124c";
+import {initTips} from "./tips.js?v=20261124c";
+import {sfx} from "./uisound.js?v=20261124c";
+import {createHaloOverlay} from "./halonodes.js?v=20261124c";
 
 export {VOL_KEYS, decodeU8, gunzipIfNeeded, speciesList, velocityList, thermoList,
   initFastVizWasm, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions, wasm_decode_lut_volume};
@@ -160,6 +160,23 @@ const COL_TXT = {nH: "NH", T: "⟨T⟩ (nH-weighted)", Z: "⟨Z⟩ (nH-weighted)
 const VOL_HTML = {nH: "n<sub>H</sub>", Pth: "P<sub>th</sub>/k<sub>B</sub>", K: "K", EM: "n<sub>H</sub>² T<sup>1/2</sup>", tcool: "t<sub>cool</sub>", Mach: "ℳ"};
 const isIon = k => ION_KEYS.includes(k);
 const isThermo = k => THERMO_KEYS.includes(k);
+/* CLOUDY c17.03 (FG11) emission lines — full LUT & interpolator live in cloudy_emissivity.js (lazy-loaded on Emission mode) */
+const EMIS_DEFAULT = "Lya_1216", EMIS_EPS_MIN = -48.0, EMIS_EPS_MAX = -12.0, EMIS_EPS_REF = -25.0;
+const EMIS_LINES = [
+  {id: "Lya_1216",    label: "Lyα 1216 Å",        band: "FUV",     sb: [-21.0, -14.0], igm: [-23.5, -17.0], cmap: "inferno"},
+  {id: "OVI_1032",    label: "O VI 1032/38 Å",    band: "FUV",     sb: [-23.0, -16.5], igm: [-24.5, -18.0], cmap: "magma"},
+  {id: "CIV_1548",    label: "C IV 1548/51 Å",    band: "FUV",     sb: [-23.0, -16.5], igm: [-24.5, -18.0], cmap: "plasma"},
+  {id: "CIII_977",    label: "C III 977 Å",       band: "FUV",     sb: [-22.5, -16.0], igm: [-24.5, -18.0], cmap: "plasma"},
+  {id: "OVII_21.6",   label: "O VII 21.6 Å",      band: "X-ray",   sb: [-24.0, -17.5], igm: [-25.0, -18.0], cmap: "inferno"},
+  {id: "OVIII_18.97", label: "O VIII 18.97 Å",    band: "X-ray",   sb: [-24.0, -17.0], igm: [-25.0, -18.0], cmap: "inferno"},
+  {id: "FeXXV_1.85",  label: "Fe XXV 1.85 Å",     band: "X-ray",   sb: [-24.5, -16.5], igm: [-25.5, -17.5], cmap: "inferno"},
+  {id: "Ha_6563",     label: "Hα 6563 Å",         band: "Optical", sb: [-21.5, -14.5], igm: [-24.0, -17.5], cmap: "inferno"},
+  {id: "OII_3727",    label: "[O II] 3727/29 Å",  band: "Optical", sb: [-22.0, -15.0], igm: [-24.5, -18.0], cmap: "inferno"},
+  {id: "OIII_5007",   label: "[O III] 5007 Å",    band: "Optical", sb: [-22.0, -15.0], igm: [-24.5, -18.0], cmap: "viridis"},
+  {id: "NII_6583",    label: "[N II] 6583 Å",     band: "Optical", sb: [-22.5, -15.5], igm: [-25.0, -18.5], cmap: "inferno"},
+  {id: "MgII_2798",   label: "Mg II 2796/03 Å",   band: "NUV",     sb: [-22.5, -15.5], igm: [-25.0, -18.5], cmap: "magma"},
+];
+const emisLineOf = id => EMIS_LINES.find(l => l.id === id) || EMIS_LINES[0];
 /* vel3d: the five velocity views (vizdata VEL_VIEWS). Default window ±VEL_W km/s (0..VEL_W for |v| and σ_los), the
    slider from VEL_WMIN to the encoding's V; the weight is n_H unless the Weight control names an ion */
 const isVel = k => VEL_KEYS.includes(k);
@@ -405,6 +422,7 @@ const CSS = `.v3d{position:relative;width:100%;height:100%;min-width:0;
 .v3c details{margin-top:2px}.v3c summary{cursor:pointer;font:500 11px var(--mono,ui-monospace,monospace);color:var(--muted,#98a0b8);padding:3px 0}
 .v3c-lod{font:10.5px/1.45 var(--mono,ui-monospace,monospace);color:var(--muted,#98a0b8);white-space:pre-line;overflow-wrap:anywhere;padding:0 4px}
 .v3c-lod:empty{display:none}
+.v3d-leg .v3d-badge{display:inline-block;margin-left:5px;padding:1px 5px;border-radius:4px;font:600 9.5px/1.3 var(--mono,ui-monospace,monospace);letter-spacing:.02em;color:var(--s-accent,#7db2f0);background:rgba(125,178,240,.14);border:1px solid rgba(125,178,240,.32);vertical-align:middle}
 .v3tf[hidden]{display:none}.v3tf-plot{margin:2px 0 8px;min-width:0}
 .v3tf-plot canvas{display:block;width:100%;height:104px;border-radius:8px;background:var(--cg-well);box-shadow:inset 0 0 0 1px var(--cg-edge);cursor:crosshair;touch-action:none}
 .v3tf-plot canvas:focus-visible{outline:2px solid var(--accent,#8fa8ff);outline-offset:1px}
@@ -653,8 +671,9 @@ async function create(app, opts = {}) {
       <div class="v3c-sw"><label><input type="checkbox" id="v3-halos" data-testid="v3-halos" checked data-tip="Draw embedded 3D galaxies and clusters along the cosmic web">Galaxies &amp; clusters</label><label><input type="checkbox" id="v3-guides" data-tip="Draw the R200c ring and the disk normal">guides</label><label><input type="checkbox" id="v3-scale" checked data-tip="Show a length scale in kpc">scale bar</label></div></section></div>
     <div class="v3c-col" data-col="b"><section class="v3c-card" data-group="mode" data-tab="view"><h2>Mode</h2>
       <div id="v3-mode" class="v3c-seg" role="radiogroup" aria-label="Render mode"><label><input type="radio" name="v3-mode" value="integral" data-testid="v3-mode-integral" data-tip="Projected map: column or weighted mean along each ray"><span>integral</span></label>
-        <label><input type="radio" name="v3-mode" value="emission" data-testid="v3-mode-emission" data-tip="Surface-brightness emission projection, proportional to density squared"><span>emission</span></label>
+        <label><input type="radio" name="v3-mode" value="emission" data-testid="v3-mode-emission" data-tip="CLOUDY c17.03 (FG11) line surface brightness [erg s⁻¹ cm⁻² arcsec⁻²]"><span>emission</span></label>
         <label><input type="radio" name="v3-mode" value="volume" data-testid="v3-mode-volume" data-tip="Ray-marched emission and absorption through a transfer function"><span>volume</span></label></div>
+      <div class="v3c-row" id="v3-emis-row" hidden><label for="v3-emis-line">line</label><select id="v3-emis-line" data-testid="v3-emis-line" data-tip="CLOUDY c17.03 (FG11) emission line wavelength"></select></div>
       <div class="v3c-row"><label for="v3-op">opacity</label><input id="v3-op" type="range" min="0" max="1" step="0.01" data-tip="Overall opacity of the volume rendering; volume mode only"><output id="v3-op-o" for="v3-op"></output></div></section>
     <section class="v3c-card" data-group="pick" data-tab="pick"><h2>Pick ray</h2><div class="v3c-pick"></div></section></div></div>
     <div class="v3c-lod" id="v3-lod" aria-hidden="true"></div>`;
@@ -929,7 +948,17 @@ vec3 starAt(vec3 p, int l) {`)
   }
 
   /* ---- state ---- */
-  let species = null, wanted = null, mode = "integral", loadTok = 0;
+  let species = null, wanted = null, mode = "integral", emisLine = EMIS_DEFAULT, loadTok = 0;
+  let cloudyMod = null, cloudyLut = null, cloudyLoadP = null;
+  function ensureCloudy() {
+    if (cloudyMod && cloudyLut) return Promise.resolve({mod: cloudyMod, lut: cloudyLut});
+    if (!cloudyLoadP) {
+      cloudyLoadP = import("./cloudy_emissivity.js?v=20261124c")
+        .then(async mod => { cloudyMod = mod; cloudyLut = await mod.loadCloudyLut("data/"); return {mod, lut: cloudyLut}; })
+        .catch(err => { cloudyLoadP = null; throw err; });
+    }
+    return cloudyLoadP;
+  }
   const layer = {stars: !mobile && hasStars, dust: true, dustLaw: "skirt", gasMix: 0.85, starMix: 0.9, Q: manifest?.stars?.display?.Q ?? 8, mu0: STAR_DEFAULT.mu0, sat: STAR_DEFAULT.sat,
     balance: manifest?.stars?.display?.balance ?? [1, 1, 1]};
   const tf = {integral: {}, emission: {}, volume: {}};   // per mode, per species: {lo, hi, opacity, cmap}
@@ -952,28 +981,28 @@ vec3 starAt(vec3 p, int l) {`)
      draw new-weight cubes under the old weight's window */
   let boundW = velW;
   /* the gas-field key whose cubes a view draws with: the view's own (nH, T, ..., ions) or, for a velocity view, its weight */
-  const wKey = k => (isVel(k) ? boundW : mode === "emission" ? "nH" : emisKey(k) || (weighted(k) ? "nH" : null));   // tf3d: the TF emissivity weight when set
+  const wKey = k => (isVel(k) ? boundW : mode === "emission" ? null : emisKey(k) || (weighted(k) ? "nH" : null));   // tf3d: the TF emissivity weight when set
   function velTf(k, m = mode) { const v = velView(k), V = VELI?.V || 1000, W = Math.min(VEL_W, V);
     return tf[m][k] ||= {W, lo: v.signed ? -W : 0, hi: W, opacity: m === "volume" ? VOL.opacity : 0.5, cmap: v.signed ? VEL_NAMES.signed[0] : VEL_NAMES.unsigned[0]}; }
   /* σ_los is a property of the whole ray (its moment 2), so it has no volume rendering; velocity views have no emission projection */
   const modeOk = (k, m) => !(k === "sigmalos" && m === "volume") && !(isVel(k) && m === "emission");
-  function emissionWin(k) {
-    const f = fld(k), nh = fld("nH");
-    if (weighted(k)) {
-      const nLo = nh?.proj?.vmin ?? 19.5, nHi = nh?.proj?.vmax ?? 21.7;
-      return [+(f.proj.vmin + nLo - 1.5).toFixed(1), +(f.proj.vmax + nHi).toFixed(1)];
-    }
-    const vw = nh?.vol_window || [-7.0, -0.5], sp = vw[1] - vw[0];
-    const sLo = vw[0] + 0.25 * sp, sHi = vw[0] + 0.72 * sp;
-    return [+(f.proj.vmin + sLo).toFixed(1), +(f.proj.vmax + sHi).toFixed(1)];
+  function emissionWin(lineId = emisLine) {
+    const l = emisLineOf(lineId);
+    return H0 > 1000 ? [...l.igm] : [...l.sb];
   }
-  function fieldTf(k, m = mode) { if (isVel(k)) return velTf(k, m);
+  function fieldTf(k, m = mode) {
+    if (m === "emission") {
+      const l = emisLineOf(emisLine), w = emissionWin(l.id), cm = l.cmap || "inferno";
+      return tf.emission[l.id] ||= {lo: w[0], hi: w[1], opacity: 0.5, cmap: CMAPS.includes(cm) ? cm : "inferno"};
+    }
+    if (isVel(k)) return velTf(k, m);
     const f = fld(k), d = (m === "integral" && H0 === 400) ? (WIN_DEFAULT[k] || {}) : {},
-      w = m === "integral" ? [d.lo ?? f.proj.vmin, d.hi ?? f.proj.vmax] : m === "emission" ? emissionWin(k) : f.vol_window;
+      w = m === "integral" ? [d.lo ?? f.proj.vmin, d.hi ?? f.proj.vmax] : f.vol_window;
     const cm = CMAP_DEFAULT[k] || f.cmap;
     return tf[m][k] ||= {lo: w[0], hi: w[1], opacity: m === "volume" ? VOL.opacity : 0.5, cmap: CMAPS.includes(cm) ? cm : "tng_dusk"}; }
-  function winRange(k, m = mode) { const f = fld(k); if (m === "volume") return [f.vmin, f.vmax];
-    if (m === "emission") { const [lo, hi] = emissionWin(k); return [Math.floor(lo - 4), Math.ceil(hi + 4)]; }
+  function winRange(k, m = mode) {
+    if (m === "emission") return [-28, -12];
+    const f = fld(k); if (m === "volume") return [f.vmin, f.vmax];
     return [Math.floor(Math.min(f.proj.vmin, f.vmin + (weighted(k) ? 0 : 19)) - 2), Math.ceil(f.proj.vmax + 1.5)]; }
   /* tf3d: the preset context of a field (its encoding range and current volume window), its state (default: the ramp
      preset over that window), whether TF mode is on for it, and the emissivity weight field (a density with cubes) */
@@ -1009,17 +1038,19 @@ vec3 starAt(vec3 p, int l) {`)
       if (kind === "gas") { if (!k) continue;
         /* vel3d: a velocity view needs the packed velocity cube of the level ("vel||L") and its weight field */
         if (isVel(k)) { keys.push(keyOf("vel", "", L), keyOf("gas", velW, L)); continue; }
-        keys.push(keyOf("gas", k, L)); if ((weighted(k) && mode === "integral") || (mode === "emission" && k !== "nH")) keys.push(keyOf("gas", "nH", L));
+        if (mode === "emission") { keys.push(keyOf("emis", emisLine, L)); continue; }
+        keys.push(keyOf("gas", k, L)); if (weighted(k) && mode === "integral") keys.push(keyOf("gas", "nH", L));
         const ek = emisKey(k); if (ek && ek !== k) keys.push(keyOf("gas", ek, L)); }
       else if (manifest.stars?.cubes?.[L]) keys.push(keyOf("stars", "", L)); }
-    let ks = keys.filter(x => { const [kind, kk, L] = x.split("|"); return kind === "stars" || (kind === "vel" ? VEL_COMP_KEYS.every(c => fld(c)?.cubes?.[L]) : fld(kk)?.cubes?.[L]); });
+    let ks = keys.filter(x => { const [kind, kk, L] = x.split("|");
+      return kind === "stars" || (kind === "vel" ? VEL_COMP_KEYS.every(c => fld(c)?.cubes?.[L]) : kind === "emis" ? (fld("nH")?.cubes?.[L] && fld("T")?.cubes?.[L]) : fld(kk)?.cubes?.[L]); });
     /* Phase 3 thumbnail: only L0 / L1 of the field (and nH weights) are fetched for it; stars and finer levels are used only
        when the full stage already loaded them */
-    if (docked === "thumb") ks = ks.filter(x => TEX.has(x) || /^(gas|vel)\|.*\|L[01]$/.test(x));
+    if (docked === "thumb") ks = ks.filter(x => TEX.has(x) || /^(gas|vel|emis)\|.*\|L[01]$/.test(x));
     /* fix-ui FE-06: the needed set itself must fit the GPU budget (with the render targets): drop S0, then S4..S2, then L4..L2
        field (with its weights), then S1, until it does; evict() can only free what is not needed */
     const over = () => ks.reduce((a, x) => a + keyBytes(x), 0) + rtBytes() > BUDGET, dropped = [];
-    const lGrp = L => isVel(k) ? [keyOf("vel", "", L), keyOf("gas", velW, L)] : [keyOf("gas", k, L), keyOf("gas", "nH", L), keyOf("gas", emisKey(k) || "nH", L)];
+    const lGrp = L => isVel(k) ? [keyOf("vel", "", L), keyOf("gas", velW, L)] : mode === "emission" ? [keyOf("emis", emisLine, L)] : [keyOf("gas", k, L), keyOf("gas", "nH", L), keyOf("gas", emisKey(k) || "nH", L)];
     for (const grp of [[keyOf("stars", "", "S0")], [keyOf("stars", "", "S4")], lGrp("L4"), [keyOf("stars", "", "S3")], lGrp("L3"), [keyOf("stars", "", "S2")], lGrp("L2"), [keyOf("stars", "", "S1")]]) {
       if (!over()) break;
       const hit = ks.filter(x => grp.includes(x)); if (hit.length) { ks = ks.filter(x => !grp.includes(x)); dropped.push(...hit.map(x => x.split("|")[2])); } }
@@ -1029,10 +1060,12 @@ vec3 starAt(vec3 p, int l) {`)
   let budgetDropped = [];
   function keyBytes(key) { const [kind, kk, L] = key.split("|");
     if (kind === "vel") { const n = manifest.levels?.[L]?.n; return n ? 4 * n ** 3 : BYTES.vel; }
+    if (kind === "emis") { const c = fld("nH")?.cubes?.[L]; return c?.raw_bytes ?? BYTES.gas; }
     const c = kind === "stars" ? manifest.stars?.cubes?.[L] : fld(kk)?.cubes?.[L]; return c?.raw_bytes ?? BYTES[kind]; }
-  /* vel3d / thermo: the download size of a key (component cubes for "vel||L" or derived thermo deps) */
+  /* vel3d / thermo / emis: the download size of a key (component cubes for "vel||L", derived thermo deps, or CLOUDY nH+T+Z) */
   const dlBytes = key => { const [kind, kk, L] = key.split("|"), sum = c => c?.webp?.bytes?.reduce((a, b) => a + b, 0) ?? 0;
     if (kind === "vel") return VEL_COMP_KEYS.reduce((a, c) => a + sum(fld(c)?.cubes?.[L]), 0);
+    if (kind === "emis") return ["nH", "T", "Z"].reduce((a, c) => a + sum(fld(c)?.cubes?.[L]), 0);
     if (kind === "gas" && isThermo(kk)) { const f = fld(kk); return (f?.deps || []).reduce((a, c) => a + sum(fld(c)?.cubes?.[L]), 0); }
     return sum(kind === "stars" ? manifest.stars?.cubes?.[L] : fld(kk)?.cubes?.[L]); };
   function rtBytes() { const v = new T.Vector2(); renderer.getDrawingBufferSize(v); return v.x * v.y * ((accType === T.HalfFloatType ? 8 : 4) + (AA ? 4 : 1) * 8); }
@@ -1081,6 +1114,7 @@ vec3 starAt(vec3 p, int l) {`)
     if (TEX.has(key)) { TEX.get(key).used = performance.now(); return Promise.resolve(TEX.get(key)); }
     if (!PEND.has(key)) { const pend = (async () => { const [kind, k, L] = key.split("|");
       if (kind === "vel") return velTex(key, L, prio);
+      if (kind === "emis") return emisTex(key, k, L, prio);
       if (kind === "gas" && isThermo(k)) return thermoTex(key, k, L, prio);
       const c = kind === "stars" ? manifest.stars.cubes[L] : fld(k).cubes[L], pr = {got: 0, total: c.webp.bytes.reduce((a, b) => a + b, 0)}; PROG.set(key, pr);
       const r = await loader.load(kind, k || null, L, {prio, onBytes: b => { pr.got += b; progressSoon(); }}).finally(() => { PROG.delete(key); progressSoon(); });
@@ -1138,6 +1172,29 @@ vec3 starAt(vec3 p, int l) {`)
     TEX.set(key, it); stats.loads = (stats.loads || []).concat([{key, format: "derived", ms: Math.round(it.ms), decodeMs: Math.round(computeMs), smoothed: 0}]);
     evict(); return it;
   }
+  /* CLOUDY c17.03 (FG11) line emissivity cube: lazy-loads cloudy_emissivity.js + LUT and trilinearly interpolates
+     log10(epsilon [erg s^-1 cm^-3]) from nH, T, and Z cubes into one log10-u8 R8 3D texture on [-48, -12]. */
+  async function emisTex(key, lineId, L, prio) {
+    const deps = ["nH", "T", ...(manifest.gas?.fields?.Z?.cubes?.[L] ? ["Z"] : [])];
+    const pr = {got: 0, total: dlBytes(key)}; PROG.set(key, pr);
+    let cloudy, rs;
+    try {
+      [cloudy, rs] = await Promise.all([
+        ensureCloudy(),
+        Promise.all(deps.map(d => loader.load("gas", d, L, {prio, onBytes: b => { pr.got += b; progressSoon(); }}))),
+      ]);
+    } finally { PROG.delete(key); progressSoon(); }
+    const inputs = {}, ranges = {};
+    deps.forEach((d, idx) => { inputs[d] = rs[idx].data; const df = manifest.gas.fields[d]; ranges[d] = [df.vmin, df.vmax]; });
+    const t0 = performance.now();
+    const data = cloudy.mod.computeEmissivityCube(cloudy.lut, lineId, inputs, ranges);
+    const computeMs = performance.now() - t0;
+    const r = {n: rs[0].n, kind: "gas", data};
+    const tex = makeTex(r); uploadTex3D(tex, r.data, r.n, false);
+    const it = {tex, bytes: r.data.length, used: performance.now(), format: "cloudy", ms: Math.max(...rs.map(x => x.ms)) + computeMs};
+    TEX.set(key, it); stats.loads = (stats.loads || []).concat([{key, format: "cloudy", ms: Math.round(it.ms), decodeMs: Math.round(computeMs), smoothed: 0}]);
+    evict(); return it;
+  }
   /* vel3d: leaving the velocity views frees their packed cubes (4 bytes per voxel, the largest gas textures) */
   function freeVel() { for (const [key, it] of [...TEX]) if (key.startsWith("vel|") && !isBound(key)) { it.tex.dispose(); TEX.delete(key); } }
   function evict() {
@@ -1145,6 +1202,7 @@ vec3 starAt(vec3 p, int l) {`)
     const need = new Set(needed().keys), hv = hVis() / boxScale, hvPhys = hVis();
     const h2 = half("L2"), h3 = half("L3");
     const rank = key => { const [kind, k, L] = key.split("|");
+      if (kind === "emis" && (mode !== "emission" || k !== emisLine)) return 0;
       if (kind === "gas" && k !== species && k !== wKey(species)) return 0;   // other fields first
       if (kind === "vel" && !isVel(species)) return 0;
       if ((L === "L4" || L === "S4") && hvPhys > Math.max(25 * boxScale, 2.5 * h3)) return 1;
@@ -1160,7 +1218,8 @@ vec3 starAt(vec3 p, int l) {`)
   function calcWinIdx() {
     if (!manifest || !species) return 0;
     const hvPhys = hVis(), vel = isVel(species);
-    const hasG = L => TEX.has(vel ? keyOf("vel", "", L) : keyOf("gas", species, L)) && (!vel || TEX.has(keyOf("gas", boundW, L)));
+    const hasG = L => mode === "emission" && !vel ? TEX.has(keyOf("emis", emisLine, L))
+      : TEX.has(vel ? keyOf("vel", "", L) : keyOf("gas", species, L)) && (!vel || TEX.has(keyOf("gas", boundW, L)));
     const h2 = half("L2"), h3 = half("L3");
     const th2 = H0 === 400 ? 0.88 * h3 : 1.2 * h3;
     const th1 = H0 === 400 ? 0.88 * h2 : 1.2 * h2;
@@ -1185,16 +1244,17 @@ vec3 starAt(vec3 p, int l) {`)
       const haveVec = haveOf(slot), comp = ["x", "y", "z"][i];
       if (!ok) { U[slot[i]].value = slot === SLOT.stars || slot === SLOT.vel ? RM.empty4 : RM.empty1; haveVec[comp] = 0; FADE.delete(slot[i]); return; }
       if (cur !== tex) { U[slot[i]].value = tex; if (reduced() || !FADE.has("init:" + slot[0]) || winChanged || (wInstant && slot === SLOT.w)) { haveVec[comp] = 1; FADE.delete(slot[i]); } else { haveVec[comp] = 0.001; FADE.set(slot[i], now); } } };
-    const vel = isVel(species), wk = wKey(species);
+    const vel = isVel(species), wk = wKey(species), emis = mode === "emission" && !vel;
     for (let i = 0; i < 3; i++) {
       const gL = gWin[i], sL = sWin[i];
-      const g = species && !vel && TEX.get(keyOf("gas", species, gL)); fade(SLOT.gas, i, g?.tex, !!g);
+      const g = species && !vel && TEX.get(emis ? keyOf("emis", emisLine, gL) : keyOf("gas", species, gL)); fade(SLOT.gas, i, g?.tex, !!g);
       const w = species && wk && TEX.get(keyOf("gas", wk, gL)); fade(SLOT.w, i, w?.tex, !!w);
       const v = vel && TEX.get(keyOf("vel", "", gL)); fade(SLOT.vel, i, v?.tex, !!v);
       const s = layer.stars && TEX.get(keyOf("stars", "", sL)); fade(SLOT.stars, i, s?.tex, !!s);
     }
     for (const s of [SLOT.gas, SLOT.w, SLOT.vel, SLOT.stars]) FADE.set("init:" + s[0], 1);   // the first binding of a slot set is instant
-    if (species && !vel) { const f = fld(species); U.uGasRange.value.set(f.vmin, f.vmax); }
+    if (emis) { U.uGasRange.value.set(EMIS_EPS_MIN - EMIS_EPS_REF, EMIS_EPS_MAX - EMIS_EPS_REF); if (U.uRedshift) U.uRedshift.value = manifest?.galaxy?.redshift ?? 0.0; }
+    else if (species && !vel) { const f = fld(species); U.uGasRange.value.set(f.vmin, f.vmax); }
     if (vel) U.uVelV.value = VELI.V;
     if (fld(wk || "nH")) U.uWRange.value.set(fld(wk || "nH").vmin, fld(wk || "nH").vmax);
     sWin.forEach((S, i) => { const c = manifest.stars?.cubes?.[S]; if (c) U["uStarRange" + i].value.set(c.vmin, c.vmax); });
@@ -1212,7 +1272,7 @@ vec3 starAt(vec3 p, int l) {`)
   const velSt = (st, L) => { const a = st("vel", "", L), b = st("gas", boundW, L); return a === "bound" && b === "bound" ? "bound" : a === "loading" || b === "loading" ? "loading" : "absent"; };
   function levels() {
     const st = (kind, k, L) => { const key = keyOf(kind, k, L); return TEX.has(key) && isBound(key) ? "bound" : PEND.has(key) ? "loading" : "absent"; };
-    return {gas: Object.fromEntries(GAS_L.map(L => [L, !species ? "absent" : isVel(species) ? velSt(st, L) : st("gas", species, L)])), stars: Object.fromEntries(STAR_L.map(S => [S, st("stars", "", S)]))};
+    return {gas: Object.fromEntries(GAS_L.map(L => [L, !species ? "absent" : isVel(species) ? velSt(st, L) : mode === "emission" ? st("emis", emisLine, L) : st("gas", species, L)])), stars: Object.fromEntries(STAR_L.map(S => [S, st("stars", "", S)]))};
   }
   /* tune2 download progress: the stage message while the first field level loads, the LOD line for the rest */
   let progT = 0, progMsg = null;
@@ -1261,8 +1321,9 @@ vec3 starAt(vec3 p, int l) {`)
   }
   async function ensure() {
     if (!manifest) return false;
-    const k = wanted || species, {keys} = needed(k), first = keys.find(x => x.startsWith(isVel(k) ? "vel||" : `gas|${k}|`));
-    const wk = isVel(k) ? velW : (weighted(k) && mode === "integral") || mode === "emission" ? "nH" : emisKey(k);
+    const k = wanted || species, {keys} = needed(k);
+    const first = keys.find(x => x.startsWith(isVel(k) ? "vel||" : mode === "emission" ? `emis|${emisLine}|` : `gas|${k}|`));
+    const wk = isVel(k) ? velW : mode === "emission" ? null : (weighted(k) && mode === "integral") ? "nH" : emisKey(k);
     const firstKeys = first ? [first, ...(wk ? [keyOf("gas", wk, first.split("|")[2])] : [])].filter(x => keys.includes(x)) : [];
     for (const [key, ws] of [...waiters]) if (!keys.includes(key)) { waiters.delete(key); for (const w of ws) w[1](Object.assign(new Error("superseded by a newer view"), {cancelled: true})); }
     plan = keys; planFirst = new Set(firstKeys); failed.clear(); lodStatus(); pump();
@@ -1347,7 +1408,16 @@ vec3 starAt(vec3 p, int l) {`)
   function setMode(m) { if (!["integral", "emission", "volume"].includes(m)) return false; if (m === mode) return true;
     if (!modeOk(wanted || species, m)) { markMode(mode); say(m === "emission" ? "Velocity views have no surface-brightness emission projection." : "The line-of-sight dispersion is a property of the whole ray, so it has no volume view.", false, true); return false; }
     mode = m; markMode(m); speciesUnits();
-    if (species) { syncTfInputs(); applyTf(); ensure().catch(() => {}); bindAll(); } else { aria(); render(); } tfUrl(); return true; }
+    if (m === "emission") ensureCloudy().catch(x => say(`Could not load CLOUDY emissivity table: ${x.message}`, true));
+    if (species) { syncTfInputs(); applyTf(); ensure().catch(() => {}); bindAll(); } else { syncVelUi(); legend(); aria(); render(); } tfUrl(); return true; }
+  function setEmisLine(id) {
+    const l = EMIS_LINES.find(x => x.id === id); if (!l) return false;
+    emisLine = l.id;
+    const sel = q("#v3-emis-line"); if (sel && sel.value !== emisLine) sel.value = emisLine;
+    if (mode === "emission" && species) { syncTfInputs(); applyTf(); ensure().catch(() => {}); bindAll(); announce(`emission line ${l.label}`); }
+    else { legend(); aria(); }
+    return true;
+  }
   function setStars(o = {}) {
     if (o.on !== undefined) layer.stars = !!o.on && hasStars;
     if (o.dust !== undefined) layer.dust = !!o.dust;
@@ -1380,13 +1450,16 @@ vec3 starAt(vec3 p, int l) {`)
   let cmapSet = "";
   function syncVelUi() { const v = velView(species), vs = !!v;
     q("#v3-lo-row").hidden = q("#v3-hi-row").hidden = vs; q("#v3-vw-row").hidden = q("#v3-weight-row").hidden = !vs;
+    const er = q("#v3-emis-row"), es = q("#v3-emis-line");
+    if (er) er.hidden = mode !== "emission" || vs;
+    if (es) { es.disabled = !manifest; es.value = emisLine; }
     const want = !vs ? "field" : v.signed ? "signed" : "unsigned", names = want === "field" ? CMAPS : VEL_NAMES[want];
     if (cmapSet !== want) { const sel = q("#v3-cmap"); sel.textContent = ""; for (const c of names) { const o = document.createElement("option"); o.value = c; o.textContent = c; sel.appendChild(o); } cmapSet = want; }
     q("#v3-cmap").disabled = !manifest || names.length < 2; q("#v3-cmap-row").style.visibility = manifest && names.length < 2 ? "hidden" : "";   // a one-map list (signed views) is no choice: row hidden, its space kept
     for (const i of ctlBox.querySelectorAll('input[name="v3-mode"]')) { const off = !manifest || !modeOk(species, i.value); i.disabled = off;
       i.dataset.tip = off && manifest ? (i.value === "emission" ? "Velocity views have no emission projection" : "Integral only: the dispersion belongs to the whole ray")
         : i.value === "integral" ? (vs ? `Weighted ${species === "sigmalos" ? "spread" : "mean"} velocity along each ray` : "Projected map: column or weighted mean along each ray")
-        : i.value === "emission" ? "Surface-brightness emission projection, proportional to density squared"
+        : i.value === "emission" ? "CLOUDY c17.03 (FG11) line surface brightness [erg s⁻¹ cm⁻² arcsec⁻²]"
         : vs ? "Colour from the velocity, opacity from the weight density" : "Ray-marched emission and absorption through a transfer function"; }
     if (!vs) return;
     const s = fieldTf(species), r = q("#v3-vw"); r.min = VEL_WMIN; r.max = Math.max(VEL_WMIN, Math.round(VELI.V)); r.value = s.W;
@@ -1542,15 +1615,16 @@ vec3 starAt(vec3 p, int l) {`)
     else { if (!isVel(species)) boundW = k;   // a velocity view still shown while another field loads keeps boundW until setSpecies switches it
       if (q("#v3-weight")) q("#v3-weight").value = k; }
     return true; }
-  function legend() { const L = q(".v3d-leg"); if (!manifest || !species) { L.hidden = true; return; }
-    if (isVel(species)) { L.hidden = false; velLegend(L); legendTail(L); return; }
+  function legend() { const L = q(".v3d-leg"); if (!manifest || (!species && mode !== "emission")) { L.hidden = true; return; }
+    if (species && isVel(species)) { L.hidden = false; velLegend(L); legendTail(L); return; }
     L.querySelector(".ends").hidden = true;
     const f = fld(species), s = fieldTf(species); L.hidden = false;
-    const integ = mode === "integral", emis = mode === "emission", units = emis ? (weighted(species) ? "" : "cm^-5") : integ ? (weighted(species) ? f.units : (f.proj.units || "cm^-2")) : f.units;
+    const integ = mode === "integral", emis = mode === "emission", units = emis ? "erg s^-1 cm^-2 arcsec^-2" : integ ? (weighted(species) ? f.units : (f.proj.units || "cm^-2")) : f.units;
     const esc = t => String(t).replace(/[&<>]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"})[c]);
     const unitTag = units ? ` [${esc(pretty(units))}]` : "";
+    const eline = emis ? emisLineOf(emisLine) : null;
     L.querySelector(".ttl").innerHTML = emis
-      ? `log₁₀ ∫ ${species === "nH" ? "n<sub>H</sub>²" : `n<sub>H</sub> ${VOL_HTML[species] || esc(isIon(species) ? `n(${lab(species)})` : lab(species))}`} ds${unitTag}, emission`
+      ? `${esc(eline.label)} log₁₀ SB [erg s⁻¹ cm⁻² arcsec⁻²] <span class="v3d-badge">CLOUDY c17.03</span>`
       : integ ? `log₁₀ ${COL_HTML[species] || esc(COL_TXT[species] || `N(${lab(species)})`)}${unitTag}`
       : `log₁₀ ${VOL_HTML[species] || esc(isIon(species) ? `n(${lab(species)})` : lab(species))}${unitTag}, volume`;
     L.querySelector(".bar").style.background = cssGradient(s.cmap);
@@ -2117,7 +2191,7 @@ vec3 starAt(vec3 p, int l) {`)
   document.addEventListener("fullscreenchange", fsChanged); document.addEventListener("webkitfullscreenchange", fsChanged);
   q("#v3-fs").addEventListener("click", () => toggleFullscreen());
   q("#v3-fs-stage").addEventListener("click", () => toggleFullscreen());
-  q("#v3-head").addEventListener("click", () => import("./headctl.js?v=20261124a").then(H => H.toggle(viewer, q("#v3-head"))));   /* head, hand and tilt control, loaded on first use */
+  q("#v3-head").addEventListener("click", () => import("./headctl.js?v=20261124c").then(H => H.toggle(viewer, q("#v3-head"))));   /* head, hand and tilt control, loaded on first use */
   q("#v3-fs-exit").addEventListener("click", () => toggleFullscreen(false));
   q("#v3-ctl-toggle").addEventListener("click", () => setPanel(ctlBox.hidden));
 
@@ -2146,6 +2220,21 @@ vec3 starAt(vec3 p, int l) {`)
   /* ---- controls ---- */
   speciesUnits();
   for (const c of CMAPS) { const o = document.createElement("option"); o.value = c; o.textContent = c; q("#v3-cmap").appendChild(o); }
+  { const es = q("#v3-emis-line");
+    if (es) {
+      const bands = ["FUV", "X-ray", "Optical", "NUV"];
+      for (const b of bands) {
+        const og = document.createElement("optgroup"); og.label = b;
+        for (const l of EMIS_LINES.filter(x => x.band === b)) {
+          const o = document.createElement("option"); o.value = l.id; o.textContent = l.label; og.appendChild(o);
+        }
+        es.appendChild(og);
+      }
+      es.value = emisLine;
+      es.disabled = !manifest;
+      es.addEventListener("change", ev => { sfx("select"); setEmisLine(ev.target.value); });
+    }
+  }
   for (const i of ctlBox.querySelectorAll('input[name="v3-mode"]')) i.disabled = !manifest;
   for (const id of ["#v3-lo", "#v3-hi", "#v3-op", "#v3-cmap", "#v3-gasmix", "#v3-starmix", "#v3-mu0", "#v3-stars", "#v3-dust", "#v3-dust-law", "#v3-vw", "#v3-weight"]) q(id).disabled = !manifest;
   if (!hasStars) for (const id of ["#v3-stars", "#v3-starmix", "#v3-mu0", "#v3-dust", "#v3-dust-law"]) q(id).disabled = true;
@@ -2215,7 +2304,8 @@ vec3 starAt(vec3 p, int l) {`)
   /* tf3d API: setTf("ramp" | "thor" | "nelson16" | "iso" | "clouds" | state) for the current field; tfState() a copy; tfOn() */
   function setTf(x) { if (typeof x === "string") return tfApplyPreset(x); if (!x || !tfOk(species)) return false;
     onTfEdit({...tfState(species), ...x, preset: x.preset || "custom"}, {commit: true, reason: "api"}); syncTfCard(); return true; }
-  Object.assign(viewer, {setTf, tfState: () => (species && tfs[species] ? JSON.parse(JSON.stringify(tfs[species])) : null), tfOn: () => tfOn(), tfEditor: tfEd});
+  Object.assign(viewer, {setTf, tfState: () => (species && tfs[species] ? JSON.parse(JSON.stringify(tfs[species])) : null), tfOn: () => tfOn(), tfEditor: tfEd,
+    setEmisLine, get emisLine() { return emisLine; }});
   /* ux4 pivot API: viewer.pivot -> [x, y, z] kpc; setPivot([x, y, z] | "galaxy" | "ray") -> bool; pickPivot(x, y) -> Vector3 | null
      (CSS px in the canvas, no move) */
   Object.defineProperty(viewer, "pivot", {get: () => pivotArr().map(r1), enumerable: true});
@@ -2230,6 +2320,7 @@ vec3 starAt(vec3 p, int l) {`)
     return {
       species: species || wanted || "nH",
       mode,
+      emisLine,
       weight: velW,
       transfer: tr,
       tf: tfSt,
@@ -2249,6 +2340,7 @@ vec3 starAt(vec3 p, int l) {`)
   async function applySceneSnapshot(snap = {}) {
     if (!snap || typeof snap !== "object") return false;
     if (snap.species && canShow(snap.species)) await setSpecies(snap.species);
+    if (snap.emisLine) setEmisLine(snap.emisLine);
     if (snap.mode && ["integral", "emission", "volume"].includes(snap.mode)) setMode(snap.mode);
     if (snap.weight) setWeight(snap.weight);
     if (snap.transfer && typeof snap.transfer === "object") setTransfer(snap.transfer);
@@ -2328,7 +2420,7 @@ vec3 starAt(vec3 p, int l) {`)
       ...extra
     };
   }
-  const loadExport = () => import("./export3d.js?v=20261124a");
+  const loadExport = () => import("./export3d.js?v=20261124c");
   const exportPNG = async (o = {}) => (await loadExport()).exportPNG(viewer, readExportOpts(o));
   const exportSVG = async (o = {}) => (await loadExport()).exportSVG(viewer, readExportOpts(o));
   const exportPDF = async (o = {}) => (await loadExport()).exportPDF(viewer, readExportOpts(o));
