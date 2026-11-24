@@ -1,18 +1,13 @@
-// Pure data helpers for the Phase-2b 3D viewer (design §5.1): the tng50-viz/2 manifest, WebP atlas -> raw cube
-// bytes, gzip, SHA-256, u8 decoding, the LOD policy and the Lupton et al. (2004) asinh composite.
-// No DOM and no three.js: everything here also runs in node (tests/js/viz_decode.mjs, lod_policy.mjs, lupton_parity.mjs).
+// Pure data helpers for the 3D viewer: tng50-viz/2 manifest, WebP atlas -> raw cube, gzip, SHA-256, u8 decode, LOD, Lupton.
 import {
   initFastVizWasm, wasmReady, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions,
   wasm_decode_lut_volume, wasm_pack_velocity
-} from "./fast_viz_wasm.js?v=20261123f";
+} from "./fast_viz_wasm.js?v=20261124a";
 export {initFastVizWasm, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions, wasm_decode_lut_volume};
 export const SCHEMA = "tng50-viz/2";
-/* Phase 3: the gas fields are nH, T, Z plus the 12 registry ions in ladder order (tngsight.vizpack.VOL_KEYS) */
 export const ION_KEYS = ["HI", "MgII", "SiII", "CII", "SiIII", "CIII", "SiIV", "CIV", "NV", "OVI", "NeVIII", "OVII"];
 export const GAS_KEYS = ["nH", "T", "Z"];
 export const VOL_KEYS = [...GAS_KEYS, ...ION_KEYS];
-/* Fallback copy of the registry fields the 3D menu needs (tngsight/ions.json: key, ion, label, color, color_dark), used
-   only when the page config carries no CFG.ions (a v2 page); tests/js/viz_decode.mjs checks it against ions.json */
 export const ION_FALLBACK = [
   ["HI", "H I", "H I 1216", "#4338CA", "#9293F8"], ["MgII", "Mg II", "Mg II 2796", "#1D4ED8", "#6EA8FE"],
   ["SiII", "Si II", "Si II 1260", "#0369A1", "#4FB3E8"], ["CII", "C II", "C II 1335", "#0E7490", "#3CC5D9"],
@@ -23,9 +18,6 @@ export const ION_FALLBACK = [
 ].map(([key, ion, label, color, color_dark]) => ({key, ion, label, color, color_dark}));
 const GAS_META = {nH: {label: "nH", long: "hydrogen density nH"}, T: {label: "T", long: "temperature (nH-weighted)"}, Z: {label: "Z", long: "metallicity (nH-weighted)"}};
 
-/* The 3D species menu: nH, T, Z, then the ions in registry (ladder) order with their registry colours. `ions` is the
-   page's CFG.ions (any order; sorted by `order` when present) or null for the fallback copy. A species is `available`
-   only when the manifest has its cubes; the others carry the reason (shown as the disabled button's tooltip). Pure. */
 export function speciesList(ions, manifest) {
   const reg = Array.isArray(ions) && ions.length ? [...ions].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)) : ION_FALLBACK;
   const have = k => !!manifest?.gas?.fields?.[k]?.cubes;
@@ -38,13 +30,7 @@ export function speciesList(ions, manifest) {
       color_dark: i.color_dark || i.color || null, available: have(i.key), reason: have(i.key) ? "" : !manifest ? why(i.key) : `${ion} cubes are not built yet`}); }
   return out;
 }
-/* vel3d: the gas velocity vector. Three gas fields vx, vy, vz (kind "velocity", encoding "linear", disk frame xhat, yhat,
-   Lhat, relative to SubhaloVel) named by the manifest block gas.vectors.v. The viewer packs them into one RGBA cube per
-   level and derives five views per sample, every frame (raymarch.js velQ): v_los and σ_los follow the camera ray. */
 export const VEL_COMP_KEYS = ["vx", "vy", "vz"];
-/* q of each view in the shader (raymarch uVq); signed views use a diverging LUT, with words at the legend's ends (v_los:
-   relative to you, the camera, so the reference frame is on screen); `spoken` names the view in plain text (radio
-   aria-label, status line, announcements, thumbnail tag), where the compact `label` would read like a typo */
 export const VEL_VIEWS = [
   {key: "vlos", q: 1, signed: true, label: "v los", spoken: "line-of-sight velocity", html: "v<sub>los</sub>", long: "line-of-sight velocity, along the camera ray", words: ["toward you", "away from you"]},
   {key: "vr", q: 2, signed: true, label: "v r", spoken: "radial velocity", html: "v<sub>r</sub>", long: "radial velocity", words: ["inflow", "outflow"]},
@@ -52,7 +38,6 @@ export const VEL_VIEWS = [
   {key: "vmag", q: 4, signed: false, label: "|v|", spoken: "speed", html: "|v|", long: "speed of the mean gas velocity", words: null},
   {key: "sigmalos", q: 5, signed: false, label: "σ los", spoken: "line-of-sight dispersion", html: "σ<sub>los</sub>", long: "line-of-sight velocity dispersion along the camera ray, between voxels (no thermal or within-voxel motion)", words: null}];
 export const VEL_KEYS = VEL_VIEWS.map(x => x.key);
-/* the manifest's velocity vector, or null (an old manifest, or one whose vx, vy, vz cubes are missing) */
 export function velocityInfo(manifest) {
   const v = manifest?.gas?.vectors?.v, F = manifest?.gas?.fields || {};
   if (!v || !Array.isArray(v.components) || v.components.join() !== VEL_COMP_KEYS.join()) return null;
@@ -60,12 +45,69 @@ export function velocityInfo(manifest) {
   const V = isNum(v.V) ? v.V : F.vx.vmax;
   return {V, units: v.units || "km/s", frame: v.frame || F.vx.frame || "", components: VEL_COMP_KEYS};
 }
-/* the Velocity group of the 3D species menu (pure, like speciesList): available only when the manifest names the vector */
 export function velocityList(manifest) {
   const ok = !!velocityInfo(manifest), reason = ok ? "" : !manifest ? "no 3D data in this build" : "the velocity cubes are not built yet";
   return VEL_VIEWS.map(x => ({...x, group: "vel", color: null, color_dark: null, available: ok, reason}));
 }
-/* linear u8 decoding (encoding "linear"): q = 0 empty (NaN), else v = vmin + (q − 1)(vmax − vmin)/254, so q = 128 is 0 for vmin = −vmax */
+
+/* Zero-storage TEMET cosmic-web thermodynamic fields (computed on-the-fly from nH, T, Z, vx, vy, vz). */
+const L23 = Math.log10(2.3), LK0 = Math.log10(8.617333262e-8) - (2 / 3) * Math.log10(1.16);
+const LTC0 = Math.log10((1.5 * 2.3 / 1.16) * 1.380649e-16 / 3.15576e16);
+const LCS0 = Math.log10(Math.sqrt((5 / 3) * 1.380649e-16 / (0.6 * 1.6726219e-24)) / 1e5);
+export const THERMO_FIELDS = [
+  ["Pth", "Pth", "P<sub>th</sub>", "thermal pressure", "WHIM thermal pressure Pth / kB", "K cm^-3", "mass_weighted", -5, 7, "inferno", "weighted_mean", "K cm^-3", -1, 4.5, -2, 5, ["nH", "T"], []],
+  ["K", "K", "K", "cosmic-web entropy", "cosmic-web entropy K", "keV cm^2", "mass_weighted", -2, 5.5, "viridis", "weighted_mean", "keV cm^2", 0.5, 4, 0.5, 4.5, ["nH", "T"], []],
+  ["EM", "EM", "EM", "emission measure", "WHIM emission measure nH^2 T^(1/2)", "cm^-6 K^1/2", "density", -14, 2, "magma", "column", "cm^-5 K^1/2", 14.5, 21.5, -10, -1, ["nH", "T"], []],
+  ["tcool", "tcool", "t<sub>cool</sub>", "cooling time", "radiative cooling time", "Gyr", "mass_weighted", -3, 4, "tng_ice", "weighted_mean", "Gyr", -1, 2.5, -1.5, 2.5, ["nH", "T"], ["Z"]],
+  ["Mach", "Mach", "ℳ", "thermal Mach number", "accretion-shock thermal Mach number", "", "mass_weighted", -1.5, 2, "inferno", "weighted_mean", "", -0.5, 1.2, -0.3, 1.3, ["T", "vx", "vy", "vz"], []]
+].map(([key, label, html, spoken, long, units, kind, vmin, vmax, cmap, pk, pu, p0, p1, w0, w1, deps, optDeps]) => ({
+  key, label, html, spoken, long, units, kind, vmin, vmax, cmap,
+  proj: {kind: pk, ...(pk === "weighted_mean" ? {weight: "nH"} : {}), units: pu, vmin: p0, vmax: p1},
+  vol_window: [w0, w1], deps, optDeps
+}));
+export const THERMO_KEYS = THERMO_FIELDS.map(f => f.key);
+export const thermoMeta = key => THERMO_FIELDS.find(f => f.key === key) || null;
+export function thermoField(key, m) {
+  const f = thermoMeta(key), F = m?.gas?.fields; if (!f || !F || (key === "Mach" && !velocityInfo(m)) || !f.deps.every(d => F[d]?.cubes)) return null;
+  const lv = (m.gas.levels || Object.keys(m.levels || {})).filter(L => f.deps.every(d => F[d]?.cubes?.[L]));
+  if (!lv.length) return null;
+  const cubes = {}; for (const L of lv) { const n = m.levels?.[L]?.n || 256; cubes[L] = {vmin: f.vmin, vmax: f.vmax, raw_bytes: n * n * n, derived: true}; }
+  return {...f, cubes};
+}
+export function thermoList(m) {
+  return THERMO_FIELDS.map(f => { const ok = !!thermoField(f.key, m);
+    return {key: f.key, group: "thermo", label: f.label, html: f.html, spoken: f.spoken, long: f.long, color: null, color_dark: null, available: ok,
+      reason: ok ? "" : !m ? "no 3D data in this build" : f.key === "Mach" ? "requires T and velocity cubes" : "requires nH and T cubes"}; });
+}
+export function computeThermoCube(key, inp, rng) {
+  const f = thermoMeta(key); if (!f) throw new Error(`unknown thermo field ${key}`);
+  const N = inp[f.deps[0]].length, out = new Uint8Array(N), v0 = f.vmin, sc = 254 / (f.vmax - v0);
+  const lutL = r => { const a = new Float32Array(256), s = (r[1] - r[0]) / 254; for (let q = 1; q < 256; q++) a[q] = r[0] + (q - 1) * s; return a; };
+  const enc = v => { const q = Math.round((v - v0) * sc) + 1; return q < 1 ? 1 : q > 255 ? 255 : q; };
+  const lT = lutL(rng.T);
+  if (key === "Mach") {
+    const {T: qT, vx: qx, vy: qy, vz: qz} = inp, V = rng.V, cs = new Float32Array(256), vl = new Float32Array(256);
+    for (let q = 1; q < 256; q++) { cs[q] = LCS0 + 0.5 * lT[q]; vl[q] = -V + (q - 1) * (2 * V / 254); }
+    for (let i = 0; i < N; i++) { const t = qT[i], a = qx[i], b = qy[i], c = qz[i]; if (!t || !a || !b || !c) continue;
+      const v2 = vl[a] ** 2 + vl[b] ** 2 + vl[c] ** 2; out[i] = enc(0.5 * Math.log10(v2 > 0.01 ? v2 : 0.01) - cs[t]); }
+    return out;
+  }
+  const {nH: qN, T: qT, Z: qZ} = inp, lN = lutL(rng.nH);
+  if (key === "tcool") {
+    const ff = new Float64Array(256), hh = new Float64Array(256), zz = new Float64Array(256), zL = new Float64Array(256).fill(0.1);
+    for (let q = 1; q < 256; q++) { const t = lT[q], cut = 1 / (1 + Math.exp(-10 * (t - 3.95)));
+      ff[q] = 1.8e-27 * (10 ** (0.5 * t));
+      hh[q] = cut * (10 ** -21.8 * Math.exp(-((t - 4.3) ** 2) / 0.18) + 10 ** -22.2 * Math.exp(-((t - 4.95) ** 2) / 0.25)) + 1e-26;
+      zz[q] = cut * (10 ** -21.1 * Math.exp(-((t - 5.3) ** 2) / 0.32) + 10 ** -22.1 * Math.exp(-((t - 6.3) ** 2) / 0.4)); }
+    if (qZ && rng.Z) { const lZ = lutL(rng.Z); for (let q = 1; q < 256; q++) zL[q] = Math.min(10, 10 ** lZ[q]); }
+    for (let i = 0; i < N; i++) { const a = qN[i], b = qT[i]; if (!a || !b) continue;
+      out[i] = enc(LTC0 + lT[b] - lN[a] - Math.log10(ff[b] + hh[b] + (qZ ? zL[qZ[i]] : 0.1) * zz[b])); }
+    return out;
+  }
+  for (let i = 0; i < N; i++) { const a = qN[i], b = qT[i]; if (!a || !b) continue;
+    out[i] = enc(key === "Pth" ? L23 + lN[a] + lT[b] : key === "K" ? lT[b] - (2 / 3) * lN[a] + LK0 : 2 * lN[a] + 0.5 * lT[b]); }
+  return out;
+}
 export function decodeLinear(q, vmin, vmax) {
   if (wasmReady() && q instanceof Uint8Array && q.length >= 64) {
     return wasm_decode_lut_volume(q, vmin, vmax, {mode: 0});
@@ -74,15 +116,11 @@ export function decodeLinear(q, vmin, vmax) {
   for (let i = 0; i < q.length; i++) out[i] = q[i] === 0 ? NaN : vmin + (q[i] - 1) * s;
   return out;
 }
-export function encodeLinear(v, V) {   // the inverse (tests): NaN -> 0 (empty), else 1 + round((clip(v) + V) / 2V * 254)
+export function encodeLinear(v, V) {
   const out = new Uint8Array(v.length);
   for (let i = 0; i < v.length; i++) { const x = v[i]; out[i] = Number.isFinite(x) ? 1 + Math.round((Math.min(V, Math.max(-V, x)) + V) / (2 * V) * 254) : 0; }
   return out;
 }
-/* CPU packing of the three component cubes into one RGBA cube (4n³ bytes): R, G, B = q of vx, vy, vz, A = 255 where
-   non-empty. Empty voxels are packed as q = 128 (0 km/s) with A = 0, so the hardware trilinear blend of R, G, B decodes
-   (the decoding is affine) to Σ wᵢ vᵢ over the non-empty corners and the blended A is Σ wᵢ: v = blend / A is the mean
-   over the non-empty corners on both the fast and the exact shader path. */
 export function packVelocity(qx, qy, qz) {
   const N = qx.length; if (qy.length !== N || qz.length !== N) throw new Error("packVelocity: the component cubes differ in size");
   if (wasmReady() && qx instanceof Uint8Array && qy instanceof Uint8Array && qz instanceof Uint8Array && N >= 64) {
@@ -95,9 +133,6 @@ export function packVelocity(qx, qy, qz) {
     else { out[o] = a; out[o + 1] = b; out[o + 2] = c; out[o + 3] = 255; } }
   return out;
 }
-/* the derived quantity of one sample, as the shader computes it: v (km/s, disk frame), p (disk-frame kpc), d (unit camera
-   ray direction, disk frame). vlos > 0 moves away from the camera (redshift, the spectra's sign); vr > 0 outflow;
-   vphi > 0 co-rotation (about +Lhat = ẑ); vmag the speed. sigmalos per sample is dot(v, d) (its moment 2 is taken along the ray). */
 export function velQuantity(key, v, p, d) {
   const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
   if (key === "vlos" || key === "sigmalos") return dot(v, d);
@@ -106,8 +141,6 @@ export function velQuantity(key, v, p, d) {
   if (key === "vmag") return Math.hypot(...v);
   throw new Error(`unknown velocity view ${key}`);
 }
-/* the weighted moments along a ray, as the shader's integral mode: samples [{w, v, p}] -> moment 1 (the mean of the view)
-   or, for sigmalos, sqrt(moment 2 − moment 1²) of dot(v, d). NaN when the weights sum to 0. */
 export function velRayMoment(key, samples, d) {
   let s0 = 0, s1 = 0, s2 = 0;
   for (const {w, v, p} of samples) { if (!(w > 0)) continue; const x = velQuantity(key, v, p, d); s0 += w; s1 += w * x; s2 += w * x * x; }
@@ -309,23 +342,13 @@ export function decodeU8(q, vmin, vmax) {
   return out;
 }
 
-/* LOD policy (design §5.4). Returns the levels to load, in load order; `parallel` = load them at once. The caller
-   loads stars only while the star layer is on. */
 export function levelForView({hVisKpc, mobile = false, deviceMemory = 8} = {}) {
   const h = Number.isFinite(hVisKpc) ? hVisKpc : 153;
-  /* tune2: mobile loads L2 / S2 below hVis 60 kpc (was 40), so 10-20 kpc disk views are not L1 / S1 magnified */
   if (mobile) return {gas: h < 60 ? ["L1", "L0", "L2"] : ["L1", "L0"], stars: h < 60 ? ["S1", "S2"] : ["S1"], parallel: false};
   const parallel = (deviceMemory ?? 8) >= 4;
   return {gas: ["L1", "L0", "L2"], stars: h > 150 ? ["S1", "S2", "S0"] : ["S1", "S2"], parallel};
 }
 
-/* final (cold first load): the staged load plan for the current view, in priority order. The gas field at L0 comes first
-   (the viewer draws as soon as it alone is decoded), then L1, then the star level the view resolves (S1), and only then the
-   levels a zoomed-in or zoomed-out view adds: L2 / S2 once their voxel is at least one LOD footprint wide on screen
-   (ratio ≥ 1, the shader's lodLevel rule; mobile also needs hVis < 60 kpc), S0 when hVis > 150 kpc (desktop only).
-   ratio = {L1, L2, S1, S2}: voxel size / (LOD constant × kpc per drawing-buffer pixel at the box's nearest point).
-   L1 is skipped only in very wide views where its voxel is under half a footprint (ratio < 0.5). Other fields are never
-   in the plan: they load when they are selected. */
 export function viewPlan({ratio = {}, hVisKpc, hVisPhysKpc, halfL2 = 25, halfL3 = 6.25, halfL4 = 1.5, mobile = false, stars = false, hasL3 = false, hasL4 = false} = {}) {
   const h = Number.isFinite(hVisKpc) ? hVisKpc : 153, hPhys = Number.isFinite(hVisPhysKpc) ? hVisPhysKpc : h, r = k => (Number.isFinite(ratio[k]) ? ratio[k] : 0);
   const h2 = Number.isFinite(halfL2) && halfL2 > 0 ? halfL2 : 25;
@@ -356,11 +379,6 @@ export function lupton(Si, Sr, Sg, {Q = 8.0, mu0 = 21.5, balance = [1, 1, 1]} = 
   return [R, G, B];
 }
 
-/* tune2 display prefilter (viewer only; the hosted bytes and their sha256 are unchanged). Decodes a log10-u8 cube to
-   linear values, applies `passes` separable [1, 2, 1]/4 passes along x, y and z (σ = sqrt(passes / 2) voxels; mirrored
-   edges, so the sum is kept) and re-encodes with the same vmin/vmax; values below half the vmin value become empty
-   (q = 0). ch = 1: a gas cube (n³ bytes); ch = 4: a star cube (RGBA, 4n³ bytes, R/G/B smoothed independently,
-   A = 255 where any of them is > 0). Returns a new Uint8Array. */
 export function smoothCube(q, n, vmin, vmax, passes = 2, ch = 1) {
   const N = n * n * n, span = vmax - vmin, dec = new Float32Array(256);
   for (let i = 1; i < 256; i++) dec[i] = 10 ** ((i - 1) * span / 254 - span);   // normalised to 10^vmax
