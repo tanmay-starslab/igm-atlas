@@ -22,26 +22,6 @@
     36242.045066615,
     31447.564331451136
   ],
-  "L0_center_kpc": [
-    25834.071449660467,
-    25834.071449660467,
-    25834.071449660467
-  ],
-  "L1_center_kpc": [
-    10787.187367369723,
-    36242.045066615,
-    31447.564331451136
-  ],
-  "L2_center_kpc": [
-    12112.330708983798,
-    36534.00034829864,
-    28803.294305432537
-  ],
-  "L0_half_kpc": 25834.071449660467,
-  "L1_half_kpc": 6458.517862415117,
-  "L2_half_kpc": 1614.6294656037792,
-  "box_kpc": 51668.142899320934,
-  "box_ckpch": 35000.0,
   "Lhat": [
     0.0,
     0.0,
@@ -59,6 +39,17 @@
   ],
   "disk_frame_source": "Cosmic Web Supercluster Nexus + WHIM Bridge (TNG50-1)",
   "gas_poor": null,
+  "catalogue": {},
+  "spectra_source": {
+    "source": "thor_voronoi_sbi_fp64",
+    "label": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "short": "THOR Voronoi + CLOUDY FG11",
+    "text": "True 3D Voronoi cell ray-tracing via official digest-pinned THOR Apptainer (dataset_type=pointcloud_voronoi, driver_type=raytracer, CLOUDY c17.03 FG11 + Rahmati13 self-shielding, sfr_temperature=1000 K) and SBI_CGM FP64 compact Voigt profiles across cosmic-web sightlines spanning L2 WHIM bridge, L1 supercluster nexus, and L0 full box.",
+    "path": "L2/L1/L0 Cosmic Web",
+    "ion_model": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "ion_table": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "engineering_scope": false
+  },
   "supercluster_nexus": {
     "sim": "TNG50-1",
     "snapshot": 99,
@@ -336,31 +327,7 @@
       31447.564331451136
     ]
   },
-  "spectra_source": {
-    "source": "thor_voronoi_sbi_fp64",
-    "label": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
-    "short": "THOR Voronoi + CLOUDY FG11",
-    "text": "True 3D Voronoi cell ray-tracing via official digest-pinned THOR Apptainer (dataset_type=pointcloud_voronoi, driver_type=raytracer, CLOUDY c17.03 FG11 + Rahmati13 self-shielding, sfr_temperature=1000 K) and SBI_CGM FP64 compact Voigt profiles across cosmic-web sightlines spanning L2 WHIM bridge, L1 supercluster nexus, and L0 full box.",
-    "path": "L2/L1/L0 Cosmic Web",
-    "ion_model": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
-    "ion_table": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
-    "engineering_scope": false
-  },
-  "sim_run": "L35n2160TNG",
-  "L3_center_kpc": [
-    10787.187367369723,
-    36242.045066615,
-    31447.564331451136
-  ],
-  "L4_center_kpc": [
-    10787.187367369723,
-    36242.045066615,
-    31447.564331451136
-  ],
-  "L3_half_kpc": 400.0,
-  "L4_half_kpc": 25.0,
   "defaults": {
-    "id": "face_b1588_a221_s27",
     "ions": [
       "HI",
       "CIV",
@@ -384,7 +351,8 @@
       ]
     },
     "vhw": 1000,
-    "vhw_kms": 1000
+    "vhw_kms": 1000,
+    "id": "face_b33781_a172_s129"
   },
   "bands": {
     "xray": {

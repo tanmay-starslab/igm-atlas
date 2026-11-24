@@ -66,7 +66,7 @@ IGM_SIMS = [
         "SFR": 180.0,
         "M200c": 1.444e15,
         "R200c": 18382.35,
-        "default_id": "face_b1310_a222_s42",
+        "default_id": "rand_b1377_a117_s116",
     },
     {
         "id": "camels_l50n512_cosmic_web",
@@ -84,7 +84,7 @@ IGM_SIMS = [
         "SFR": 42.0,
         "M200c": 4.021e14,
         "R200c": 9313.07,
-        "default_id": "face_b34378_a306_s155",
+        "default_id": "face_b1419_a255_s24",
     },
     {
         "id": "tng50_cosmic_web",
@@ -102,7 +102,7 @@ IGM_SIMS = [
         "SFR": 35.0,
         "M200c": 1.944e14,
         "R200c": 6458.52,
-        "default_id": "face_b1588_a221_s27",
+        "default_id": "face_b33781_a172_s129",
     },
     {
         "id": "tng100_cosmic_web",
@@ -120,7 +120,7 @@ IGM_SIMS = [
         "SFR": 95.0,
         "M200c": 7.702e14,
         "R200c": 13839.68,
-        "default_id": "edge_b36877_a262_s117",
+        "default_id": "rand_b39382_a242_s128",
     },
     {
         "id": "tng300_cosmic_web",
@@ -138,7 +138,7 @@ IGM_SIMS = [
         "SFR": 310.0,
         "M200c": 3.246e15,
         "R200c": 37828.46,
-        "default_id": "rand_b162869_a269_s145",
+        "default_id": "rand_b9530_a046_s62",
     },
     {
         "id": "illustris1_cosmic_web",
@@ -156,7 +156,7 @@ IGM_SIMS = [
         "SFR": 115.0,
         "M200c": 4.717e14,
         "R200c": 13316.76,
-        "default_id": "edge_b2322_a357_s13",
+        "default_id": "face_b6512_a245_s123",
     },
 ]
 
@@ -578,7 +578,7 @@ def render_igm_index(igm_dir: Path, n_rays: int = 120, hf_base: str | None = Non
         },
         "grid": I.GRID,
         "registry_tag": I.registry_tag(),
-        "fitter": {"worker": "js/fitworker.js?v=20261123e", "budget_ms": 300, "cap_ms": 1500, "version": "fit/1"},
+        "fitter": {"worker": "js/fitworker.js?v=20261123f", "budget_ms": 300, "cap_ms": 1500, "version": "fit/1"},
         "frame": {
             "Lhat": gal_meta.get("Lhat", [0.0, 0.0, 1.0]),
             "xhat": gal_meta.get("xhat", [1.0, 0.0, 0.0]),

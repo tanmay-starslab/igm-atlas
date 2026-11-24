@@ -28,7 +28,18 @@
 
 Most of the baryons in the $z = 0$ universe do not live inside galaxies. They reside in the **Intergalactic Medium (IGM)**: a vast, gossamer network of photoionized **Ly$\alpha$ forest** sheets ($T \sim 10^{3.8\text{--}4.5}\text{ K}$), metal-enriched filament spines ($T \sim 10^{4.5\text{--}5.3}\text{ K}$), and shock-heated **Warm-Hot Intergalactic Medium (WHIM)** bridges ($T \sim 10^{5.3\text{--}6.7}\text{ K}$) linking massive galaxy clusters across tens to hundreds of megaparsecs.
 
-This portal lets you fly through **six complete $z = 0$ cosmological simulation boxes** (**`SIMBA-100`**, **`CAMELS-IllustrisTNG-L50n512`**, **`TNG50-1`**, **`TNG100-1`**, **`TNG300-1`**, and **`Illustris-1`**, spanning **$51.7\text{ Mpc}$ to $302.6\text{ Mpc}$**) in 3D WebGL2 and inspect **960 whole-box 12-ion Voigt-profile absorption sightlines** (160 per simulation box) through any UV, EUV, or X-ray spectrograph you choose.
+This portal lets you fly through **six complete $z = 0$ cosmological simulation boxes** (**`SIMBA-100`**, **`CAMELS-IllustrisTNG-L50n512`**, **`TNG50-1`**, **`TNG100-1`**, **`TNG300-1`**, and **`Illustris-1`**, spanning **$51.7\text{ Mpc}$ to $302.6\text{ Mpc}$**) in 3D WebGL2 and inspect **960 structure-targeted whole-box 12-ion Voigt-profile absorption sightlines** (160 per simulation box) across a default **$\pm 1000\text{ km s}^{-1}$** velocity window with **$R = 15{,}000$** UV/EUV and **$R = 3{,}000$** high-dispersion X-ray ($\text{O\,VII}\ 21.6\text{ \AA}$) spectroscopy.
+
+<p align="center">
+  <a href="https://igm.tanmaysingh.uk/"><img src="docs/readme/spectra_explorer.png" width="100%" alt="Multi-ion WHIM & filament quasar absorption spectra across H I 1216, C IV 1548, O VI 1032, Ne VIII 770, and O VII 21.6 at ±1000 km/s and R_xray = 3000"></a>
+</p>
+<p align="center"><sub><b>Multi-Ion WHIM &amp; Filament Sightline Spectroscopy</b>: Simultaneous UV ($\text{H\,I}\ 1216, \text{C\,IV}\ 1548, \text{O\,VI}\ 1032$ at $R = 15{,}000$), EUV ($\text{Ne\,VIII}\ 770$ at $R = 15{,}000$), and high-dispersion X-ray ($\text{O\,VII}\ 21.6\text{ \AA}$ at $R = 3{,}000$) absorption profiles across $\pm 1000\text{ km s}^{-1}$ with live 3D Cosmic Web context.</sub></p>
+
+<p align="center">
+  <a href="https://igm.tanmaysingh.uk/#tab=3d"><img src="docs/readme/hero_3d.png" width="49%" alt="3D WebGL2 Cosmic Web Volumetric Renderer showing SIMBA-100 147.1 Mpc box, supercluster nodes, embedded galaxies, and sightlines"></a>
+  <a href="https://igm.tanmaysingh.uk/"><img src="docs/readme/sim_selector.png" width="49%" alt="Multi-Simulation Cosmic Web Selector across SIMBA-100, CAMELS-L50n512, TNG50-1, TNG100-1, TNG300-1, and Illustris-1"></a>
+</p>
+<p align="center"><sub><b>Left</b>: 5-level nested $256^3$ WebGL2 3D Cosmic Web renderer (`L0..L4` gas/ions/kinematics + `S0..S4` 3D galaxy starlight) with interactive transfer-function control and embedded cluster/galaxy markers. <b>Right</b>: Instant switching across all 6 whole-box $z = 0$ cosmological simulations ($51.7\text{--}302.6\text{ Mpc}$).</sub></p>
 
 ---
 

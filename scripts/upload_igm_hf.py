@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
-from huggingface_hub import CommitOperationAdd, HfApi
+from huggingface_hub import CommitOperationAdd, CommitOperationDelete, HfApi
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "docs" / "igm" / "data"
@@ -105,20 +105,29 @@ def main() -> int:
         todo = [
             (rel, p)
             for rel, p in items
-            if rel not in existing or rel.endswith(".json")
+            if rel not in existing or rel.endswith(".json") or rel.endswith(".bin")
         ]
+        local_bins = {rel for rel, _ in items if "/s/" in rel and rel.endswith(".bin")}
+        stale_bins = sorted(
+            ex for ex in existing if ex.startswith(f"{sim_id}/s/") and ex.endswith(".bin") and ex not in local_bins
+        )
         total_mb = sum(p.stat().st_size for _, p in todo) / 1e6
-        print(f"[hf] {sim_id}: {len(todo)}/{len(items)} files to upload ({total_mb:.1f} MB)", flush=True)
-        for b0 in range(0, len(todo), args.batch_size):
-            chunk = todo[b0 : b0 + args.batch_size]
-            ops = [CommitOperationAdd(path_in_repo=rel, path_or_fileobj=str(p)) for rel, p in chunk]
+        print(
+            f"[hf] {sim_id}: {len(todo)}/{len(items)} files to upload ({total_mb:.1f} MB), {len(stale_bins)} stale bins to delete",
+            flush=True,
+        )
+        all_ops = [CommitOperationAdd(path_in_repo=rel, path_or_fileobj=str(p)) for rel, p in todo] + [
+            CommitOperationDelete(path_in_repo=ex) for ex in stale_bins
+        ]
+        for b0 in range(0, len(all_ops), args.batch_size):
+            ops = all_ops[b0 : b0 + args.batch_size]
             api.create_commit(
                 repo_id=args.repo,
                 repo_type="dataset",
                 operations=ops,
-                commit_message=f"Upload {sim_id} 3D cosmic web & sightline pack ({b0+1}-{b0+len(chunk)}/{len(todo)})",
+                commit_message=f"Upload {sim_id} 160-ray structure-targeted sightline pack ({b0+1}-{b0+len(ops)}/{len(all_ops)})",
             )
-            print(f"  [{sim_id}] committed {b0+1}..{b0+len(chunk)} / {len(todo)}", flush=True)
+            print(f"  [{sim_id}] committed {b0+1}..{b0+len(ops)} / {len(all_ops)}", flush=True)
 
     readme_op = [CommitOperationAdd(path_in_repo="README.md", path_or_fileobj=DATASET_CARD.encode("utf-8"))]
     api.create_commit(
