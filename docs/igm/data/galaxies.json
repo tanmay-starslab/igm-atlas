@@ -20,7 +20,7 @@
       "n": 160,
       "viz": true,
       "src": "sbi",
-      "default_id": "face_b1310_a222_s42"
+      "default_id": "rand_b1377_a117_s116"
     },
     {
       "id": "camels_l50n512_cosmic_web",
@@ -39,7 +39,7 @@
       "n": 160,
       "viz": true,
       "src": "sbi",
-      "default_id": "face_b34378_a306_s155"
+      "default_id": "face_b1419_a255_s24"
     },
     {
       "id": "tng50_cosmic_web",
@@ -58,7 +58,7 @@
       "n": 160,
       "viz": true,
       "src": "sbi",
-      "default_id": "face_b1588_a221_s27"
+      "default_id": "face_b33781_a172_s129"
     },
     {
       "id": "tng100_cosmic_web",
@@ -77,7 +77,7 @@
       "n": 160,
       "viz": true,
       "src": "sbi",
-      "default_id": "edge_b36877_a262_s117"
+      "default_id": "rand_b39382_a242_s128"
     },
     {
       "id": "tng300_cosmic_web",
@@ -96,7 +96,7 @@
       "n": 160,
       "viz": true,
       "src": "sbi",
-      "default_id": "rand_b162869_a269_s145"
+      "default_id": "rand_b9530_a046_s62"
     },
     {
       "id": "illustris1_cosmic_web",
@@ -115,7 +115,7 @@
       "n": 160,
       "viz": true,
       "src": "sbi",
-      "default_id": "edge_b2322_a357_s13"
+      "default_id": "face_b6512_a245_s123"
     }
   ]
 }

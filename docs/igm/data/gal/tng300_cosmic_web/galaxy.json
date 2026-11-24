@@ -1,33 +1,27 @@
 {
   "sim": "TNG300-1",
-  "sim_run": "L205n2500TNG",
   "snapshot": 99,
   "redshift": 0.0,
   "subhalo_id": "tng300_cosmic_web",
+  "central": true,
   "TNG_H": 0.6774,
-  "box_ckpch": 205000.0,
-  "box_kpc": 302627.69412459404,
+  "label": "TNG300-1 Cosmic Web & Supercluster Nexus (Box=302.6 Mpc, z=0)",
+  "mw": false,
+  "m31": false,
+  "R200c_kpc": 37828.461765574255,
+  "M200c_Msun": 3246377146303882.5,
+  "Mstar_Msun": 127410722884028.08,
+  "SFR_Msun_yr": 0.0,
+  "SubhaloVel_kms": [
+    0.0,
+    0.0,
+    0.0
+  ],
   "center_kpc": [
     64539.13861824624,
     72060.29026424565,
     217884.4894080307
   ],
-  "L0_center_kpc": [
-    151313.84706229702,
-    151313.84706229702,
-    151313.84706229702
-  ],
-  "L1_center_kpc": [
-    64539.13861824624,
-    72060.29026424565,
-    217884.4894080307
-  ],
-  "L2_center_kpc": [
-    66677.86239205049,
-    77293.86371604665,
-    214986.39098021848
-  ],
-  "R200c_kpc": 37828.461765574255,
   "Lhat": [
     0.0,
     0.0,
@@ -43,14 +37,19 @@
     1.0,
     0.0
   ],
-  "SubhaloVel_kms": [
-    0.0,
-    0.0,
-    0.0
-  ],
-  "n_files_streamed": 150,
-  "total_files": 600,
-  "is_partial": true,
+  "disk_frame_source": "Cosmic Web Supercluster Nexus + WHIM Bridge (TNG300-1)",
+  "gas_poor": null,
+  "catalogue": {},
+  "spectra_source": {
+    "source": "thor_voronoi_sbi_fp64",
+    "label": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "short": "THOR Voronoi + CLOUDY FG11",
+    "text": "True 3D Voronoi cell ray-tracing via official digest-pinned THOR Apptainer (dataset_type=pointcloud_voronoi, driver_type=raytracer, CLOUDY c17.03 FG11 + Rahmati13 self-shielding, sfr_temperature=1000 K) and SBI_CGM FP64 compact Voigt profiles across cosmic-web sightlines spanning L2 WHIM bridge, L1 supercluster nexus, and L0 full box.",
+    "path": "L2/L1/L0 Cosmic Web",
+    "ion_model": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "ion_table": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "engineering_scope": false
+  },
   "supercluster_nexus": {
     "sim": "TNG300-1",
     "snapshot": 99,
@@ -332,42 +331,7 @@
       217884.4894080307
     ]
   },
-  "central": true,
-  "label": "TNG300-1 Cosmic Web & Supercluster Nexus (Box=302.6 Mpc, z=0)",
-  "mw": false,
-  "m31": false,
-  "M200c_Msun": 3246377146303882.5,
-  "Mstar_Msun": 127410722884028.08,
-  "SFR_Msun_yr": 0.0,
-  "L0_half_kpc": 151313.84706229702,
-  "L1_half_kpc": 37828.461765574255,
-  "L2_half_kpc": 9457.115441393564,
-  "disk_frame_source": "Cosmic Web Supercluster Nexus + WHIM Bridge (TNG300-1)",
-  "gas_poor": null,
-  "spectra_source": {
-    "source": "thor_voronoi_sbi_fp64",
-    "label": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
-    "short": "THOR Voronoi + CLOUDY FG11",
-    "text": "True 3D Voronoi cell ray-tracing via official digest-pinned THOR Apptainer (dataset_type=pointcloud_voronoi, driver_type=raytracer, CLOUDY c17.03 FG11 + Rahmati13 self-shielding, sfr_temperature=1000 K) and SBI_CGM FP64 compact Voigt profiles across cosmic-web sightlines spanning L2 WHIM bridge, L1 supercluster nexus, and L0 full box.",
-    "path": "L2/L1/L0 Cosmic Web",
-    "ion_model": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
-    "ion_table": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
-    "engineering_scope": false
-  },
-  "L3_center_kpc": [
-    64539.13861824624,
-    72060.29026424565,
-    217884.4894080307
-  ],
-  "L4_center_kpc": [
-    64539.13861824624,
-    72060.29026424565,
-    217884.4894080307
-  ],
-  "L3_half_kpc": 400.0,
-  "L4_half_kpc": 25.0,
   "defaults": {
-    "id": "rand_b162869_a269_s145",
     "ions": [
       "HI",
       "CIV",
@@ -391,7 +355,8 @@
       ]
     },
     "vhw": 1000,
-    "vhw_kms": 1000
+    "vhw_kms": 1000,
+    "id": "rand_b9530_a046_s62"
   },
   "bands": {
     "xray": {

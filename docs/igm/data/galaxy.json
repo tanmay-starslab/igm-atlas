@@ -1,33 +1,27 @@
 {
   "sim": "SIMBA-100",
-  "sim_run": "m100n1024_s50",
   "snapshot": 151,
   "redshift": 0.0,
   "subhalo_id": "simba100_cosmic_web",
+  "central": true,
   "TNG_H": 0.68,
-  "box_ckpch": 100000.0,
-  "box_kpc": 147058.82352941175,
+  "label": "SIMBA-100 Cosmic Web & Supercluster Nexus (Box=147.1 Mpc, z=0)",
+  "mw": false,
+  "m31": false,
+  "R200c_kpc": 18382.35294117647,
+  "M200c_Msun": 1444167718797312.0,
+  "Mstar_Msun": 62807210983424.0,
+  "SFR_Msun_yr": 0.0,
+  "SubhaloVel_kms": [
+    0.0,
+    0.0,
+    0.0
+  ],
   "center_kpc": [
     18378.0947265625,
     137061.9453125,
     13636.1884765625
   ],
-  "L0_center_kpc": [
-    73529.41176470587,
-    73529.41176470587,
-    73529.41176470587
-  ],
-  "L1_center_kpc": [
-    18378.0947265625,
-    137061.9453125,
-    13636.1884765625
-  ],
-  "L2_center_kpc": [
-    18378.0947265625,
-    137061.9453125,
-    13636.1884765625
-  ],
-  "R200c_kpc": 18382.35294117647,
   "Lhat": [
     0.0,
     0.0,
@@ -43,11 +37,19 @@
     1.0,
     0.0
   ],
-  "SubhaloVel_kms": [
-    0.0,
-    0.0,
-    0.0
-  ],
+  "disk_frame_source": "Cosmic Web Supercluster Nexus + WHIM Bridge (SIMBA-100)",
+  "gas_poor": null,
+  "catalogue": {},
+  "spectra_source": {
+    "source": "thor_voronoi_sbi_fp64",
+    "label": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "short": "THOR Voronoi + CLOUDY FG11",
+    "text": "True 3D Voronoi cell ray-tracing via official digest-pinned THOR Apptainer (dataset_type=pointcloud_voronoi, driver_type=raytracer, CLOUDY c17.03 FG11 + Rahmati13 self-shielding, sfr_temperature=1000 K) and SBI_CGM FP64 compact Voigt profiles across cosmic-web sightlines spanning L2 WHIM bridge, L1 supercluster nexus, and L0 full box.",
+    "path": "L2/L1/L0 Cosmic Web",
+    "ion_model": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "ion_table": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
+    "engineering_scope": false
+  },
   "supercluster_nexus": {
     "box_kpc": 147058.82352941175,
     "box_ckpch": 100000.0,
@@ -333,42 +335,7 @@
       16064.053383475486
     ]
   },
-  "central": true,
-  "label": "SIMBA-100 Cosmic Web & Supercluster Nexus (Box=147.1 Mpc, z=0)",
-  "mw": false,
-  "m31": false,
-  "M200c_Msun": 1444167718797312.0,
-  "Mstar_Msun": 62807210983424.0,
-  "SFR_Msun_yr": 0.0,
-  "L0_half_kpc": 73529.41176470587,
-  "L1_half_kpc": 18382.35294117647,
-  "L2_half_kpc": 4595.588235294117,
-  "disk_frame_source": "Cosmic Web Supercluster Nexus + WHIM Bridge (SIMBA-100)",
-  "gas_poor": null,
-  "spectra_source": {
-    "source": "thor_voronoi_sbi_fp64",
-    "label": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
-    "short": "THOR Voronoi + CLOUDY FG11",
-    "text": "True 3D Voronoi cell ray-tracing via official digest-pinned THOR Apptainer (dataset_type=pointcloud_voronoi, driver_type=raytracer, CLOUDY c17.03 FG11 + Rahmati13 self-shielding, sfr_temperature=1000 K) and SBI_CGM FP64 compact Voigt profiles across cosmic-web sightlines spanning L2 WHIM bridge, L1 supercluster nexus, and L0 full box.",
-    "path": "L2/L1/L0 Cosmic Web",
-    "ion_model": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
-    "ion_table": "CLOUDY c17.03 FG11 + Rahmati13 self-shielding (THOR)",
-    "engineering_scope": false
-  },
-  "L3_center_kpc": [
-    19710.38825297693,
-    139690.2695326679,
-    16064.053383475486
-  ],
-  "L4_center_kpc": [
-    19710.38825297693,
-    139690.2695326679,
-    16064.053383475486
-  ],
-  "L3_half_kpc": 400.0,
-  "L4_half_kpc": 25.0,
   "defaults": {
-    "id": "face_b1310_a222_s42",
     "ions": [
       "HI",
       "CIV",
@@ -392,7 +359,8 @@
       ]
     },
     "vhw": 1000,
-    "vhw_kms": 1000
+    "vhw_kms": 1000,
+    "id": "rand_b1377_a117_s116"
   },
   "bands": {
     "xray": {
