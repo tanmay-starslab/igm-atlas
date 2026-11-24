@@ -2,7 +2,7 @@
 import {
   initFastVizWasm, wasmReady, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions,
   wasm_decode_lut_volume, wasm_pack_velocity
-} from "./fast_viz_wasm.js?v=20261124a";
+} from "./fast_viz_wasm.js?v=20261124c";
 export {initFastVizWasm, wasm_cast_cube_ray, wasm_synthesize_voigt_12ions, wasm_decode_lut_volume};
 export const SCHEMA = "tng50-viz/2";
 export const ION_KEYS = ["HI", "MgII", "SiII", "CII", "SiIII", "CIII", "SiIV", "CIV", "NV", "OVI", "NeVIII", "OVII"];

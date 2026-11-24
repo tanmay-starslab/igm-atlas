@@ -32,8 +32,10 @@ uniform float uPxAng, uAccW, uStarSat; uniform vec2 uLodC, uNear;
 uniform float uVolK, uVolGain, uStarFloor, uGasW; uniform vec2 uOccRange; uniform int uCompMode;
 uniform sampler3D uVel0, uVel1, uVel2; uniform vec3 uVelHave; uniform float uVelV; uniform int uVq; uniform vec2 uWWin;
 uniform sampler2D uTF; uniform int uTFOn, uTF2D, uTFW; uniform vec2 uTFWin; uniform float uShade, uGradMax, uGamma, uWRef;
+uniform float uRedshift;
 in vec3 vPos; out vec4 fragColor;
 const float LOG2_10 = 3.321928094887362, LOG10_CM_PER_KPC = 21.489350545189;
+const float EPS_REF = -25.0, LOG10_4PI_ARCSEC2_PER_SR = 11.7280614585;
 
 float dec(float q, vec2 r) { return q < 0.5 ? 0.0 : exp2(LOG2_10 * (r.x + (q - 1.0) * (r.y - r.x) / 254.0)); }
 vec3 dec3(vec3 q, vec2 r) { return vec3(dec(q.r, r), dec(q.g, r), dec(q.b, r)); }
@@ -194,7 +196,7 @@ void main() {
   for (int s = 0; s < 5; s++) {
     float ta = bp[s], tl = bp[s + 1] - ta; if (tl <= 1e-7 * uHalf.x) continue;
     vec3 pm = o + d * (ta + 0.5 * tl);
-    int lg = gasOn ? pick(gHave, pm, 3) : -1, lw = (weighted || tfW || emisMode) ? pick(uWHave, pm, 3) : -1, ls = starOn ? pick(uStarHave, pm, 3) : -1;
+    int lg = gasOn ? pick(gHave, pm, 3) : -1, lw = (weighted || tfW) ? pick(uWHave, pm, 3) : -1, ls = starOn ? pick(uStarHave, pm, 3) : -1;
     float fp = uPxAng * max(length(pm - o), 1e-4 * uHalf.x), mg = 1.0, mw = 1.0, ms = 1.0; int cg = -1, cw = -1, cs = -1;
     lg = lodLevel(gHave, pm, lg, fp, uLodC.x, cg, mg); lw = lodLevel(uWHave, pm, lw, fp, uLodC.x, cw, mw);
     ls = lodLevel(uStarHave, pm, ls, fp, uLodC.y, cs, ms);
@@ -223,8 +225,8 @@ void main() {
           if (weighted) { float w = lw >= 0 ? wVal(p, lw) : 0.0; if (lw >= 0 && cw >= 0) w = mix(wVal(p, cw), w, mw); num += w * v * hw; den += w * hw; }
           else sumG += v * hw;
         } else if (uMode == 2) {
-          float w = lw >= 0 ? wVal(p, lw) : v; if (lw >= 0 && cw >= 0) w = mix(wVal(p, cw), w, mw);
-          sumG += w * v * hw;
+          /* CLOUDY c17.03 line emissivity: uGas* encodes shifted log10(eps) - EPS_REF on [-23, +13], so v = 10^(logEps - EPS_REF) (float32-safe) */
+          sumG += v * hw;
         } else if (tfMode) {
           /* THOR: C = ∫ c μ exp(−∫ μ) ds, front to back. Per step μ = kappa alpha_TF (kappa = uVolK opacity² per kpc,
              as the ramp's kappa x²), opacity a = 1 − exp(−μ h) (= μ h for thin steps), emission (1 − A) a c W with W the
@@ -264,7 +266,10 @@ void main() {
       float lc = den > 0.0 ? log2(den) / LOG2_10 + LOG10_CM_PER_KPC : -1e30;
       gas = mix(uBg, lutc((qv - uWin.x) / span), smoothstep(uWWin.x - max(uFadeDex, 1e-3), uWWin.x, lc));
     } else {
-      float lv = weighted ? (den > 0.0 && num > 0.0 ? log2(num / den) / LOG2_10 : -1e30) : (sumG > 0.0 ? log2(sumG) / LOG2_10 + LOG10_CM_PER_KPC : -1e30);
+      float lv = emisMode
+        ? (sumG > 0.0 ? EPS_REF + log2(sumG) / LOG2_10 + LOG10_CM_PER_KPC - LOG10_4PI_ARCSEC2_PER_SR - 4.0 * log2(1.0 + max(uRedshift, 0.0)) / LOG2_10 : -1e30)
+        : weighted ? (den > 0.0 && num > 0.0 ? log2(num / den) / LOG2_10 : -1e30)
+        : (sumG > 0.0 ? log2(sumG) / LOG2_10 + LOG10_CM_PER_KPC : -1e30);
       float x = (lv - uWin.x) / span;
       /* tune1: columns below the window fade from LUT(0) into the background over uFadeDex dex (soft floor), so
          empty / masked regions (Σ = 0) leave no silhouette and sparse regions have no hard staircase edge */
@@ -327,7 +332,8 @@ export function makeMaterial(T, opts = {}) {
        the view (0 = none), and the weight's log window (column floor in integral mode, volume window in volume mode) */
     uVel0: u(e4), uVel1: u(e4), uVel2: u(e4), uVelHave: u(V3(0, 0, 0)), uVelV: u(1), uVq: u(0), uWWin: u(V2(0, 1)),
     /* TF volume mode (tf.js; the 14th texture unit): off by default, so every other mode is unchanged */
-    uTF: u(tfTex), uTFOn: u(0), uTFWin: u(V2(0, 1)), uTF2D: u(0), uShade: u(0), uGradMax: u(0.5), uTFW: u(0), uGamma: u(0), uWRef: u(0)};
+    uTF: u(tfTex), uTFOn: u(0), uTFWin: u(V2(0, 1)), uTF2D: u(0), uShade: u(0), uGradMax: u(0.5), uTFW: u(0), uGamma: u(0), uWRef: u(0),
+    uRedshift: u(0.0)};
   const mat = new T.ShaderMaterial({glslVersion: T.GLSL3, vertexShader: VERT, fragmentShader: FRAG, uniforms,
     side: T.BackSide, transparent: true, depthWrite: false, depthTest: false,
     /* tune2: the refine frames blend into the accumulation target with weight uAccW (running mean) */

@@ -153,11 +153,47 @@ const M = JSON.parse(readFileSync(join(ROOT, "docs/igm/data/viz/manifest_v2.json
   const expM1 = Math.log10(300 / 151.4), expM2 = Math.log10(480 / 478.7);
   check(qM[0] === 0 && Math.abs(dM[1] - expM1) < 0.08 && Math.abs(dM[2] - expM2) < 0.08,
     `computeThermoCube("Mach"): WHIM=${dM[1].toFixed(2)} (exp ${expM1.toFixed(2)}), cluster=${dM[2].toFixed(2)} (exp ${expM2.toFixed(2)})`);
-  check(FRAG.includes("bool emisMode = !velMode && uMode == 2;") && FRAG.includes("else if (uMode == 2)") && FRAG.includes("sumG += w * v * hw;"),
-    "raymarch.js FRAG implements uMode == 2 surface-brightness emission projection (nH * n_field * ds)");
+  check(FRAG.includes("bool emisMode = !velMode && uMode == 2;") && FRAG.includes("else if (uMode == 2)") &&
+        FRAG.includes("sumG += v * hw;") && FRAG.includes("EPS_REF = -25.0") &&
+        FRAG.includes("LOG10_4PI_ARCSEC2_PER_SR = 11.7280614585") && FRAG.includes("uniform float uRedshift;"),
+    "raymarch.js FRAG implements float32-safe shifted CLOUDY c17.03 SB emission (uMode == 2)");
   const vsrc = readFileSync(join(ROOT, "docs/igm/js/viewer3d.js"), "utf8");
-  check(vsrc.includes('data-testid="v3-mode-emission"') && vsrc.includes('value="emission"') && vsrc.includes("thermoTex("),
-    "viewer3d.js wires Emission pill and zero-storage thermoTex()");
+  check(vsrc.includes('data-testid="v3-mode-emission"') && vsrc.includes('data-testid="v3-emis-line"') &&
+        vsrc.includes("cloudy_emissivity.js") && vsrc.includes("CLOUDY c17.03") && vsrc.includes("erg s⁻¹ cm⁻² arcsec⁻²") &&
+        vsrc.includes("thermoTex(") && vsrc.includes("emisTex("),
+    "viewer3d.js wires Emission Line selector, lazy CLOUDY c17.03 emisTex(), and exact SB colorbar");
+}
+
+/* ---- 6. CLOUDY c17.03 (FG11) Line Emissivity LUT & Surface Brightness physics ---- */
+{
+  const cm = await import("../../docs/igm/js/cloudy_emissivity.js");
+  check(cm.CLOUDY_LINES.length === 12 && cm.DEFAULT_LINE === "Lya_1216",
+    "cloudy_emissivity.js exposes all 12 CLOUDY c17.03 lines with Lya_1216 default");
+  const meta = JSON.parse(readFileSync(join(ROOT, "docs/igm/data/cloudy_emissivity_meta.json"), "utf8"));
+  const bytes = new Uint8Array(readFileSync(join(ROOT, "docs/igm/data/cloudy_emissivity_z0.bin")));
+  const lut = cm.parseCloudyLut(meta, bytes);
+  check(lut.data.length === 12 * 56 * 6 * 61 && lut.eps_min === -48.0 && lut.eps_max === -12.0,
+    `parseCloudyLut loaded ${lut.data.length} bytes [12,56,6,61] on [-48, -12]`);
+  const epsLya = cm.evalEmissivity(lut, "Lya_1216", -4.5, -1.0, 4.3);
+  const epsOVII = cm.evalEmissivity(lut, "OVII_21.6", -4.5, -1.0, 6.3);
+  check(epsLya > -34 && epsLya < -31, `evalEmissivity(Lya_1216, IGM filament) = ${epsLya.toFixed(2)} erg s^-1 cm^-3`);
+  check(epsOVII > -35 && epsOVII < -32, `evalEmissivity(OVII_21.6, WHIM filament) = ${epsOVII.toFixed(2)} erg s^-1 cm^-3`);
+  const sbLya = cm.surfaceBrightnessLog10(10 ** (epsLya - cm.EPS_REF) * 1e4 * cm.CM_PER_KPC, 0.0);
+  check(sbLya > -20.5 && sbLya < -17.5, `surfaceBrightnessLog10(Lya_1216, 10 Mpc, z=0) = ${sbLya.toFixed(2)} erg s^-1 cm^-2 arcsec^-2`);
+  const sbLyaZ1 = cm.surfaceBrightnessLog10(10 ** (epsLya - cm.EPS_REF) * 1e4 * cm.CM_PER_KPC, 1.0);
+  check(Math.abs((sbLya - sbLyaZ1) - 4 * Math.log10(2)) < 1e-6, "(1+z)^-4 cosmological surface-brightness dimming exact");
+  const enc = (vals, vmin, vmax) => {
+    const out = new Uint8Array(vals.length), s = 254 / (vmax - vmin);
+    for (let i = 0; i < vals.length; i++) out[i] = Number.isFinite(vals[i]) ? Math.max(1, Math.min(255, Math.round((vals[i] - vmin) * s) + 1)) : 0;
+    return out;
+  };
+  const rNH = [-8.8, -0.5], rT = [2.5, 10.1], rZ = [-12.5, 1.2];
+  const cube = cm.computeEmissivityCube(lut, "Lya_1216",
+    {nH: enc([NaN, -4.5], ...rNH), T: enc([NaN, 4.3], ...rT), Z: enc([NaN, -1.0], ...rZ)},
+    {nH: rNH, T: rT, Z: rZ});
+  const decEps = cm.EPS_MIN + (cube[1] - 1) * (cm.EPS_MAX - cm.EPS_MIN) / 254;
+  check(cube[0] === 0 && Math.abs(decEps - epsLya) < 0.25,
+    `computeEmissivityCube(Lya_1216): empty=0, voxel=${decEps.toFixed(2)} vs ${epsLya.toFixed(2)}`);
 }
 
 console.log(fails ? `\n${fails} check(s) FAILED` : "\nall checks passed");
